@@ -7,26 +7,22 @@ class FormContent extends StatefulWidget {
     required this.children,
     required this.title,
     super.key,
-    this.onSubmit,
-    this.isLoading = false,
+    this.formKey,
     this.maxWidth = 400,
     this.padding = const EdgeInsets.all(24),
   });
 
   final List<Widget> children;
   final String title;
-  final Future<void> Function(GlobalKey<FormState>)? onSubmit;
-  final bool isLoading;
+
   final double maxWidth;
   final EdgeInsetsGeometry padding;
-
+  final GlobalKey<FormState>? formKey;
   @override
   State<FormContent> createState() => _FormContentState();
 }
 
 class _FormContentState extends State<FormContent> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -44,7 +40,7 @@ class _FormContentState extends State<FormContent> {
         ],
       ),
       child: Form(
-        key: _formKey,
+        key: widget.formKey,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -55,10 +51,7 @@ class _FormContentState extends State<FormContent> {
               textAlign: TextAlign.center,
             ),
             GapConstants.h32,
-            if (widget.isLoading)
-              const Center(child: CircularProgressIndicator())
-            else
-              ...widget.children,
+            ...widget.children,
           ],
         ),
       ),

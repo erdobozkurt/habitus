@@ -43,4 +43,7 @@ class _PasswordInputState extends State<PasswordInput> {
       ),
     );
   }
+
+  //Usage
+  // PasswordInput(controller: _passwordController),
 }

@@ -1,22 +1,21 @@
+// lib/feature/auth/pages/sign_up_page.dart
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:habitus/core/constants/gap_constants.dart';
+import 'package:habitus/core/constants/route_constants.dart';
 import 'package:habitus/feature/auth/widgets/auth_page_layout.dart';
 import 'package:habitus/feature/auth/widgets/form_content.dart';
-import 'package:habitus/ui_kit/buttons/base/base_button.dart';
 import 'package:habitus/ui_kit/buttons/variants/primary_button.dart';
 import 'package:habitus/ui_kit/inputs/email_input.dart';
 import 'package:habitus/ui_kit/inputs/name_input.dart';
 import 'package:habitus/ui_kit/inputs/password_input.dart';
 
-// lib/feature/auth/pages/sign_up_page.dart
-
 class SignUpPage extends StatelessWidget {
   const SignUpPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return const AuthPageLayout(form: _SignUpForm());
-  }
+  Widget build(BuildContext context) =>
+      const AuthPageLayout(form: _SignUpForm());
 }
 
 class _SignUpForm extends StatefulWidget {
@@ -44,23 +43,47 @@ class _SignUpFormState extends State<_SignUpForm> {
   }
 
   Future<void> _handleSignUp() async {
-    if (_formKey.currentState?.validate() ?? false) {
-      setState(() => _isLoading = true);
-      try {
-        // TODO: Implement sign up logic
-        await Future<void>.delayed(const Duration(seconds: 2));
-      } finally {
-        setState(() => _isLoading = false);
-      }
+    if (!_formKey.currentState!.validate()) return;
+
+    setState(() => _isLoading = true);
+
+    try {
+      await _createAccount(
+        name: _nameController.text,
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
+
+      if (!mounted) return;
+      context.go(RouteConstants.home);
+    } catch (e) {
+      _showError(e.toString());
+    } finally {
+      if (mounted) setState(() => _isLoading = false);
     }
+  }
+
+  Future<void> _createAccount({
+    required String name,
+    required String email,
+    required String password,
+  }) async {
+    // TODO(erdobozkurt): Implement actual account creation
+    await Future<void>.delayed(const Duration(seconds: 2));
+  }
+
+  void _showError(String message) {
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Sign up failed: $message')),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return FormContent(
       title: 'Create Account',
-      isLoading: _isLoading,
-      onSubmit: (formKey) => _handleSignUp(),
+      formKey: _formKey,
       children: [
         NameInput(controller: _nameController),
         GapConstants.h16,
@@ -75,21 +98,56 @@ class _SignUpFormState extends State<_SignUpForm> {
           label: 'Confirm Password',
         ),
         GapConstants.h24,
-        SizedBox(
-          width: double.infinity,
-          child: PrimaryButton(
-            onPressed: () {},
-            isLoading: _isLoading,
-            size: ButtonSize.large,
-            child: const Text('Sign Up'),
-          ),
+        _SignUpButton(
+          onPressed: _handleSignUp,
+          isLoading: _isLoading,
         ),
         GapConstants.h16,
-        TextButton(
-          onPressed: _isLoading ? null : () => Navigator.of(context).pop(),
-          child: const Text('Already have an account? Sign in'),
+        _SignInLink(
+          enabled: !_isLoading,
+          onPressed: () => Navigator.of(context).pop(),
         ),
       ],
+    );
+  }
+}
+
+class _SignUpButton extends StatelessWidget {
+  const _SignUpButton({
+    required this.onPressed,
+    required this.isLoading,
+  });
+
+  final VoidCallback onPressed;
+  final bool isLoading;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      child: PrimaryButton(
+        onPressed: isLoading ? null : onPressed,
+        isLoading: isLoading,
+        child: const Text('Sign Up'),
+      ),
+    );
+  }
+}
+
+class _SignInLink extends StatelessWidget {
+  const _SignInLink({
+    required this.onPressed,
+    required this.enabled,
+  });
+
+  final VoidCallback onPressed;
+  final bool enabled;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      onPressed: enabled ? onPressed : null,
+      child: const Text('Already have an account? Sign in'),
     );
   }
 }

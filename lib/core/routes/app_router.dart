@@ -4,7 +4,11 @@ import 'package:go_router/go_router.dart';
 import 'package:habitus/core/constants/route_constants.dart';
 import 'package:habitus/feature/auth/view/sign_in_page.dart';
 import 'package:habitus/feature/auth/view/sign_up_page.dart';
+import 'package:habitus/feature/home/view/home_page.dart';
 import 'package:habitus/feature/onboard/view/onboarding_page.dart';
+import 'package:habitus/feature/profile/view/profile_page.dart';
+import 'package:habitus/feature/routines/view/routines_page.dart';
+import 'package:habitus/ui_kit/layouts/main_layout.dart';
 
 class AppRouter {
   static final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -30,23 +34,23 @@ class AppRouter {
         path: RouteConstants.signUp,
         builder: (context, state) => const SignUpPage(),
       ),
-      // ShellRoute(
-      //   builder: (context, state, child) => MainLayout(child: child),
-      //   routes: [
-      //     GoRoute(
-      //       path: RouteConstants.home,
-      //       builder: (context, state) => const HomePage(),
-      //     ),
-      //     GoRoute(
-      //       path: RouteConstants.routines,
-      //       builder: (context, state) => const RoutinesPage(),
-      //     ),
-      //     GoRoute(
-      //       path: RouteConstants.profile,
-      //       builder: (context, state) => const ProfilePage(),
-      //     ),
-      //   ],
-      // ),
+      ShellRoute(
+        builder: (context, state, child) => MainLayout(child: child),
+        routes: [
+          GoRoute(
+            path: RouteConstants.home,
+            builder: (context, state) => const HomePage(),
+          ),
+          GoRoute(
+            path: RouteConstants.routines,
+            builder: (context, state) => const RoutinesPage(),
+          ),
+          GoRoute(
+            path: RouteConstants.profile,
+            builder: (context, state) => const ProfilePage(),
+          ),
+        ],
+      ),
     ],
     redirect: (context, state) async {
       return null;
