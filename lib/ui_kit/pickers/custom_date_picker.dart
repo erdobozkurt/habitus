@@ -22,6 +22,12 @@ class CustomDatePicker extends StatelessWidget {
       lastDate: lastDate ?? DateTime.now().add(const Duration(days: 3)),
       focusedDate: selectedDate,
       onDateChange: onDateSelected,
+      selectionMode: const SelectionMode.autoCenter(),
+      headerOptions: const HeaderOptions(headerType: HeaderType.viewOnly),
+      dayElementsOrder: const [
+        DayElement.middle('dd'),
+        DayElement.bottom('EEE'),
+      ],
     );
   }
 }
