@@ -1,3 +1,15 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-List<BlocProvider<StateStreamableSource<Object?>>> provider() {}
+Future<List<RepositoryProvider<dynamic>>> locator({
+  bool isMock = false,
+}) async {
+  return [
+    // RepositoryProvider<IHabitRepository>(
+    //   create: (context) => isMock
+    //       ? MockHabitRepository()
+    //       : HabitRepositoryRemote(
+    //           client: context.read<HttpClient>(),
+    //         ),
+    // ),
+  ];
+}
