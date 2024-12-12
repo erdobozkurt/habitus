@@ -1,4 +1,4 @@
-// lib/ui_kit/cards/routine_card.dart
+// lib/ui/core/ui/cards/habit_card.dart
 import 'package:flutter/material.dart';
 import 'package:habitus/domain/models/habit/habit_model.dart';
 import 'package:intl/intl.dart';
@@ -40,10 +40,6 @@ class _HabitCardState extends State<HabitCard>
     super.dispose();
   }
 
-  String _formatTime(DateTime time) {
-    return DateFormat('HH:mm').format(time);
-  }
-
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
@@ -57,7 +53,7 @@ class _HabitCardState extends State<HabitCard>
         onTapUp: (_) => _controller.reverse(),
         onTapCancel: () => _controller.reverse(),
         child: Card(
-          elevation: 2,
+          elevation: 4,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),
@@ -67,55 +63,123 @@ class _HabitCardState extends State<HabitCard>
               borderRadius: BorderRadius.circular(16),
               color: widget.habit.color,
             ),
-            child: Row(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.2),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Text(
-                    widget.habit.emoji,
-                    style: const TextStyle(fontSize: 24),
-                  ),
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        widget.habit.title,
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        'Daily - ${_formatTime(widget.habit.time)}',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.white.withOpacity(0.8),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                _AnimatedCheckbox(
-                  // check the habit if its boolean?
-                  value: widget.habit is BooleanHabit
-                      ? (widget.habit as BooleanHabit).isCompleted
-                      : false,
-                  onChanged: widget.onToggleComplete,
-                ),
-              ],
+            child: widget.habit.map(
+              boolean: (habit) => _BooleanHabitContent(
+                habit: habit,
+                onToggle: widget.onToggleComplete,
+              ),
+              measurable: (habit) => _MeasurableHabitContent(
+                habit: habit,
+                onProgress: (value) =>
+                    widget.onToggleComplete(value >= habit.target),
+              ),
             ),
           ),
         ),
       ),
+    );
+  }
+}
+
+class _BooleanHabitContent extends StatelessWidget {
+  const _BooleanHabitContent({
+    required this.habit,
+    required this.onToggle,
+  });
+
+  final BooleanHabit habit;
+  final ValueChanged<bool> onToggle;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Text(
+          habit.emoji,
+          style: const TextStyle(fontSize: 24),
+        ),
+        const SizedBox(width: 16),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                habit.title,
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              Text(
+                habit.description,
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
+              Text(
+                DateFormat('HH:mm').format(habit.time),
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
+            ],
+          ),
+        ),
+        _AnimatedCheckbox(
+          value: habit.isCompleted,
+          onChanged: onToggle,
+        ),
+      ],
+    );
+  }
+}
+
+class _MeasurableHabitContent extends StatelessWidget {
+  const _MeasurableHabitContent({
+    required this.habit,
+    required this.onProgress,
+  });
+
+  final MeasurableHabit habit;
+  final ValueChanged<double> onProgress;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Text(
+              habit.emoji,
+              style: const TextStyle(fontSize: 24),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    habit.title,
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  Text(
+                    habit.description,
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                ],
+              ),
+            ),
+            Text(
+              '${habit.current.toInt()}/${habit.target.toInt()}',
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+          ],
+        ),
+        const SizedBox(height: 8),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: LinearProgressIndicator(
+            value: habit.current / habit.target,
+            backgroundColor: habit.color.withOpacity(0.2),
+            valueColor: AlwaysStoppedAnimation<Color>(habit.color),
+            minHeight: 8,
+          ),
+        ),
+      ],
     );
   }
 }

@@ -2,10 +2,12 @@ import 'dart:math';
 
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
-import 'package:habitus/domain/models/habit/habit_model.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:habitus/domain/enums/status.dart';
 import 'package:habitus/ui/core/ui/modals/wolt_modal_manager.dart';
+import 'package:habitus/ui/home/cubit/home_cubit.dart';
 import 'package:habitus/ui/home/widgets/custom_date_picker.dart';
-import 'package:habitus/ui/home/widgets/routine_cards.dart';
+import 'package:habitus/ui/home/widgets/habit_cards.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -17,32 +19,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   late final ConfettiController _confettiController;
   DateTime _selectedDate = DateTime.now();
-  final List<Habit> _routines = [
-    Habit.boolean(
-      id: '1',
-      title: 'Morning Meditation',
-      description: 'Start the day mindfully',
-      time: DateTime.now().copyWith(hour: 7, minute: 0),
-      emoji: '🧘‍♂️',
-      color: const Color(0xFF6B4EFF),
-    ),
-    Habit.boolean(
-      id: '2',
-      title: 'Read a Book',
-      description: 'Daily reading habit',
-      time: DateTime.now().copyWith(hour: 20, minute: 0),
-      emoji: '📚',
-      color: const Color(0xFF4ECBFF),
-    ),
-    Habit.boolean(
-      id: '3',
-      title: 'Workout',
-      description: 'Stay healthy',
-      time: DateTime.now().copyWith(hour: 18, minute: 0),
-      emoji: '💪',
-      color: const Color(0xFFFF4E4E),
-    ),
-  ];
 
   @override
   void initState() {
@@ -52,30 +28,15 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    context.read<HomeCubit>().getHabits();
+  }
+
+  @override
   void dispose() {
     _confettiController.dispose();
     super.dispose();
-  }
-
-  void _handleRoutineToggle(String routineId, bool completed) {
-    setState(() {
-      final index = _routines.indexWhere((r) => r.id == routineId);
-      if (index != -1) {
-        _routines[index] = Habit.boolean(
-          id: _routines[index].id,
-          title: _routines[index].title,
-          description: _routines[index].description,
-          time: _routines[index].time,
-          emoji: _routines[index].emoji,
-          color: _routines[index].color,
-          isCompleted: completed,
-        );
-
-        if (completed) {
-          _confettiController.play();
-        }
-      }
-    });
   }
 
   Path _drawStar(Size size) {
@@ -108,52 +69,65 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Scaffold(
-          floatingActionButton: FloatingActionButton(
-            onPressed: _showAddRoutineModal,
-            child: const Icon(Icons.add),
-          ),
-          appBar: AppBar(title: const Text('Home')),
-          body: Column(
-            children: [
-              CustomDatePicker(
-                selectedDate: _selectedDate,
-                onDateSelected: _handleDateSelected,
+    return BlocBuilder<HomeCubit, HomeState>(
+      builder: (context, state) {
+        final routines = state.habits;
+        if (state.status == Status.loading) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (state.status == Status.error) {
+          return const Center(child: Text('An error occurred'));
+        }
+        return Stack(
+          children: [
+            Scaffold(
+              floatingActionButton: FloatingActionButton(
+                onPressed: _showAddRoutineModal,
+                child: const Icon(Icons.add),
               ),
-              Expanded(
-                child: ListView.separated(
-                  padding: const EdgeInsets.all(16),
-                  itemCount: _routines.length,
-                  separatorBuilder: (_, __) => const SizedBox(height: 12),
-                  itemBuilder: (context, index) {
-                    final routine = _routines[index];
-                    return HabitCard(
-                      habit: routine,
-                      onToggleComplete: (completed) =>
-                          _handleRoutineToggle(routine.id, completed),
-                    );
-                  },
-                ),
+              appBar: AppBar(title: const Text('Home')),
+              body: Column(
+                children: [
+                  CustomDatePicker(
+                    selectedDate: _selectedDate,
+                    onDateSelected: _handleDateSelected,
+                  ),
+                  Expanded(
+                    child: ListView.separated(
+                      padding: const EdgeInsets.all(16),
+                      itemCount: routines.length,
+                      separatorBuilder: (_, __) => const SizedBox(height: 12),
+                      itemBuilder: (context, index) {
+                        final routine = routines[index];
+                        return HabitCard(
+                          habit: routine,
+                          onToggleComplete: (completed) =>
+                              context.read<HomeCubit>().toggleHabit(
+                                    routine.id,
+                                    completed: completed,
+                                  ),
+                        );
+                      },
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
-        ),
-        Align(
-          alignment: Alignment.topCenter,
-          child: ConfettiWidget(
-            confettiController: _confettiController,
-            blastDirection: pi / 2,
-            maxBlastForce: 5,
-            minBlastForce: 2,
-            emissionFrequency: 0.05,
-            numberOfParticles: 50,
-            gravity: 0.1,
-            createParticlePath: _drawStar,
-          ),
-        ),
-      ],
+            ),
+            Align(
+              alignment: Alignment.topCenter,
+              child: ConfettiWidget(
+                confettiController: _confettiController,
+                blastDirection: pi / 2,
+                maxBlastForce: 5,
+                minBlastForce: 2,
+                emissionFrequency: 0.05,
+                numberOfParticles: 50,
+                gravity: 0.1,
+                createParticlePath: _drawStar,
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -218,19 +192,7 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: () {
                 if (titleController.text.isNotEmpty) {
                   setState(() {
-                    _routines.add(
-                      Habit.boolean(
-                        id: DateTime.now().toString(),
-                        title: titleController.text,
-                        description: descriptionController.text,
-                        time: DateTime.now().copyWith(
-                          hour: selectedTime.hour,
-                          minute: selectedTime.minute,
-                        ),
-                        color: Colors.primaries[
-                            Random().nextInt(Colors.primaries.length)],
-                      ),
-                    );
+                    // TODO: Add routine
                   });
                   Navigator.pop(context);
                 }

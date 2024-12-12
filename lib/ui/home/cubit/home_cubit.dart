@@ -24,4 +24,22 @@ class HomeCubit extends Cubit<HomeState> {
       emit(state.copyWith(status: Status.error));
     }
   }
+
+  Future<void> toggleHabit(String id, {required bool completed}) async {
+    try {
+      final habit = state.habits.firstWhere((h) => h.id == id);
+      final updatedHabit = habit.maybeMap(
+        boolean: (h) => h.copyWith(isCompleted: completed),
+        orElse: () => habit,
+      );
+      await _habitRepository.updateHabit(updatedHabit);
+      await getHabits();
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: Status.error,
+        ),
+      );
+    }
+  }
 }
