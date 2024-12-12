@@ -1,6 +1,6 @@
 // lib/ui_kit/buttons/variants/primary_button.dart
 import 'package:flutter/material.dart';
-import 'package:habitus/ui_kit/buttons/base/base_button.dart';
+import 'package:habitus/ui/core/ui/buttons/base/base_button.dart';
 
 class PrimaryButton extends BaseButton {
   const PrimaryButton({

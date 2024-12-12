@@ -2,8 +2,8 @@ import 'dart:math';
 
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
-import 'package:habitus/core/modals/wolt_modal_manager.dart';
-import 'package:habitus/core/models/routine_model.dart';
+import 'package:habitus/domain/models/habit/habit_model.dart';
+import 'package:habitus/ui/core/ui/modals/wolt_modal_manager.dart';
 import 'package:habitus/ui/home/widgets/custom_date_picker.dart';
 import 'package:habitus/ui/home/widgets/routine_cards.dart';
 
@@ -17,8 +17,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   late final ConfettiController _confettiController;
   DateTime _selectedDate = DateTime.now();
-  final List<Routine> _routines = [
-    Routine(
+  final List<Habit> _routines = [
+    Habit.boolean(
       id: '1',
       title: 'Morning Meditation',
       description: 'Start the day mindfully',
@@ -26,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
       emoji: '🧘‍♂️',
       color: const Color(0xFF6B4EFF),
     ),
-    Routine(
+    Habit.boolean(
       id: '2',
       title: 'Read a Book',
       description: 'Daily reading habit',
@@ -34,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
       emoji: '📚',
       color: const Color(0xFF4ECBFF),
     ),
-    Routine(
+    Habit.boolean(
       id: '3',
       title: 'Workout',
       description: 'Stay healthy',
@@ -61,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       final index = _routines.indexWhere((r) => r.id == routineId);
       if (index != -1) {
-        _routines[index] = Routine(
+        _routines[index] = Habit.boolean(
           id: _routines[index].id,
           title: _routines[index].title,
           description: _routines[index].description,
@@ -129,8 +129,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   separatorBuilder: (_, __) => const SizedBox(height: 12),
                   itemBuilder: (context, index) {
                     final routine = _routines[index];
-                    return RoutineCard(
-                      routine: routine,
+                    return HabitCard(
+                      habit: routine,
                       onToggleComplete: (completed) =>
                           _handleRoutineToggle(routine.id, completed),
                     );
@@ -219,7 +219,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 if (titleController.text.isNotEmpty) {
                   setState(() {
                     _routines.add(
-                      Routine(
+                      Habit.boolean(
                         id: DateTime.now().toString(),
                         title: titleController.text,
                         description: descriptionController.text,

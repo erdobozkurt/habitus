@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:habitus/ui/core/themes/constants/route_constants.dart';
+import 'package:habitus/router/route_constants.dart';
 import 'package:habitus/ui/onboard/models/onboarding_screen_model.dart';
 import 'package:habitus/utils/managers/asset_manager.dart';
 

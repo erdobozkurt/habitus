@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:habitus/ui_kit/inputs/input.dart';
+import 'package:habitus/ui/core/ui/inputs/input.dart';
 
 class NameInput extends StatelessWidget {
   const NameInput({super.key, this.controller});

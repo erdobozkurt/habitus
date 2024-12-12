@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:habitus/l10n/l10n.dart';
-import 'package:habitus/routes/app_router.dart';
+import 'package:habitus/router/app_router.dart';
 
 class App extends StatelessWidget {
   const App({super.key});

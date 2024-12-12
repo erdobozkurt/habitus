@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:habitus/core/managers/asset_manager.dart';
+import 'package:habitus/utils/managers/asset_manager.dart';
 
 class AuthLogo extends StatelessWidget {
   const AuthLogo({super.key});

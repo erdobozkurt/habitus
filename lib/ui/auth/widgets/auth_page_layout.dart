@@ -1,8 +1,8 @@
 // lib/feature/auth/widgets/auth_page_layout.dart
 
 import 'package:flutter/material.dart';
-import 'package:habitus/core/utils/extensions/context_extension.dart';
-import 'package:habitus/feature/auth/widgets/auth_logo.dart';
+import 'package:habitus/ui/auth/widgets/auth_logo.dart';
+import 'package:habitus/utils/extensions/context_extension.dart';
 
 class AuthPageLayout extends StatelessWidget {
   const AuthPageLayout({

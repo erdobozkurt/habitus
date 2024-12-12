@@ -1,27 +1,23 @@
 // lib/ui_kit/cards/routine_card.dart
 import 'package:flutter/material.dart';
-import 'package:habitus/domain/models/routine_model.dart';
+import 'package:habitus/domain/models/habit/habit_model.dart';
 import 'package:intl/intl.dart';
 
-class RoutineCard extends StatefulWidget {
-  const RoutineCard({
-    required this.routine,
+class HabitCard extends StatefulWidget {
+  const HabitCard({
+    required this.habit,
     required this.onToggleComplete,
-    this.defaultColor = const Color(0xFF6B4EFF),
-    this.defaultEmoji = '✨',
     super.key,
   });
 
-  final Routine routine;
+  final Habit habit;
   final ValueChanged<bool> onToggleComplete;
-  final Color defaultColor;
-  final String defaultEmoji;
 
   @override
-  State<RoutineCard> createState() => _RoutineCardState();
+  State<HabitCard> createState() => _HabitCardState();
 }
 
-class _RoutineCardState extends State<RoutineCard>
+class _HabitCardState extends State<HabitCard>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _scaleAnimation;
@@ -69,7 +65,7 @@ class _RoutineCardState extends State<RoutineCard>
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
-              color: widget.routine.color ?? widget.defaultColor,
+              color: widget.habit.color,
             ),
             child: Row(
               children: [
@@ -80,7 +76,7 @@ class _RoutineCardState extends State<RoutineCard>
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Text(
-                    widget.routine.emoji ?? widget.defaultEmoji,
+                    widget.habit.emoji,
                     style: const TextStyle(fontSize: 24),
                   ),
                 ),
@@ -90,7 +86,7 @@ class _RoutineCardState extends State<RoutineCard>
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        widget.routine.title,
+                        widget.habit.title,
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -99,7 +95,7 @@ class _RoutineCardState extends State<RoutineCard>
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        'Daily - ${_formatTime(widget.routine.time)}',
+                        'Daily - ${_formatTime(widget.habit.time)}',
                         style: TextStyle(
                           fontSize: 14,
                           color: Colors.white.withOpacity(0.8),
@@ -109,7 +105,10 @@ class _RoutineCardState extends State<RoutineCard>
                   ),
                 ),
                 _AnimatedCheckbox(
-                  value: widget.routine.isCompleted,
+                  // check the habit if its boolean?
+                  value: widget.habit is BooleanHabit
+                      ? (widget.habit as BooleanHabit).isCompleted
+                      : false,
                   onChanged: widget.onToggleComplete,
                 ),
               ],

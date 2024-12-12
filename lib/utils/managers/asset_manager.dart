@@ -1,6 +1,6 @@
 // lib/core/managers/asset_manager.dart
 
-import 'package:habitus/core/constants/asset_constants.dart';
+import 'package:habitus/ui/core/themes/constants/asset_constants.dart';
 
 class AssetsManager {
   AssetsManager._();

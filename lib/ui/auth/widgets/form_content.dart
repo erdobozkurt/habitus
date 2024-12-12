@@ -1,6 +1,6 @@
 // lib/feature/auth/widgets/form_content.dart
 import 'package:flutter/material.dart';
-import 'package:habitus/core/constants/gap_constants.dart';
+import 'package:habitus/ui/core/themes/constants/gap_constants.dart';
 
 class FormContent extends StatefulWidget {
   const FormContent({

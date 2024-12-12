@@ -1,13 +1,13 @@
 // lib/feature/auth/pages/sign_in_page.dart
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:habitus/core/constants/gap_constants.dart';
-import 'package:habitus/core/constants/route_constants.dart';
-import 'package:habitus/feature/auth/widgets/auth_page_layout.dart';
-import 'package:habitus/feature/auth/widgets/form_content.dart';
-import 'package:habitus/ui_kit/buttons/variants/primary_button.dart';
-import 'package:habitus/ui_kit/inputs/email_input.dart';
-import 'package:habitus/ui_kit/inputs/password_input.dart';
+import 'package:habitus/router/route_constants.dart';
+import 'package:habitus/ui/auth/widgets/auth_page_layout.dart';
+import 'package:habitus/ui/auth/widgets/form_content.dart';
+import 'package:habitus/ui/core/themes/constants/gap_constants.dart';
+import 'package:habitus/ui/core/ui/buttons/variants/primary_button.dart';
+import 'package:habitus/ui/core/ui/inputs/email_input.dart';
+import 'package:habitus/ui/core/ui/inputs/password_input.dart';
 
 class SignInPage extends StatelessWidget {
   const SignInPage({super.key});
