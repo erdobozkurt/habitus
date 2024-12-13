@@ -35,9 +35,14 @@ class CreateHabitModal {
   }
 }
 
-class _HabitBasicInfo extends StatelessWidget {
+class _HabitBasicInfo extends StatefulWidget {
   const _HabitBasicInfo();
 
+  @override
+  State<_HabitBasicInfo> createState() => _HabitBasicInfoState();
+}
+
+class _HabitBasicInfoState extends State<_HabitBasicInfo> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -49,8 +54,8 @@ class _HabitBasicInfo extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         const CustomTextField(
-          label: 'Description',
-          hint: 'Meditate for 10 minutes',
+          label: 'Question',
+          hint: 'Did you meditate today?',
         ),
         const SizedBox(height: 16),
         DropdownButtonFormField<String>(

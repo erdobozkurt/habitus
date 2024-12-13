@@ -14,8 +14,22 @@ enum FormStatus {
 class CreateHabitState with _$CreateHabitState {
   const factory CreateHabitState({
     @Default('') String name,
-    @Default('') String description,
+    @Default('') String question,
     @Default(HabitType.boolean) HabitType habitType,
     @Default(FormStatus.pure) FormStatus status,
+    @Default(Colors.blue) Color color,
+    @Default('✨') String emoji,
+    @Default(0) double target,
+    TimeOfDay? reminderTime,
+    @Default(<String>[
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+      'Sunday',
+    ])
+    List<String> repeatDays,
   }) = _CreateHabitState;
 }

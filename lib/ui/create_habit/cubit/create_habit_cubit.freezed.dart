@@ -17,9 +17,14 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$CreateHabitState {
   String get name => throw _privateConstructorUsedError;
-  String get description => throw _privateConstructorUsedError;
+  String get question => throw _privateConstructorUsedError;
   HabitType get habitType => throw _privateConstructorUsedError;
   FormStatus get status => throw _privateConstructorUsedError;
+  Color get color => throw _privateConstructorUsedError;
+  String get emoji => throw _privateConstructorUsedError;
+  double get target => throw _privateConstructorUsedError;
+  TimeOfDay? get reminderTime => throw _privateConstructorUsedError;
+  List<String> get repeatDays => throw _privateConstructorUsedError;
 
   /// Create a copy of CreateHabitState
   /// with the given fields replaced by the non-null parameter values.
@@ -36,9 +41,14 @@ abstract class $CreateHabitStateCopyWith<$Res> {
   @useResult
   $Res call(
       {String name,
-      String description,
+      String question,
       HabitType habitType,
-      FormStatus status});
+      FormStatus status,
+      Color color,
+      String emoji,
+      double target,
+      TimeOfDay? reminderTime,
+      List<String> repeatDays});
 }
 
 /// @nodoc
@@ -57,18 +67,23 @@ class _$CreateHabitStateCopyWithImpl<$Res, $Val extends CreateHabitState>
   @override
   $Res call({
     Object? name = null,
-    Object? description = null,
+    Object? question = null,
     Object? habitType = null,
     Object? status = null,
+    Object? color = null,
+    Object? emoji = null,
+    Object? target = null,
+    Object? reminderTime = freezed,
+    Object? repeatDays = null,
   }) {
     return _then(_value.copyWith(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
+      question: null == question
+          ? _value.question
+          : question // ignore: cast_nullable_to_non_nullable
               as String,
       habitType: null == habitType
           ? _value.habitType
@@ -78,6 +93,26 @@ class _$CreateHabitStateCopyWithImpl<$Res, $Val extends CreateHabitState>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as FormStatus,
+      color: null == color
+          ? _value.color
+          : color // ignore: cast_nullable_to_non_nullable
+              as Color,
+      emoji: null == emoji
+          ? _value.emoji
+          : emoji // ignore: cast_nullable_to_non_nullable
+              as String,
+      target: null == target
+          ? _value.target
+          : target // ignore: cast_nullable_to_non_nullable
+              as double,
+      reminderTime: freezed == reminderTime
+          ? _value.reminderTime
+          : reminderTime // ignore: cast_nullable_to_non_nullable
+              as TimeOfDay?,
+      repeatDays: null == repeatDays
+          ? _value.repeatDays
+          : repeatDays // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ) as $Val);
   }
 }
@@ -92,9 +127,14 @@ abstract class _$$CreateHabitStateImplCopyWith<$Res>
   @useResult
   $Res call(
       {String name,
-      String description,
+      String question,
       HabitType habitType,
-      FormStatus status});
+      FormStatus status,
+      Color color,
+      String emoji,
+      double target,
+      TimeOfDay? reminderTime,
+      List<String> repeatDays});
 }
 
 /// @nodoc
@@ -111,18 +151,23 @@ class __$$CreateHabitStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = null,
-    Object? description = null,
+    Object? question = null,
     Object? habitType = null,
     Object? status = null,
+    Object? color = null,
+    Object? emoji = null,
+    Object? target = null,
+    Object? reminderTime = freezed,
+    Object? repeatDays = null,
   }) {
     return _then(_$CreateHabitStateImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
+      question: null == question
+          ? _value.question
+          : question // ignore: cast_nullable_to_non_nullable
               as String,
       habitType: null == habitType
           ? _value.habitType
@@ -132,6 +177,26 @@ class __$$CreateHabitStateImplCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as FormStatus,
+      color: null == color
+          ? _value.color
+          : color // ignore: cast_nullable_to_non_nullable
+              as Color,
+      emoji: null == emoji
+          ? _value.emoji
+          : emoji // ignore: cast_nullable_to_non_nullable
+              as String,
+      target: null == target
+          ? _value.target
+          : target // ignore: cast_nullable_to_non_nullable
+              as double,
+      reminderTime: freezed == reminderTime
+          ? _value.reminderTime
+          : reminderTime // ignore: cast_nullable_to_non_nullable
+              as TimeOfDay?,
+      repeatDays: null == repeatDays
+          ? _value._repeatDays
+          : repeatDays // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
@@ -141,26 +206,59 @@ class __$$CreateHabitStateImplCopyWithImpl<$Res>
 class _$CreateHabitStateImpl implements _CreateHabitState {
   const _$CreateHabitStateImpl(
       {this.name = '',
-      this.description = '',
+      this.question = '',
       this.habitType = HabitType.boolean,
-      this.status = FormStatus.pure});
+      this.status = FormStatus.pure,
+      this.color = Colors.blue,
+      this.emoji = '✨',
+      this.target = 0,
+      this.reminderTime,
+      final List<String> repeatDays = const <String>[
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday',
+        'Sunday'
+      ]})
+      : _repeatDays = repeatDays;
 
   @override
   @JsonKey()
   final String name;
   @override
   @JsonKey()
-  final String description;
+  final String question;
   @override
   @JsonKey()
   final HabitType habitType;
   @override
   @JsonKey()
   final FormStatus status;
+  @override
+  @JsonKey()
+  final Color color;
+  @override
+  @JsonKey()
+  final String emoji;
+  @override
+  @JsonKey()
+  final double target;
+  @override
+  final TimeOfDay? reminderTime;
+  final List<String> _repeatDays;
+  @override
+  @JsonKey()
+  List<String> get repeatDays {
+    if (_repeatDays is EqualUnmodifiableListView) return _repeatDays;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_repeatDays);
+  }
 
   @override
   String toString() {
-    return 'CreateHabitState(name: $name, description: $description, habitType: $habitType, status: $status)';
+    return 'CreateHabitState(name: $name, question: $question, habitType: $habitType, status: $status, color: $color, emoji: $emoji, target: $target, reminderTime: $reminderTime, repeatDays: $repeatDays)';
   }
 
   @override
@@ -169,16 +267,32 @@ class _$CreateHabitStateImpl implements _CreateHabitState {
         (other.runtimeType == runtimeType &&
             other is _$CreateHabitStateImpl &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.description, description) ||
-                other.description == description) &&
+            (identical(other.question, question) ||
+                other.question == question) &&
             (identical(other.habitType, habitType) ||
                 other.habitType == habitType) &&
-            (identical(other.status, status) || other.status == status));
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.color, color) || other.color == color) &&
+            (identical(other.emoji, emoji) || other.emoji == emoji) &&
+            (identical(other.target, target) || other.target == target) &&
+            (identical(other.reminderTime, reminderTime) ||
+                other.reminderTime == reminderTime) &&
+            const DeepCollectionEquality()
+                .equals(other._repeatDays, _repeatDays));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, name, description, habitType, status);
+  int get hashCode => Object.hash(
+      runtimeType,
+      name,
+      question,
+      habitType,
+      status,
+      color,
+      emoji,
+      target,
+      reminderTime,
+      const DeepCollectionEquality().hash(_repeatDays));
 
   /// Create a copy of CreateHabitState
   /// with the given fields replaced by the non-null parameter values.
@@ -193,18 +307,33 @@ class _$CreateHabitStateImpl implements _CreateHabitState {
 abstract class _CreateHabitState implements CreateHabitState {
   const factory _CreateHabitState(
       {final String name,
-      final String description,
+      final String question,
       final HabitType habitType,
-      final FormStatus status}) = _$CreateHabitStateImpl;
+      final FormStatus status,
+      final Color color,
+      final String emoji,
+      final double target,
+      final TimeOfDay? reminderTime,
+      final List<String> repeatDays}) = _$CreateHabitStateImpl;
 
   @override
   String get name;
   @override
-  String get description;
+  String get question;
   @override
   HabitType get habitType;
   @override
   FormStatus get status;
+  @override
+  Color get color;
+  @override
+  String get emoji;
+  @override
+  double get target;
+  @override
+  TimeOfDay? get reminderTime;
+  @override
+  List<String> get repeatDays;
 
   /// Create a copy of CreateHabitState
   /// with the given fields replaced by the non-null parameter values.

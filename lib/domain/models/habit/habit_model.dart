@@ -16,13 +16,34 @@ class ColorConverter implements JsonConverter<Color, int> {
   int toJson(Color color) => color.value;
 }
 
+class TimeOfDayConverter implements JsonConverter<TimeOfDay?, String?> {
+  const TimeOfDayConverter();
+
+  @override
+  TimeOfDay? fromJson(String? json) {
+    if (json == null) return null;
+    final parts = json.split(':');
+    return TimeOfDay(
+      hour: int.parse(parts[0]),
+      minute: int.parse(parts[1]),
+    );
+  }
+
+  @override
+  String? toJson(TimeOfDay? time) {
+    if (time == null) return null;
+    return '''${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}''';
+  }
+}
+
 @freezed
 class Habit with _$Habit {
   const factory Habit.boolean({
     required String id,
     required String title,
-    required String description,
-    required DateTime time,
+    required String question,
+    required List<String> repeatDays,
+    @TimeOfDayConverter() TimeOfDay? reminderTime,
     @Default('✨') String emoji,
     @ColorConverter() @Default(Colors.blue) Color color,
     @Default(false) bool isCompleted,
@@ -31,9 +52,10 @@ class Habit with _$Habit {
   const factory Habit.measurable({
     required String id,
     required String title,
-    required String description,
-    required DateTime time,
+    required String question,
     required double target,
+    required List<String> repeatDays,
+    @TimeOfDayConverter() TimeOfDay? reminderTime,
     @Default(0.0) double current,
     @Default('✨') String emoji,
     @ColorConverter() @Default(Colors.blue) Color color,

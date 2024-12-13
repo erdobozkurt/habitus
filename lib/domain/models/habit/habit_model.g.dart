@@ -16,8 +16,12 @@ _$BooleanHabitImpl _$$BooleanHabitImplFromJson(Map<String, dynamic> json) =>
     _$BooleanHabitImpl(
       id: json['id'] as String,
       title: json['title'] as String,
-      description: json['description'] as String,
-      time: DateTime.parse(json['time'] as String),
+      question: json['question'] as String,
+      repeatDays: (json['repeatDays'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList(),
+      reminderTime:
+          const TimeOfDayConverter().fromJson(json['reminderTime'] as String?),
       emoji: json['emoji'] as String? ?? '✨',
       color: json['color'] == null
           ? Colors.blue
@@ -30,8 +34,9 @@ Map<String, dynamic> _$$BooleanHabitImplToJson(_$BooleanHabitImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'title': instance.title,
-      'description': instance.description,
-      'time': instance.time.toIso8601String(),
+      'question': instance.question,
+      'repeatDays': instance.repeatDays,
+      'reminderTime': const TimeOfDayConverter().toJson(instance.reminderTime),
       'emoji': instance.emoji,
       'color': const ColorConverter().toJson(instance.color),
       'isCompleted': instance.isCompleted,
@@ -43,9 +48,13 @@ _$MeasurableHabitImpl _$$MeasurableHabitImplFromJson(
     _$MeasurableHabitImpl(
       id: json['id'] as String,
       title: json['title'] as String,
-      description: json['description'] as String,
-      time: DateTime.parse(json['time'] as String),
+      question: json['question'] as String,
       target: (json['target'] as num).toDouble(),
+      repeatDays: (json['repeatDays'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList(),
+      reminderTime:
+          const TimeOfDayConverter().fromJson(json['reminderTime'] as String?),
       current: (json['current'] as num?)?.toDouble() ?? 0.0,
       emoji: json['emoji'] as String? ?? '✨',
       color: json['color'] == null
@@ -59,9 +68,10 @@ Map<String, dynamic> _$$MeasurableHabitImplToJson(
     <String, dynamic>{
       'id': instance.id,
       'title': instance.title,
-      'description': instance.description,
-      'time': instance.time.toIso8601String(),
+      'question': instance.question,
       'target': instance.target,
+      'repeatDays': instance.repeatDays,
+      'reminderTime': const TimeOfDayConverter().toJson(instance.reminderTime),
       'current': instance.current,
       'emoji': instance.emoji,
       'color': const ColorConverter().toJson(instance.color),

@@ -1,7 +1,6 @@
 // lib/ui/core/ui/cards/habit_card.dart
 import 'package:flutter/material.dart';
 import 'package:habitus/domain/models/habit/habit_model.dart';
-import 'package:intl/intl.dart';
 
 class HabitCard extends StatefulWidget {
   const HabitCard({
@@ -108,13 +107,16 @@ class _BooleanHabitContent extends StatelessWidget {
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               Text(
-                habit.description,
+                habit.question,
                 style: Theme.of(context).textTheme.bodySmall,
               ),
-              Text(
-                DateFormat('HH:mm').format(habit.time),
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
+              if (habit.reminderTime != null)
+                Text(
+                  'Reminder: ${habit.reminderTime!.format(context)}',
+                  style: Theme.of(context).textTheme.bodySmall?.apply(
+                        color: Colors.white.withAlpha(200),
+                      ),
+                ),
             ],
           ),
         ),
@@ -157,7 +159,7 @@ class _MeasurableHabitContent extends StatelessWidget {
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                   Text(
-                    habit.description,
+                    habit.question,
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
                 ],
@@ -170,15 +172,17 @@ class _MeasurableHabitContent extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 8),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(8),
-          child: LinearProgressIndicator(
-            value: habit.current / habit.target,
-            backgroundColor: habit.color.withOpacity(0.2),
-            valueColor: AlwaysStoppedAnimation<Color>(habit.color),
-            minHeight: 8,
-          ),
+        LinearProgressIndicator(
+          value: habit.current / habit.target,
+          valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
+          backgroundColor: Colors.white.withAlpha(100),
         ),
+        const SizedBox(height: 8),
+        if (habit.reminderTime != null)
+          Text(
+            'Reminder: ${habit.reminderTime!.format(context)}',
+            style: Theme.of(context).textTheme.bodySmall?.apply(),
+          ),
       ],
     );
   }

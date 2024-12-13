@@ -5,36 +5,38 @@ import 'package:habitus/domain/models/habit/habit_model.dart';
 
 class MockHabitRepository implements IHabitRepository {
   final List<Habit> _habits = [
-    Habit.boolean(
+    const Habit.boolean(
       id: '1',
       title: 'Morning Meditation',
-      description: '10 minutes meditation',
-      time: DateTime.now(),
+      question: 'Did you meditate today?',
+      repeatDays: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
       emoji: '🧘‍♂️',
     ),
-    Habit.measurable(
+    const Habit.measurable(
       id: '2',
       title: 'Drink Water',
-      description: 'Drink 8 glasses of water',
-      time: DateTime.now(),
+      question: 'Drink 8 glasses of water',
+      repeatDays: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
       target: 8,
       emoji: '💧',
       color: Colors.purple,
     ),
-    Habit.measurable(
+    const Habit.measurable(
       id: '3',
       title: 'Read a Book',
-      description: 'Read 20 pages of a book',
-      time: DateTime.now(),
+      question: 'How many pages did you read?',
+      repeatDays: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+      reminderTime: TimeOfDay(hour: 20, minute: 0),
       target: 20,
+      current: 10,
       emoji: '📚',
       color: Colors.orange,
     ),
-    Habit.boolean(
+    const Habit.boolean(
       id: '4',
       title: 'Workout',
-      description: '30 minutes workout',
-      time: DateTime.now(),
+      question: 'Did you workout today?',
+      repeatDays: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
       emoji: '🏋️‍♂️',
       color: Colors.green,
     ),

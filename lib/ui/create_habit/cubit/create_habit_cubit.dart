@@ -19,8 +19,8 @@ class CreateHabitCubit extends Cubit<CreateHabitState> {
     emit(state.copyWith(name: name));
   }
 
-  void descriptionChanged(String description) {
-    emit(state.copyWith(description: description));
+  void questionChanged(String question) {
+    emit(state.copyWith(question: question));
   }
 
   void habitTypeChanged(HabitType type) {
@@ -34,15 +34,21 @@ class CreateHabitCubit extends Cubit<CreateHabitState> {
           ? Habit.boolean(
               id: UniqueKey().toString(),
               title: state.name,
-              description: state.description,
-              time: DateTime.now(),
+              question: state.question,
+              reminderTime: state.reminderTime,
+              repeatDays: state.repeatDays,
+              color: state.color,
+              emoji: state.emoji,
             )
           : Habit.measurable(
               id: UniqueKey().toString(),
               title: state.name,
-              description: state.description,
-              time: DateTime.now(),
-              target: 1, // Set an appropriate target
+              question: state.question,
+              target: state.target,
+              repeatDays: state.repeatDays,
+              reminderTime: state.reminderTime,
+              color: state.color,
+              emoji: state.emoji,
             );
       await _habitRepository.createHabit(habit);
       emit(state.copyWith(status: FormStatus.submissionSuccess));

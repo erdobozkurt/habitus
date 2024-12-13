@@ -31,8 +31,10 @@ Habit _$HabitFromJson(Map<String, dynamic> json) {
 mixin _$Habit {
   String get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
-  String get description => throw _privateConstructorUsedError;
-  DateTime get time => throw _privateConstructorUsedError;
+  String get question => throw _privateConstructorUsedError;
+  List<String> get repeatDays => throw _privateConstructorUsedError;
+  @TimeOfDayConverter()
+  TimeOfDay? get reminderTime => throw _privateConstructorUsedError;
   String get emoji => throw _privateConstructorUsedError;
   @ColorConverter()
   Color get color => throw _privateConstructorUsedError;
@@ -41,8 +43,9 @@ mixin _$Habit {
     required TResult Function(
             String id,
             String title,
-            String description,
-            DateTime time,
+            String question,
+            List<String> repeatDays,
+            @TimeOfDayConverter() TimeOfDay? reminderTime,
             String emoji,
             @ColorConverter() Color color,
             bool isCompleted)
@@ -50,9 +53,10 @@ mixin _$Habit {
     required TResult Function(
             String id,
             String title,
-            String description,
-            DateTime time,
+            String question,
             double target,
+            List<String> repeatDays,
+            @TimeOfDayConverter() TimeOfDay? reminderTime,
             double current,
             String emoji,
             @ColorConverter() Color color)
@@ -64,8 +68,9 @@ mixin _$Habit {
     TResult? Function(
             String id,
             String title,
-            String description,
-            DateTime time,
+            String question,
+            List<String> repeatDays,
+            @TimeOfDayConverter() TimeOfDay? reminderTime,
             String emoji,
             @ColorConverter() Color color,
             bool isCompleted)?
@@ -73,9 +78,10 @@ mixin _$Habit {
     TResult? Function(
             String id,
             String title,
-            String description,
-            DateTime time,
+            String question,
             double target,
+            List<String> repeatDays,
+            @TimeOfDayConverter() TimeOfDay? reminderTime,
             double current,
             String emoji,
             @ColorConverter() Color color)?
@@ -84,15 +90,23 @@ mixin _$Habit {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String id, String title, String description, DateTime time,
-            String emoji, @ColorConverter() Color color, bool isCompleted)?
+    TResult Function(
+            String id,
+            String title,
+            String question,
+            List<String> repeatDays,
+            @TimeOfDayConverter() TimeOfDay? reminderTime,
+            String emoji,
+            @ColorConverter() Color color,
+            bool isCompleted)?
         boolean,
     TResult Function(
             String id,
             String title,
-            String description,
-            DateTime time,
+            String question,
             double target,
+            List<String> repeatDays,
+            @TimeOfDayConverter() TimeOfDay? reminderTime,
             double current,
             String emoji,
             @ColorConverter() Color color)?
@@ -137,8 +151,9 @@ abstract class $HabitCopyWith<$Res> {
   $Res call(
       {String id,
       String title,
-      String description,
-      DateTime time,
+      String question,
+      List<String> repeatDays,
+      @TimeOfDayConverter() TimeOfDay? reminderTime,
       String emoji,
       @ColorConverter() Color color});
 }
@@ -160,8 +175,9 @@ class _$HabitCopyWithImpl<$Res, $Val extends Habit>
   $Res call({
     Object? id = null,
     Object? title = null,
-    Object? description = null,
-    Object? time = null,
+    Object? question = null,
+    Object? repeatDays = null,
+    Object? reminderTime = freezed,
     Object? emoji = null,
     Object? color = null,
   }) {
@@ -174,14 +190,18 @@ class _$HabitCopyWithImpl<$Res, $Val extends Habit>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
+      question: null == question
+          ? _value.question
+          : question // ignore: cast_nullable_to_non_nullable
               as String,
-      time: null == time
-          ? _value.time
-          : time // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+      repeatDays: null == repeatDays
+          ? _value.repeatDays
+          : repeatDays // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      reminderTime: freezed == reminderTime
+          ? _value.reminderTime
+          : reminderTime // ignore: cast_nullable_to_non_nullable
+              as TimeOfDay?,
       emoji: null == emoji
           ? _value.emoji
           : emoji // ignore: cast_nullable_to_non_nullable
@@ -205,8 +225,9 @@ abstract class _$$BooleanHabitImplCopyWith<$Res>
   $Res call(
       {String id,
       String title,
-      String description,
-      DateTime time,
+      String question,
+      List<String> repeatDays,
+      @TimeOfDayConverter() TimeOfDay? reminderTime,
       String emoji,
       @ColorConverter() Color color,
       bool isCompleted});
@@ -227,8 +248,9 @@ class __$$BooleanHabitImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? title = null,
-    Object? description = null,
-    Object? time = null,
+    Object? question = null,
+    Object? repeatDays = null,
+    Object? reminderTime = freezed,
     Object? emoji = null,
     Object? color = null,
     Object? isCompleted = null,
@@ -242,14 +264,18 @@ class __$$BooleanHabitImplCopyWithImpl<$Res>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
+      question: null == question
+          ? _value.question
+          : question // ignore: cast_nullable_to_non_nullable
               as String,
-      time: null == time
-          ? _value.time
-          : time // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+      repeatDays: null == repeatDays
+          ? _value._repeatDays
+          : repeatDays // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      reminderTime: freezed == reminderTime
+          ? _value.reminderTime
+          : reminderTime // ignore: cast_nullable_to_non_nullable
+              as TimeOfDay?,
       emoji: null == emoji
           ? _value.emoji
           : emoji // ignore: cast_nullable_to_non_nullable
@@ -272,13 +298,15 @@ class _$BooleanHabitImpl implements BooleanHabit {
   const _$BooleanHabitImpl(
       {required this.id,
       required this.title,
-      required this.description,
-      required this.time,
+      required this.question,
+      required final List<String> repeatDays,
+      @TimeOfDayConverter() this.reminderTime,
       this.emoji = '✨',
       @ColorConverter() this.color = Colors.blue,
       this.isCompleted = false,
       final String? $type})
-      : $type = $type ?? 'boolean';
+      : _repeatDays = repeatDays,
+        $type = $type ?? 'boolean';
 
   factory _$BooleanHabitImpl.fromJson(Map<String, dynamic> json) =>
       _$$BooleanHabitImplFromJson(json);
@@ -288,9 +316,18 @@ class _$BooleanHabitImpl implements BooleanHabit {
   @override
   final String title;
   @override
-  final String description;
+  final String question;
+  final List<String> _repeatDays;
   @override
-  final DateTime time;
+  List<String> get repeatDays {
+    if (_repeatDays is EqualUnmodifiableListView) return _repeatDays;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_repeatDays);
+  }
+
+  @override
+  @TimeOfDayConverter()
+  final TimeOfDay? reminderTime;
   @override
   @JsonKey()
   final String emoji;
@@ -307,7 +344,7 @@ class _$BooleanHabitImpl implements BooleanHabit {
 
   @override
   String toString() {
-    return 'Habit.boolean(id: $id, title: $title, description: $description, time: $time, emoji: $emoji, color: $color, isCompleted: $isCompleted)';
+    return 'Habit.boolean(id: $id, title: $title, question: $question, repeatDays: $repeatDays, reminderTime: $reminderTime, emoji: $emoji, color: $color, isCompleted: $isCompleted)';
   }
 
   @override
@@ -317,9 +354,12 @@ class _$BooleanHabitImpl implements BooleanHabit {
             other is _$BooleanHabitImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.title, title) || other.title == title) &&
-            (identical(other.description, description) ||
-                other.description == description) &&
-            (identical(other.time, time) || other.time == time) &&
+            (identical(other.question, question) ||
+                other.question == question) &&
+            const DeepCollectionEquality()
+                .equals(other._repeatDays, _repeatDays) &&
+            (identical(other.reminderTime, reminderTime) ||
+                other.reminderTime == reminderTime) &&
             (identical(other.emoji, emoji) || other.emoji == emoji) &&
             (identical(other.color, color) || other.color == color) &&
             (identical(other.isCompleted, isCompleted) ||
@@ -329,7 +369,15 @@ class _$BooleanHabitImpl implements BooleanHabit {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
-      runtimeType, id, title, description, time, emoji, color, isCompleted);
+      runtimeType,
+      id,
+      title,
+      question,
+      const DeepCollectionEquality().hash(_repeatDays),
+      reminderTime,
+      emoji,
+      color,
+      isCompleted);
 
   /// Create a copy of Habit
   /// with the given fields replaced by the non-null parameter values.
@@ -345,8 +393,9 @@ class _$BooleanHabitImpl implements BooleanHabit {
     required TResult Function(
             String id,
             String title,
-            String description,
-            DateTime time,
+            String question,
+            List<String> repeatDays,
+            @TimeOfDayConverter() TimeOfDay? reminderTime,
             String emoji,
             @ColorConverter() Color color,
             bool isCompleted)
@@ -354,15 +403,17 @@ class _$BooleanHabitImpl implements BooleanHabit {
     required TResult Function(
             String id,
             String title,
-            String description,
-            DateTime time,
+            String question,
             double target,
+            List<String> repeatDays,
+            @TimeOfDayConverter() TimeOfDay? reminderTime,
             double current,
             String emoji,
             @ColorConverter() Color color)
         measurable,
   }) {
-    return boolean(id, title, description, time, emoji, color, isCompleted);
+    return boolean(id, title, question, repeatDays, reminderTime, emoji, color,
+        isCompleted);
   }
 
   @override
@@ -371,8 +422,9 @@ class _$BooleanHabitImpl implements BooleanHabit {
     TResult? Function(
             String id,
             String title,
-            String description,
-            DateTime time,
+            String question,
+            List<String> repeatDays,
+            @TimeOfDayConverter() TimeOfDay? reminderTime,
             String emoji,
             @ColorConverter() Color color,
             bool isCompleted)?
@@ -380,30 +432,39 @@ class _$BooleanHabitImpl implements BooleanHabit {
     TResult? Function(
             String id,
             String title,
-            String description,
-            DateTime time,
+            String question,
             double target,
+            List<String> repeatDays,
+            @TimeOfDayConverter() TimeOfDay? reminderTime,
             double current,
             String emoji,
             @ColorConverter() Color color)?
         measurable,
   }) {
-    return boolean?.call(
-        id, title, description, time, emoji, color, isCompleted);
+    return boolean?.call(id, title, question, repeatDays, reminderTime, emoji,
+        color, isCompleted);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String id, String title, String description, DateTime time,
-            String emoji, @ColorConverter() Color color, bool isCompleted)?
+    TResult Function(
+            String id,
+            String title,
+            String question,
+            List<String> repeatDays,
+            @TimeOfDayConverter() TimeOfDay? reminderTime,
+            String emoji,
+            @ColorConverter() Color color,
+            bool isCompleted)?
         boolean,
     TResult Function(
             String id,
             String title,
-            String description,
-            DateTime time,
+            String question,
             double target,
+            List<String> repeatDays,
+            @TimeOfDayConverter() TimeOfDay? reminderTime,
             double current,
             String emoji,
             @ColorConverter() Color color)?
@@ -411,7 +472,8 @@ class _$BooleanHabitImpl implements BooleanHabit {
     required TResult orElse(),
   }) {
     if (boolean != null) {
-      return boolean(id, title, description, time, emoji, color, isCompleted);
+      return boolean(id, title, question, repeatDays, reminderTime, emoji,
+          color, isCompleted);
     }
     return orElse();
   }
@@ -459,8 +521,9 @@ abstract class BooleanHabit implements Habit {
   const factory BooleanHabit(
       {required final String id,
       required final String title,
-      required final String description,
-      required final DateTime time,
+      required final String question,
+      required final List<String> repeatDays,
+      @TimeOfDayConverter() final TimeOfDay? reminderTime,
       final String emoji,
       @ColorConverter() final Color color,
       final bool isCompleted}) = _$BooleanHabitImpl;
@@ -473,9 +536,12 @@ abstract class BooleanHabit implements Habit {
   @override
   String get title;
   @override
-  String get description;
+  String get question;
   @override
-  DateTime get time;
+  List<String> get repeatDays;
+  @override
+  @TimeOfDayConverter()
+  TimeOfDay? get reminderTime;
   @override
   String get emoji;
   @override
@@ -502,9 +568,10 @@ abstract class _$$MeasurableHabitImplCopyWith<$Res>
   $Res call(
       {String id,
       String title,
-      String description,
-      DateTime time,
+      String question,
       double target,
+      List<String> repeatDays,
+      @TimeOfDayConverter() TimeOfDay? reminderTime,
       double current,
       String emoji,
       @ColorConverter() Color color});
@@ -525,9 +592,10 @@ class __$$MeasurableHabitImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? title = null,
-    Object? description = null,
-    Object? time = null,
+    Object? question = null,
     Object? target = null,
+    Object? repeatDays = null,
+    Object? reminderTime = freezed,
     Object? current = null,
     Object? emoji = null,
     Object? color = null,
@@ -541,18 +609,22 @@ class __$$MeasurableHabitImplCopyWithImpl<$Res>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
+      question: null == question
+          ? _value.question
+          : question // ignore: cast_nullable_to_non_nullable
               as String,
-      time: null == time
-          ? _value.time
-          : time // ignore: cast_nullable_to_non_nullable
-              as DateTime,
       target: null == target
           ? _value.target
           : target // ignore: cast_nullable_to_non_nullable
               as double,
+      repeatDays: null == repeatDays
+          ? _value._repeatDays
+          : repeatDays // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      reminderTime: freezed == reminderTime
+          ? _value.reminderTime
+          : reminderTime // ignore: cast_nullable_to_non_nullable
+              as TimeOfDay?,
       current: null == current
           ? _value.current
           : current // ignore: cast_nullable_to_non_nullable
@@ -575,14 +647,16 @@ class _$MeasurableHabitImpl implements MeasurableHabit {
   const _$MeasurableHabitImpl(
       {required this.id,
       required this.title,
-      required this.description,
-      required this.time,
+      required this.question,
       required this.target,
+      required final List<String> repeatDays,
+      @TimeOfDayConverter() this.reminderTime,
       this.current = 0.0,
       this.emoji = '✨',
       @ColorConverter() this.color = Colors.blue,
       final String? $type})
-      : $type = $type ?? 'measurable';
+      : _repeatDays = repeatDays,
+        $type = $type ?? 'measurable';
 
   factory _$MeasurableHabitImpl.fromJson(Map<String, dynamic> json) =>
       _$$MeasurableHabitImplFromJson(json);
@@ -592,11 +666,20 @@ class _$MeasurableHabitImpl implements MeasurableHabit {
   @override
   final String title;
   @override
-  final String description;
-  @override
-  final DateTime time;
+  final String question;
   @override
   final double target;
+  final List<String> _repeatDays;
+  @override
+  List<String> get repeatDays {
+    if (_repeatDays is EqualUnmodifiableListView) return _repeatDays;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_repeatDays);
+  }
+
+  @override
+  @TimeOfDayConverter()
+  final TimeOfDay? reminderTime;
   @override
   @JsonKey()
   final double current;
@@ -613,7 +696,7 @@ class _$MeasurableHabitImpl implements MeasurableHabit {
 
   @override
   String toString() {
-    return 'Habit.measurable(id: $id, title: $title, description: $description, time: $time, target: $target, current: $current, emoji: $emoji, color: $color)';
+    return 'Habit.measurable(id: $id, title: $title, question: $question, target: $target, repeatDays: $repeatDays, reminderTime: $reminderTime, current: $current, emoji: $emoji, color: $color)';
   }
 
   @override
@@ -623,10 +706,13 @@ class _$MeasurableHabitImpl implements MeasurableHabit {
             other is _$MeasurableHabitImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.title, title) || other.title == title) &&
-            (identical(other.description, description) ||
-                other.description == description) &&
-            (identical(other.time, time) || other.time == time) &&
+            (identical(other.question, question) ||
+                other.question == question) &&
             (identical(other.target, target) || other.target == target) &&
+            const DeepCollectionEquality()
+                .equals(other._repeatDays, _repeatDays) &&
+            (identical(other.reminderTime, reminderTime) ||
+                other.reminderTime == reminderTime) &&
             (identical(other.current, current) || other.current == current) &&
             (identical(other.emoji, emoji) || other.emoji == emoji) &&
             (identical(other.color, color) || other.color == color));
@@ -635,7 +721,16 @@ class _$MeasurableHabitImpl implements MeasurableHabit {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
-      runtimeType, id, title, description, time, target, current, emoji, color);
+      runtimeType,
+      id,
+      title,
+      question,
+      target,
+      const DeepCollectionEquality().hash(_repeatDays),
+      reminderTime,
+      current,
+      emoji,
+      color);
 
   /// Create a copy of Habit
   /// with the given fields replaced by the non-null parameter values.
@@ -652,8 +747,9 @@ class _$MeasurableHabitImpl implements MeasurableHabit {
     required TResult Function(
             String id,
             String title,
-            String description,
-            DateTime time,
+            String question,
+            List<String> repeatDays,
+            @TimeOfDayConverter() TimeOfDay? reminderTime,
             String emoji,
             @ColorConverter() Color color,
             bool isCompleted)
@@ -661,16 +757,17 @@ class _$MeasurableHabitImpl implements MeasurableHabit {
     required TResult Function(
             String id,
             String title,
-            String description,
-            DateTime time,
+            String question,
             double target,
+            List<String> repeatDays,
+            @TimeOfDayConverter() TimeOfDay? reminderTime,
             double current,
             String emoji,
             @ColorConverter() Color color)
         measurable,
   }) {
-    return measurable(
-        id, title, description, time, target, current, emoji, color);
+    return measurable(id, title, question, target, repeatDays, reminderTime,
+        current, emoji, color);
   }
 
   @override
@@ -679,8 +776,9 @@ class _$MeasurableHabitImpl implements MeasurableHabit {
     TResult? Function(
             String id,
             String title,
-            String description,
-            DateTime time,
+            String question,
+            List<String> repeatDays,
+            @TimeOfDayConverter() TimeOfDay? reminderTime,
             String emoji,
             @ColorConverter() Color color,
             bool isCompleted)?
@@ -688,30 +786,39 @@ class _$MeasurableHabitImpl implements MeasurableHabit {
     TResult? Function(
             String id,
             String title,
-            String description,
-            DateTime time,
+            String question,
             double target,
+            List<String> repeatDays,
+            @TimeOfDayConverter() TimeOfDay? reminderTime,
             double current,
             String emoji,
             @ColorConverter() Color color)?
         measurable,
   }) {
-    return measurable?.call(
-        id, title, description, time, target, current, emoji, color);
+    return measurable?.call(id, title, question, target, repeatDays,
+        reminderTime, current, emoji, color);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String id, String title, String description, DateTime time,
-            String emoji, @ColorConverter() Color color, bool isCompleted)?
+    TResult Function(
+            String id,
+            String title,
+            String question,
+            List<String> repeatDays,
+            @TimeOfDayConverter() TimeOfDay? reminderTime,
+            String emoji,
+            @ColorConverter() Color color,
+            bool isCompleted)?
         boolean,
     TResult Function(
             String id,
             String title,
-            String description,
-            DateTime time,
+            String question,
             double target,
+            List<String> repeatDays,
+            @TimeOfDayConverter() TimeOfDay? reminderTime,
             double current,
             String emoji,
             @ColorConverter() Color color)?
@@ -719,8 +826,8 @@ class _$MeasurableHabitImpl implements MeasurableHabit {
     required TResult orElse(),
   }) {
     if (measurable != null) {
-      return measurable(
-          id, title, description, time, target, current, emoji, color);
+      return measurable(id, title, question, target, repeatDays, reminderTime,
+          current, emoji, color);
     }
     return orElse();
   }
@@ -768,9 +875,10 @@ abstract class MeasurableHabit implements Habit {
   const factory MeasurableHabit(
       {required final String id,
       required final String title,
-      required final String description,
-      required final DateTime time,
+      required final String question,
       required final double target,
+      required final List<String> repeatDays,
+      @TimeOfDayConverter() final TimeOfDay? reminderTime,
       final double current,
       final String emoji,
       @ColorConverter() final Color color}) = _$MeasurableHabitImpl;
@@ -783,10 +891,13 @@ abstract class MeasurableHabit implements Habit {
   @override
   String get title;
   @override
-  String get description;
-  @override
-  DateTime get time;
+  String get question;
   double get target;
+  @override
+  List<String> get repeatDays;
+  @override
+  @TimeOfDayConverter()
+  TimeOfDay? get reminderTime;
   double get current;
   @override
   String get emoji;
