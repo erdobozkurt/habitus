@@ -16,8 +16,6 @@ class ModalPageData {
 
 class ModalLayout {
   static const double _pageBreakpoint = 768;
-  static const double _defaultMinHeight = 0.4;
-  static const double _defaultMaxHeight = 0.9;
 
   static SliverWoltModalSheetPage buildPage({
     required ModalPageData pageData,

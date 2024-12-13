@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:habitus/ui/core/ui/inputs/input.dart';
 import 'package:habitus/ui/core/ui/modals/modal_layout.dart';
 
 class CreateHabitModal {
@@ -23,7 +25,9 @@ class CreateHabitModal {
           bottomWidget: _NavigationButtons(
             controller: controller,
             isLastPage: true,
-            onComplete: () => Navigator.pop(context),
+            onComplete: () {
+              context.pop();
+            },
           ),
         ),
       ],
@@ -39,24 +43,22 @@ class _HabitBasicInfo extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const TextField(
-          decoration: InputDecoration(
-            labelText: 'Habit Name',
-            hintText: 'e.g. Morning Meditation',
-          ),
+        const CustomTextField(
+          label: 'Habit Name',
+          hint: 'Morning Medidation',
         ),
         const SizedBox(height: 16),
-        const TextField(
-          maxLines: 3,
-          decoration: InputDecoration(
-            labelText: 'Description',
-            hintText: 'What do you want to achieve?',
-          ),
+        const CustomTextField(
+          label: 'Description',
+          hint: 'Meditate for 10 minutes',
         ),
         const SizedBox(height: 16),
         DropdownButtonFormField<String>(
           decoration: const InputDecoration(
             labelText: 'Habit Type',
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(8)),
+            ),
           ),
           items: const [
             DropdownMenuItem(
@@ -145,7 +147,7 @@ class _NavigationButtons extends StatelessWidget {
             ),
           if (controller.value > 0) const SizedBox(width: 16),
           Expanded(
-            child: ElevatedButton(
+            child: FilledButton(
               onPressed: isLastPage ? onComplete : () => controller.value++,
               child: Text(isLastPage ? 'Create Habit' : 'Next'),
             ),
