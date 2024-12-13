@@ -27,6 +27,26 @@ class CreateHabitCubit extends Cubit<CreateHabitState> {
     emit(state.copyWith(habitType: type));
   }
 
+  void targetChanged(double target) {
+    emit(state.copyWith(target: target));
+  }
+
+  void reminderTimeChanged(TimeOfDay time) {
+    emit(state.copyWith(reminderTime: time));
+  }
+
+  void repeatDaysChanged(List<String> days) {
+    emit(state.copyWith(repeatDays: days));
+  }
+
+  void colorChanged(Color color) {
+    emit(state.copyWith(color: color));
+  }
+
+  void emojiChanged(String emoji) {
+    emit(state.copyWith(emoji: emoji));
+  }
+
   Future<void> saveHabit() async {
     emit(state.copyWith(status: FormStatus.submissionInProgress));
     try {

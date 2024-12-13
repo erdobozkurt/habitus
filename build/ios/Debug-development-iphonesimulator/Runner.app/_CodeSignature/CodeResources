@@ -46,7 +46,7 @@
 		</data>
 		<key>Frameworks/App.framework/App</key>
 		<data>
-		B8xbs059eRowLFWVscokndgyhN8=
+		NirdUrLuPhXFkGTlgoj4PW2QWM8=
 		</data>
 		<key>Frameworks/App.framework/Info.plist</key>
 		<data>
@@ -54,7 +54,7 @@
 		</data>
 		<key>Frameworks/App.framework/_CodeSignature/CodeResources</key>
 		<data>
-		32tFxXkCauEG2LMqqcVDDE1Y3ME=
+		4QezQhnrFHAiGvrDCTfBlGiHEIE=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/AssetManifest.bin</key>
 		<data>
@@ -70,7 +70,7 @@
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/NOTICES.Z</key>
 		<data>
-		3LvKIYyGMWt+hCszasDMxceVEU0=
+		dgYM4wX3husNai9/XeiCPxvfbQ0=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/assets/images/app_logo.png</key>
 		<data>
@@ -98,7 +98,7 @@
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/kernel_blob.bin</key>
 		<data>
-		1dOwza3YE1R8CAheEYDwXHx/Vew=
+		vwbR+jEqBwkqgcDGP/p1WLUEl+c=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/shaders/ink_sparkle.frag</key>
 		<data>
@@ -200,6 +200,38 @@
 		<data>
 		ipm8hg7aB3LzsfShJfpNR0QQ4hw=
 		</data>
+		<key>Frameworks/emoji_picker_flutter.framework/Info.plist</key>
+		<data>
+		uggN7RZz/q9oYtpQMuA+iQj8+MY=
+		</data>
+		<key>Frameworks/emoji_picker_flutter.framework/_CodeSignature/CodeResources</key>
+		<data>
+		Pu/UTy9FK60Ips9FDfLf4XK2EGY=
+		</data>
+		<key>Frameworks/emoji_picker_flutter.framework/emoji_picker_flutter</key>
+		<data>
+		Y06+ZlecMU1sagMl8nrp6k8lKXI=
+		</data>
+		<key>Frameworks/shared_preferences_foundation.framework/Info.plist</key>
+		<data>
+		Tr3IaxS9mv9x7EYv80UwUBsPSt0=
+		</data>
+		<key>Frameworks/shared_preferences_foundation.framework/_CodeSignature/CodeResources</key>
+		<data>
+		ozEC1tit28Ft9bcGOw0r8Qfnre0=
+		</data>
+		<key>Frameworks/shared_preferences_foundation.framework/shared_preferences_foundation</key>
+		<data>
+		hrEnosVVnLdAZIxQkLO5GwoBWms=
+		</data>
+		<key>Frameworks/shared_preferences_foundation.framework/shared_preferences_foundation_privacy.bundle/Info.plist</key>
+		<data>
+		sNdczz9+NwW1ZWWC1szIvCv8hi0=
+		</data>
+		<key>Frameworks/shared_preferences_foundation.framework/shared_preferences_foundation_privacy.bundle/PrivacyInfo.xcprivacy</key>
+		<data>
+		6uLTlq7fgHHWA8emYDf4ImHC+AY=
+		</data>
 		<key>Info.plist</key>
 		<data>
 		kmSV3wDdDsMzMxgMpSBXYvx9wKw=
@@ -210,7 +242,7 @@
 		</data>
 		<key>Runner.debug.dylib</key>
 		<data>
-		Rv2HkgUlocDNddNMY3Dn7k1/Q/c=
+		XGK8KrhTllmWSz30OGkyQ8TeNzo=
 		</data>
 		<key>__preview.dylib</key>
 		<data>
@@ -293,7 +325,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			HNvr+FoIJan16d7O5OqI/OYn+x13Y+u1oOydoOVne7Y=
+			Jbx9hNd+0h/8zUil+puqoHUvGQ/vsOuszC0p+CKoRDQ=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/Info.plist</key>
@@ -307,7 +339,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			SZ6ZlFnZPW4TATptQtsvWNcZEvB1oDAh2D+o6ibUhc4=
+			RhsDWqP1v5Ebd/pBbqyLwJljHDTPDHBtzgLK3+BOSGU=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/AssetManifest.bin</key>
@@ -335,7 +367,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			1S8oEoqn9Z5l9W/3OjSVb07jVEEpY2gGhJ3BBbGg0Dw=
+			xEDOswKDVjIuuukfCQ5K8q681EXnmO7d2DTyEjWfxRs=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/assets/images/app_logo.png</key>
@@ -384,7 +416,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			WKmWhyIzruzBQyE4v6/G3KV9zQYA+b20PhF/7gLuOOI=
+			4FUM+B0vL8bgmEgZwBs1c0mmVYq3IRtKpfWxpnt5OK0=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/shaders/ink_sparkle.frag</key>
@@ -562,11 +594,67 @@
 			wSU3Ai74GJkae/7UGnbY1q6WL/vA5lEax2Kl0IRef3w=
 			</data>
 		</dict>
+		<key>Frameworks/emoji_picker_flutter.framework/Info.plist</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			0+eVNw8PQqgA2fXYA6b5NdG1HxZXGC9xGn4Sf6aSCkE=
+			</data>
+		</dict>
+		<key>Frameworks/emoji_picker_flutter.framework/_CodeSignature/CodeResources</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			allSPg3/4O7g40tgpKI8vdEIc1GmgYKmL8JD/nbXPbg=
+			</data>
+		</dict>
+		<key>Frameworks/emoji_picker_flutter.framework/emoji_picker_flutter</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			ncdtchvSOToBVHqjeb8g2IuTgnBsbWRdanklwkhQnVo=
+			</data>
+		</dict>
+		<key>Frameworks/shared_preferences_foundation.framework/Info.plist</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			UHyj8ssh2XjcSPws7ZMzUIjtzL3tsKkleJ/JUfvDqYc=
+			</data>
+		</dict>
+		<key>Frameworks/shared_preferences_foundation.framework/_CodeSignature/CodeResources</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			tWdYQ61VkXFfCpufba3pFQasQFeHU8trL3rws0060og=
+			</data>
+		</dict>
+		<key>Frameworks/shared_preferences_foundation.framework/shared_preferences_foundation</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			9kadoqGQorXkGAFCmZbDI/mRq4uEhj47SLDbcjKrxzI=
+			</data>
+		</dict>
+		<key>Frameworks/shared_preferences_foundation.framework/shared_preferences_foundation_privacy.bundle/Info.plist</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			OtTIqTGF5YFm7YWGH8DZQsjsw+cbPtFYnsepCUfBfK4=
+			</data>
+		</dict>
+		<key>Frameworks/shared_preferences_foundation.framework/shared_preferences_foundation_privacy.bundle/PrivacyInfo.xcprivacy</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			BWQouTi9VwGKYAGdFcPB7i+nJ/I2h1mLu9k0hIsYCxo=
+			</data>
+		</dict>
 		<key>Runner.debug.dylib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			Tp1AlEHw42cYLTppG7qp4V2+wFEMfFHew59oWrqISp8=
+			lJaxoi5GTgt0cyHusjU7U7MQHlDtZtPzIRxyhDYdda8=
 			</data>
 		</dict>
 		<key>__preview.dylib</key>
