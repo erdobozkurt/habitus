@@ -19,7 +19,24 @@ class MockHabitRepository implements IHabitRepository {
       time: DateTime.now(),
       target: 8,
       emoji: '💧',
-      color: Colors.cyan,
+      color: Colors.purple,
+    ),
+    Habit.measurable(
+      id: '3',
+      title: 'Read a Book',
+      description: 'Read 20 pages of a book',
+      time: DateTime.now(),
+      target: 20,
+      emoji: '📚',
+      color: Colors.orange,
+    ),
+    Habit.boolean(
+      id: '4',
+      title: 'Workout',
+      description: '30 minutes workout',
+      time: DateTime.now(),
+      emoji: '🏋️‍♂️',
+      color: Colors.green,
     ),
   ];
 

@@ -4,8 +4,8 @@ import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:habitus/domain/enums/status.dart';
-import 'package:habitus/ui/core/ui/modals/wolt_modal_manager.dart';
 import 'package:habitus/ui/home/cubit/home_cubit.dart';
+import 'package:habitus/ui/home/widgets/create_habit_modal.dart';
 import 'package:habitus/ui/home/widgets/custom_date_picker.dart';
 import 'package:habitus/ui/home/widgets/habit_cards.dart';
 
@@ -25,12 +25,13 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     _confettiController =
         ConfettiController(duration: const Duration(seconds: 1));
+    context.read<HomeCubit>().getHabits();
+    debugPrint('HomeScreen initialized');
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    context.read<HomeCubit>().getHabits();
   }
 
   @override
@@ -81,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             Scaffold(
               floatingActionButton: FloatingActionButton(
-                onPressed: _showAddRoutineModal,
+                onPressed: () => CreateHabitModal.show(context),
                 child: const Icon(Icons.add),
               ),
               appBar: AppBar(title: const Text('Home')),
@@ -135,73 +136,5 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       _selectedDate = value;
     });
-  }
-
-  void _showAddRoutineModal() {
-    final titleController = TextEditingController();
-    final descriptionController = TextEditingController();
-    var selectedTime = TimeOfDay.now();
-
-    WoltModalManager.showSinglePage<void>(
-      context: context,
-      page: WoltModalPage(
-        title: 'Add New Routine',
-        contentBuilder: (context) => [
-          TextField(
-            controller: titleController,
-            decoration: const InputDecoration(
-              labelText: 'Routine Name',
-              prefixIcon: Icon(Icons.title),
-            ),
-          ),
-          const SizedBox(height: 16),
-          TextField(
-            controller: descriptionController,
-            decoration: const InputDecoration(
-              labelText: 'Description',
-              prefixIcon: Icon(Icons.description),
-            ),
-          ),
-          const SizedBox(height: 16),
-          StatefulBuilder(
-            builder: (context, setState) => ListTile(
-              leading: const Icon(Icons.access_time),
-              title: const Text('Time'),
-              trailing: Text(selectedTime.format(context)),
-              onTap: () async {
-                final time = await showTimePicker(
-                  context: context,
-                  initialTime: selectedTime,
-                );
-                if (time != null) {
-                  setState(() => selectedTime = time);
-                }
-              },
-            ),
-          ),
-        ],
-        actions: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text('Cancel'),
-            ),
-            const SizedBox(width: 8),
-            ElevatedButton(
-              onPressed: () {
-                if (titleController.text.isNotEmpty) {
-                  setState(() {
-                    // TODO: Add routine
-                  });
-                  Navigator.pop(context);
-                }
-              },
-              child: const Text('Add Routine'),
-            ),
-          ],
-        ),
-      ),
-    );
   }
 }
