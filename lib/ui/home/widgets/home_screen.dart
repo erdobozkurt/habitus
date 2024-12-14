@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:habitus/domain/enums/status.dart';
 import 'package:habitus/ui/home/cubit/home_cubit.dart';
-import 'package:habitus/ui/home/widgets/create_habit_modal.dart';
 import 'package:habitus/ui/home/widgets/custom_date_picker.dart';
 import 'package:habitus/ui/home/widgets/habit_cards.dart';
 
@@ -81,10 +80,6 @@ class _HomeScreenState extends State<HomeScreen> {
         return Stack(
           children: [
             Scaffold(
-              floatingActionButton: FloatingActionButton(
-                onPressed: () => CreateHabitModal.show(context),
-                child: const Icon(Icons.add),
-              ),
               appBar: AppBar(title: const Text('Home')),
               body: Column(
                 children: [

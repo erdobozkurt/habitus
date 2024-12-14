@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:habitus/router/route_constants.dart';
+import 'package:habitus/ui/home/widgets/create_habit_modal.dart';
 
 class MainLayout extends StatelessWidget {
   const MainLayout({
@@ -15,35 +16,41 @@ class MainLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: child,
-      bottomNavigationBar: NavigationBar(
-        onDestinationSelected: (index) {
-          switch (index) {
-            case 0:
-              context.go(RouteConstants.home);
-            case 1:
-              context.go(RouteConstants.routines);
-            case 2:
-              context.go(RouteConstants.profile);
-          }
-        },
-        selectedIndex: _calculateSelectedIndex(context),
-        destinations: const [
-          NavigationDestination(
-            icon: Icon(Icons.home_outlined),
-            selectedIcon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.list_alt_outlined),
-            selectedIcon: Icon(Icons.list_alt),
-            label: 'Routines',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.person_outline),
-            selectedIcon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-        ],
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+        shape: const CircleBorder(),
+        onPressed: () => CreateHabitModal.show(context),
+        child: const Icon(Icons.add),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        shape: const CircularNotchedRectangle(),
+        notchMargin: 16,
+        child: NavigationBar(
+          backgroundColor: Colors.transparent,
+          onDestinationSelected: (index) {
+            switch (index) {
+              case 0:
+                context.go(RouteConstants.home);
+              case 1:
+                context.go(RouteConstants.routines);
+              case 2:
+                context.go(RouteConstants.profile);
+            }
+          },
+          selectedIndex: _calculateSelectedIndex(context),
+          destinations: const [
+            NavigationDestination(
+              icon: Icon(Icons.home_outlined),
+              selectedIcon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.list_alt_outlined),
+              selectedIcon: Icon(Icons.list_alt),
+              label: 'Routines',
+            ),
+          ],
+        ),
       ),
       appBar: AppBar(
         title: const Text('Habitus'),
