@@ -74,6 +74,9 @@ class CreateHabitCubit extends Cubit<CreateHabitState> {
       emit(state.copyWith(status: FormStatus.submissionSuccess));
     } catch (e) {
       emit(state.copyWith(status: FormStatus.submissionFailure));
+    } finally {
+      //clear all fields
+      emit(const CreateHabitState());
     }
   }
 }

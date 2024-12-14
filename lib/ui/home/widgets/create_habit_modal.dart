@@ -105,12 +105,13 @@ class _HabitBasicInfoState extends State<_HabitBasicInfo> {
         cubit.questionChanged(_questionController.text);
       });
     _targetController =
-        TextEditingController(text: cubit.state.target.toString())
+        TextEditingController(text: cubit.state.target?.toString() ?? '')
           ..addListener(() {
-            if (_targetController.text.isNotEmpty) {
-              cubit.targetChanged(double.parse(_targetController.text));
-            } else {
+            final text = _targetController.text;
+            if (text.isEmpty) {
               cubit.targetChanged(0);
+            } else {
+              cubit.targetChanged(double.tryParse(text) ?? 0);
             }
           });
     _habitType = cubit.state.habitType;
@@ -136,6 +137,7 @@ class _HabitBasicInfoState extends State<_HabitBasicInfo> {
   Widget build(BuildContext context) {
     final cubit = context.read<CreateHabitCubit>();
     return Column(
+      spacing: 16,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CustomTextField(
@@ -143,13 +145,11 @@ class _HabitBasicInfoState extends State<_HabitBasicInfo> {
           label: 'Habit Name',
           hint: 'Morning Meditation',
         ),
-        const SizedBox(height: 16),
         CustomTextField(
           controller: _questionController,
           label: 'Question',
           hint: 'Did you meditate today?',
         ),
-        const SizedBox(height: 16),
         DropdownButtonFormField<HabitType>(
           decoration: const InputDecoration(
             labelText: 'Habit Type',
@@ -172,16 +172,12 @@ class _HabitBasicInfoState extends State<_HabitBasicInfo> {
           },
         ),
         if (_habitType == HabitType.measurable)
-          Padding(
-            padding: const EdgeInsets.only(top: 16),
-            child: CustomTextField(
-              controller: _targetController,
-              label: 'Target',
-              hint: 'Enter target value',
-              keyboardType: TextInputType.number,
-            ),
+          CustomTextField(
+            controller: _targetController,
+            label: 'Target',
+            hint: 'Enter target value',
+            keyboardType: TextInputType.number,
           ),
-        const SizedBox(height: 16),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -201,7 +197,6 @@ class _HabitBasicInfoState extends State<_HabitBasicInfo> {
                 ),
               ],
             ),
-            const SizedBox(height: 16),
             Column(
               children: [
                 TextButton(
@@ -271,6 +266,7 @@ class _HabitScheduleState extends State<_HabitSchedule> {
     final cubit = context.read<CreateHabitCubit>();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
+      spacing: 16,
       children: [
         const Text('Repeat Days'),
         Wrap(
@@ -293,7 +289,6 @@ class _HabitScheduleState extends State<_HabitSchedule> {
             );
           }).toList(),
         ),
-        const SizedBox(height: 16),
         ListTile(
           title: const Text('Reminder Time'),
           trailing: Text(
