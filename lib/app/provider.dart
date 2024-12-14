@@ -7,7 +7,7 @@ import 'package:habitus/ui/home/cubit/home_cubit.dart';
 
 List<BlocProvider<StateStreamableSource<Object?>>> provider() {
   return [
-    BlocProvider(
+    BlocProvider<ThemeCubit>(
       create: (context) => ThemeCubit(
         themeRepository: context.read<IThemeRepository>()..getTheme(),
       ),

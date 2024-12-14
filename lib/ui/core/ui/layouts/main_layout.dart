@@ -1,7 +1,11 @@
 // lib/core/layouts/main_layout.dart
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:habitus/domain/models/theme/theme_model.dart';
 import 'package:habitus/router/route_constants.dart';
+import 'package:habitus/ui/core/themes/cubit/theme_cubit.dart';
+import 'package:habitus/ui/core/themes/theme_selector.dart';
 import 'package:habitus/ui/create_habit/widgets/create_habit_modal.dart';
 
 class MainLayout extends StatelessWidget {
@@ -14,6 +18,9 @@ class MainLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeState = context.watch<ThemeCubit>().state;
+    final isDarkMode = themeState.themeType == ThemeType.dark;
+
     return Scaffold(
       body: child,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -61,12 +68,7 @@ class MainLayout extends StatelessWidget {
               // TODO(erdobozkurt): Implement notifications
             },
           ),
-          IconButton(
-            icon: const Icon(Icons.settings_outlined),
-            onPressed: () {
-              // TODO(erdobozkurt): Implement settings
-            },
-          ),
+          const ThemeSelector(),
         ],
       ),
     );

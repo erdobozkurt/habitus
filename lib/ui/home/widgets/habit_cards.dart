@@ -1,7 +1,9 @@
 // lib/ui/core/ui/cards/habit_card.dart
 import 'package:flutter/material.dart';
 import 'package:habitus/domain/models/habit/habit_model.dart';
+import 'package:habitus/ui/core/themes/constants/gap_constants.dart';
 import 'package:habitus/ui/core/themes/constants/padding_constants.dart';
+import 'package:habitus/utils/extensions/context_extension.dart';
 
 class HabitCard extends StatefulWidget {
   const HabitCard({
@@ -92,32 +94,33 @@ class _BooleanHabitContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = context.theme.colorScheme;
+    final textTheme = context.textTheme;
     return Row(
       children: [
         Text(
           habit.emoji,
-          style: const TextStyle(fontSize: 24),
+          style: textTheme.headlineLarge,
         ),
-        const SizedBox(width: 16),
+        GapConstants.gapMedium,
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 habit.title,
-                style: Theme.of(context).textTheme.titleMedium,
+                style: textTheme.titleMedium?.apply(
+                  color: colorScheme.onPrimary,
+                  fontWeightDelta: 2,
+                ),
               ),
               Text(
                 habit.question,
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
-              if (habit.reminderTime != null)
-                Text(
-                  'Reminder: ${habit.reminderTime!.format(context)}',
-                  style: Theme.of(context).textTheme.bodySmall?.apply(
-                        color: Colors.white.withAlpha(200),
-                      ),
+                style: textTheme.bodySmall?.apply(
+                  color: colorScheme.onPrimary,
+                  fontWeightDelta: 2,
                 ),
+              ),
             ],
           ),
         ),
@@ -141,6 +144,8 @@ class _MeasurableHabitContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = context.textTheme;
+    final colorScheme = context.theme.colorScheme;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -148,42 +153,45 @@ class _MeasurableHabitContent extends StatelessWidget {
           children: [
             Text(
               habit.emoji,
-              style: const TextStyle(fontSize: 24),
+              style: textTheme.headlineLarge,
             ),
-            const SizedBox(width: 16),
+            GapConstants.gapMedium,
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     habit.title,
-                    style: Theme.of(context).textTheme.titleMedium,
+                    style: context.textTheme.titleMedium?.apply(
+                      color: colorScheme.onPrimary,
+                      fontWeightDelta: 2,
+                    ),
                   ),
                   Text(
                     habit.question,
-                    style: Theme.of(context).textTheme.bodySmall,
+                    style: context.textTheme.bodySmall?.apply(
+                      color: colorScheme.onPrimary,
+                      fontWeightDelta: 2,
+                    ),
                   ),
                 ],
               ),
             ),
             Text(
               '${habit.current.toInt()}/${habit.target.toInt()}',
-              style: Theme.of(context).textTheme.titleMedium,
+              style: textTheme.titleMedium?.apply(
+                color: colorScheme.onPrimary,
+                fontWeightDelta: 2,
+              ),
             ),
           ],
         ),
-        const SizedBox(height: 8),
+        GapConstants.gapSmall,
         LinearProgressIndicator(
           value: habit.current / habit.target,
-          valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
-          backgroundColor: Colors.white.withAlpha(100),
+          valueColor: AlwaysStoppedAnimation<Color>(colorScheme.onPrimary),
+          backgroundColor: colorScheme.onPrimary.withAlpha(100),
         ),
-        const SizedBox(height: 8),
-        if (habit.reminderTime != null)
-          Text(
-            'Reminder: ${habit.reminderTime!.format(context)}',
-            style: Theme.of(context).textTheme.bodySmall?.apply(),
-          ),
       ],
     );
   }
@@ -200,6 +208,7 @@ class _AnimatedCheckbox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = context.theme.colorScheme;
     return GestureDetector(
       onTap: () => onChanged(!value),
       child: AnimatedContainer(
@@ -207,14 +216,16 @@ class _AnimatedCheckbox extends StatelessWidget {
         width: 24,
         height: 24,
         decoration: BoxDecoration(
-          color: value ? Colors.white : Colors.white.withOpacity(0.2),
+          color: value
+              ? colorScheme.onPrimary
+              : colorScheme.onPrimary.withAlpha(100),
           borderRadius: BorderRadius.circular(6),
         ),
         child: value
-            ? const Icon(
+            ? Icon(
                 Icons.check,
                 size: 18,
-                color: Colors.black,
+                color: colorScheme.primary,
               )
             : null,
       ),

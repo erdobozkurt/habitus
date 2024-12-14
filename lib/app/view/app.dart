@@ -12,13 +12,14 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeState = context.watch<ThemeCubit>().state;
     final textTheme = createTextTheme(context, 'Inter', 'Poppins');
     final theme = MaterialTheme(textTheme);
 
     return MaterialApp.router(
       theme: theme.light(),
       darkTheme: theme.dark(),
-      themeMode: _getThemeMode(context.watch<ThemeCubit>().state.themeType),
+      themeMode: _getThemeMode(themeState.themeType),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       routerConfig: AppRouter.router,
