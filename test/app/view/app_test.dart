@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:habitus/app/app.dart';
+import 'package:habitus/app/view/app.dart';
 
 void main() {
   group('App', () {

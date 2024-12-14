@@ -98,11 +98,17 @@ class _HomeScreenState extends State<HomeScreen> {
                         final routine = routines[index];
                         return HabitCard(
                           habit: routine,
-                          onToggleComplete: (completed) =>
-                              context.read<HomeCubit>().toggleHabit(
-                                    routine.id,
-                                    completed: completed,
-                                  ),
+                          onToggleComplete: (completed) {
+                            context
+                                .read<HomeCubit>()
+                                .toggleHabit(
+                                  routine.id,
+                                  completed: completed,
+                                )
+                                .then((completed) {
+                              _confettiController.play();
+                            });
+                          },
                         );
                       },
                     ),
