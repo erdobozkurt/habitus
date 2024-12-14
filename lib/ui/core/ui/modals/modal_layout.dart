@@ -7,11 +7,13 @@ class ModalPageData {
     required this.contentBuilder,
     this.bottomWidget,
     this.heroImage,
+    this.leading,
   });
   final String title;
   final List<Widget> Function(BuildContext) contentBuilder;
   final Widget? bottomWidget;
   final Widget? heroImage;
+  final Widget? leading;
 }
 
 class ModalLayout {
@@ -20,7 +22,6 @@ class ModalLayout {
   static SliverWoltModalSheetPage buildPage({
     required ModalPageData pageData,
     required BuildContext context,
-    Widget? leading,
     Widget? trailing,
     bool isTopBarLayerAlwaysVisible = true,
     EdgeInsets contentPadding = const EdgeInsets.all(16),
@@ -30,7 +31,7 @@ class ModalLayout {
       heroImage: pageData.heroImage,
       topBarTitle: Text(pageData.title),
       isTopBarLayerAlwaysVisible: isTopBarLayerAlwaysVisible,
-      leadingNavBarWidget: leading,
+      leadingNavBarWidget: pageData.leading,
       trailingNavBarWidget: trailing ?? const CloseButton(),
       mainContentSliversBuilder: (context) => [
         SliverPadding(

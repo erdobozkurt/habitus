@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:habitus/ui/core/ui/inputs/input.dart';
 import 'package:habitus/ui/core/ui/modals/modal_layout.dart';
 import 'package:habitus/ui/create_habit/cubit/create_habit_cubit.dart';
+import 'package:habitus/ui/home/widgets/color_picker.dart';
 import 'package:habitus/ui/home/widgets/emoji_picker.dart';
 
 class CreateHabitModal {
@@ -16,7 +17,7 @@ class CreateHabitModal {
       pages: [
         ModalPageData(
           title: 'Create Habit',
-          contentBuilder: (context) => [const _HabitBasicInfo()],
+          contentBuilder: (context) => [_HabitBasicInfo(controller)],
           bottomWidget: _NavigationButtons(
             controller: controller,
             isLastPage: false,
@@ -25,6 +26,10 @@ class CreateHabitModal {
         ModalPageData(
           title: 'Set Schedule',
           contentBuilder: (context) => [const _HabitSchedule()],
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () => controller.value--,
+          ),
           bottomWidget: _NavigationButtons(
             controller: controller,
             isLastPage: true,
@@ -33,13 +38,45 @@ class CreateHabitModal {
             },
           ),
         ),
+        ModalPageData(
+          title: 'Select Emoji',
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back, color: Colors.black),
+            onPressed: () => controller.value = 0,
+          ),
+          contentBuilder: (context) => [
+            EmojiPickerWidget(
+              onEmojiSelected: (emoji) {
+                context.read<CreateHabitCubit>().emojiChanged(emoji);
+                controller.value = 0;
+              },
+            ),
+          ],
+        ),
+        ModalPageData(
+          title: 'Pick a Color',
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back, color: Colors.black),
+            onPressed: () => controller.value = 0,
+          ),
+          contentBuilder: (context) => [
+            ColorPickerWidget(
+              pickerColor: Colors.blue,
+              onColorChanged: (color) {
+                context.read<CreateHabitCubit>().colorChanged(color);
+                controller.value = 0;
+              },
+            ),
+          ],
+        ),
       ],
     );
   }
 }
 
 class _HabitBasicInfo extends StatefulWidget {
-  const _HabitBasicInfo();
+  const _HabitBasicInfo(this.controller);
+  final ValueNotifier<int> controller;
 
   @override
   _HabitBasicInfoState createState() => _HabitBasicInfoState();
@@ -75,35 +112,11 @@ class _HabitBasicInfoState extends State<_HabitBasicInfo> {
   }
 
   Future<void> _pickColor() async {
-    // Implement color picker dialog
-    // final color = await showDialog<Color>(
-    //   context: context,
-    //   builder: (context) => ColorPickerDialog(initialColor: _selectedColor),
-    // );
-    // if (color != null) {
-    //   setState(() {
-    //     _selectedColor = color;
-    //     context.read<CreateHabitCubit>().colorChanged(color);
-    //   });
-    // }
+    widget.controller.value = 3;
   }
 
   Future<void> _pickEmoji() async {
-    // Implement emoji picker dialog
-    final emoji = await showDialog<String>(
-      context: context,
-      builder: (context) => EmojiPickerDialog(
-        onEmojiSelected: (emoji) {
-          Navigator.of(context).pop(emoji);
-        },
-      ),
-    );
-    if (emoji != null) {
-      setState(() {
-        _selectedEmoji = emoji;
-        context.read<CreateHabitCubit>().emojiChanged(emoji);
-      });
-    }
+    widget.controller.value = 2;
   }
 
   @override
@@ -155,23 +168,56 @@ class _HabitBasicInfoState extends State<_HabitBasicInfo> {
             ),
           ),
         const SizedBox(height: 16),
-        TextButton(
-          onPressed: _pickColor,
-          child: const Text('Select Color'),
-        ),
-        Container(
-          width: 50,
-          height: 50,
-          color: _selectedColor,
-        ),
-        const SizedBox(height: 16),
-        TextButton(
-          onPressed: _pickEmoji,
-          child: const Text('Select Emoji'),
-        ),
-        Text(
-          'Selected Emoji: $_selectedEmoji',
-          style: const TextStyle(fontSize: 24),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Column(
+              children: [
+                TextButton(
+                  onPressed: _pickColor,
+                  child: const Text('Select Color'),
+                ),
+                Container(
+                  width: 50,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color: _selectedColor,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            Column(
+              children: [
+                TextButton(
+                  onPressed: _pickEmoji,
+                  child: const Text('Select Emoji'),
+                ),
+                Container(
+                  width: 50,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: Theme.of(context).colorScheme.surface,
+                  ),
+                  alignment: Alignment.center,
+                  child: Text(
+                    _selectedEmoji,
+                    style: const TextStyle(
+                      fontSize: 24,
+                      shadows: [
+                        Shadow(
+                          offset: Offset(1, 1),
+                          blurRadius: 2,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
       ],
     );
