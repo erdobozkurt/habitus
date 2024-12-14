@@ -11,6 +11,7 @@ class CustomTextField extends StatelessWidget {
     this.controller,
     this.obscureText = false,
     this.suffixIcon,
+    this.keyboardType = TextInputType.text,
   });
   final String label;
   final String hint;
@@ -19,6 +20,7 @@ class CustomTextField extends StatelessWidget {
   final TextEditingController? controller;
   final bool obscureText;
   final Widget? suffixIcon;
+  final TextInputType keyboardType;
 
   @override
   Widget build(BuildContext context) {

@@ -19,7 +19,7 @@ class CreateHabitState with _$CreateHabitState {
     @Default(FormStatus.pure) FormStatus status,
     @Default(Colors.blue) Color color,
     @Default('✨') String emoji,
-    @Default(0) double target,
+    double? target,
     TimeOfDay? reminderTime,
     @Default(<String>[
       'Monday',

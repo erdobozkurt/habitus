@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:habitus/ui/core/ui/inputs/input.dart';
 import 'package:habitus/ui/core/ui/modals/modal_layout.dart';
 import 'package:habitus/ui/create_habit/cubit/create_habit_cubit.dart';
+import 'package:habitus/ui/home/cubit/home_cubit.dart';
 import 'package:habitus/ui/home/widgets/color_picker.dart';
 import 'package:habitus/ui/home/widgets/emoji_picker.dart';
 
@@ -21,6 +22,7 @@ class CreateHabitModal {
           bottomWidget: _NavigationButtons(
             controller: controller,
             isLastPage: false,
+            onComplete: () {},
           ),
         ),
         ModalPageData(
@@ -34,7 +36,9 @@ class CreateHabitModal {
             controller: controller,
             isLastPage: true,
             onComplete: () {
+              context.read<CreateHabitCubit>().saveHabit();
               context.pop();
+              context.read<HomeCubit>().getHabits();
             },
           ),
         ),
@@ -87,20 +91,29 @@ class _HabitBasicInfoState extends State<_HabitBasicInfo> {
   late TextEditingController _questionController;
   late TextEditingController _targetController;
   HabitType _habitType = HabitType.boolean;
-  Color _selectedColor = Colors.blue;
-  String _selectedEmoji = '✨';
 
   @override
   void initState() {
     super.initState();
     final cubit = context.read<CreateHabitCubit>();
-    _nameController = TextEditingController(text: cubit.state.name);
-    _questionController = TextEditingController(text: cubit.state.question);
+    _nameController = TextEditingController(text: cubit.state.name)
+      ..addListener(() {
+        cubit.nameChanged(_nameController.text);
+      });
+    _questionController = TextEditingController(text: cubit.state.question)
+      ..addListener(() {
+        cubit.questionChanged(_questionController.text);
+      });
     _targetController =
-        TextEditingController(text: cubit.state.target.toString());
+        TextEditingController(text: cubit.state.target.toString())
+          ..addListener(() {
+            if (_targetController.text.isNotEmpty) {
+              cubit.targetChanged(double.parse(_targetController.text));
+            } else {
+              cubit.targetChanged(0);
+            }
+          });
     _habitType = cubit.state.habitType;
-    _selectedColor = cubit.state.color;
-    _selectedEmoji = cubit.state.emoji;
   }
 
   @override
@@ -165,6 +178,7 @@ class _HabitBasicInfoState extends State<_HabitBasicInfo> {
               controller: _targetController,
               label: 'Target',
               hint: 'Enter target value',
+              keyboardType: TextInputType.number,
             ),
           ),
         const SizedBox(height: 16),
@@ -181,7 +195,7 @@ class _HabitBasicInfoState extends State<_HabitBasicInfo> {
                   width: 50,
                   height: 50,
                   decoration: BoxDecoration(
-                    color: _selectedColor,
+                    color: cubit.state.color,
                     borderRadius: BorderRadius.circular(8),
                   ),
                 ),
@@ -203,7 +217,7 @@ class _HabitBasicInfoState extends State<_HabitBasicInfo> {
                   ),
                   alignment: Alignment.center,
                   child: Text(
-                    _selectedEmoji,
+                    cubit.state.emoji,
                     style: const TextStyle(
                       fontSize: 24,
                       shadows: [
@@ -307,15 +321,17 @@ class _NavigationButtons extends StatelessWidget {
   const _NavigationButtons({
     required this.controller,
     required this.isLastPage,
-    this.onComplete,
+    required this.onComplete,
   });
 
   final ValueNotifier<int> controller;
   final bool isLastPage;
-  final VoidCallback? onComplete;
+  final VoidCallback onComplete;
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<CreateHabitCubit>();
+
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Row(
@@ -330,12 +346,40 @@ class _NavigationButtons extends StatelessWidget {
           if (controller.value > 0) const SizedBox(width: 16),
           Expanded(
             child: FilledButton(
-              onPressed: isLastPage ? onComplete : () => controller.value++,
+              onPressed: () {
+                if (isLastPage) {
+                  onComplete();
+                } else {
+                  if (_validateFields(cubit)) {
+                    controller.value++;
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Please fill in all required fields.'),
+                      ),
+                    );
+                  }
+                }
+              },
               child: Text(isLastPage ? 'Create Habit' : 'Next'),
             ),
           ),
         ],
       ),
     );
+  }
+
+  bool _validateFields(CreateHabitCubit cubit) {
+    final state = cubit.state;
+    // Check required fields excluding color and emoji
+    if (state.name.isEmpty || state.question.isEmpty) {
+      return false;
+    }
+    // If habit type is measurable, ensure target is set
+    if (state.habitType == HabitType.measurable &&
+        (state.target == null || state.target! <= 0)) {
+      return false;
+    }
+    return true;
   }
 }

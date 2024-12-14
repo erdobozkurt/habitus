@@ -22,7 +22,7 @@ mixin _$CreateHabitState {
   FormStatus get status => throw _privateConstructorUsedError;
   Color get color => throw _privateConstructorUsedError;
   String get emoji => throw _privateConstructorUsedError;
-  double get target => throw _privateConstructorUsedError;
+  double? get target => throw _privateConstructorUsedError;
   TimeOfDay? get reminderTime => throw _privateConstructorUsedError;
   List<String> get repeatDays => throw _privateConstructorUsedError;
 
@@ -46,7 +46,7 @@ abstract class $CreateHabitStateCopyWith<$Res> {
       FormStatus status,
       Color color,
       String emoji,
-      double target,
+      double? target,
       TimeOfDay? reminderTime,
       List<String> repeatDays});
 }
@@ -72,7 +72,7 @@ class _$CreateHabitStateCopyWithImpl<$Res, $Val extends CreateHabitState>
     Object? status = null,
     Object? color = null,
     Object? emoji = null,
-    Object? target = null,
+    Object? target = freezed,
     Object? reminderTime = freezed,
     Object? repeatDays = null,
   }) {
@@ -101,10 +101,10 @@ class _$CreateHabitStateCopyWithImpl<$Res, $Val extends CreateHabitState>
           ? _value.emoji
           : emoji // ignore: cast_nullable_to_non_nullable
               as String,
-      target: null == target
+      target: freezed == target
           ? _value.target
           : target // ignore: cast_nullable_to_non_nullable
-              as double,
+              as double?,
       reminderTime: freezed == reminderTime
           ? _value.reminderTime
           : reminderTime // ignore: cast_nullable_to_non_nullable
@@ -132,7 +132,7 @@ abstract class _$$CreateHabitStateImplCopyWith<$Res>
       FormStatus status,
       Color color,
       String emoji,
-      double target,
+      double? target,
       TimeOfDay? reminderTime,
       List<String> repeatDays});
 }
@@ -156,7 +156,7 @@ class __$$CreateHabitStateImplCopyWithImpl<$Res>
     Object? status = null,
     Object? color = null,
     Object? emoji = null,
-    Object? target = null,
+    Object? target = freezed,
     Object? reminderTime = freezed,
     Object? repeatDays = null,
   }) {
@@ -185,10 +185,10 @@ class __$$CreateHabitStateImplCopyWithImpl<$Res>
           ? _value.emoji
           : emoji // ignore: cast_nullable_to_non_nullable
               as String,
-      target: null == target
+      target: freezed == target
           ? _value.target
           : target // ignore: cast_nullable_to_non_nullable
-              as double,
+              as double?,
       reminderTime: freezed == reminderTime
           ? _value.reminderTime
           : reminderTime // ignore: cast_nullable_to_non_nullable
@@ -211,7 +211,7 @@ class _$CreateHabitStateImpl implements _CreateHabitState {
       this.status = FormStatus.pure,
       this.color = Colors.blue,
       this.emoji = '✨',
-      this.target = 0,
+      this.target,
       this.reminderTime,
       final List<String> repeatDays = const <String>[
         'Monday',
@@ -243,8 +243,7 @@ class _$CreateHabitStateImpl implements _CreateHabitState {
   @JsonKey()
   final String emoji;
   @override
-  @JsonKey()
-  final double target;
+  final double? target;
   @override
   final TimeOfDay? reminderTime;
   final List<String> _repeatDays;
@@ -312,7 +311,7 @@ abstract class _CreateHabitState implements CreateHabitState {
       final FormStatus status,
       final Color color,
       final String emoji,
-      final double target,
+      final double? target,
       final TimeOfDay? reminderTime,
       final List<String> repeatDays}) = _$CreateHabitStateImpl;
 
@@ -329,7 +328,7 @@ abstract class _CreateHabitState implements CreateHabitState {
   @override
   String get emoji;
   @override
-  double get target;
+  double? get target;
   @override
   TimeOfDay? get reminderTime;
   @override

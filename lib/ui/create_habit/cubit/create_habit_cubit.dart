@@ -64,7 +64,7 @@ class CreateHabitCubit extends Cubit<CreateHabitState> {
               id: UniqueKey().toString(),
               title: state.name,
               question: state.question,
-              target: state.target,
+              target: state.target ?? 0,
               repeatDays: state.repeatDays,
               reminderTime: state.reminderTime,
               color: state.color,
