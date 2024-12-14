@@ -7,7 +7,7 @@ part of 'habit_model.dart';
 // **************************************************************************
 
 ColorConverter _$ColorConverterFromJson(Map<String, dynamic> json) =>
-    ColorConverter();
+    const ColorConverter();
 
 Map<String, dynamic> _$ColorConverterToJson(ColorConverter instance) =>
     <String, dynamic>{};
@@ -44,7 +44,8 @@ Map<String, dynamic> _$$BooleanHabitImplToJson(_$BooleanHabitImpl instance) =>
     };
 
 _$MeasurableHabitImpl _$$MeasurableHabitImplFromJson(
-        Map<String, dynamic> json) =>
+  Map<String, dynamic> json,
+) =>
     _$MeasurableHabitImpl(
       id: json['id'] as String,
       title: json['title'] as String,
@@ -64,7 +65,8 @@ _$MeasurableHabitImpl _$$MeasurableHabitImplFromJson(
     );
 
 Map<String, dynamic> _$$MeasurableHabitImplToJson(
-        _$MeasurableHabitImpl instance) =>
+  _$MeasurableHabitImpl instance,
+) =>
     <String, dynamic>{
       'id': instance.id,
       'title': instance.title,

@@ -297,7 +297,7 @@ class _HabitScheduleState extends State<_HabitSchedule> {
           onTap: () async {
             final time = await showTimePicker(
               context: context,
-              initialTime: _selectedTime ?? TimeOfDay.now(),
+              initialTime: _selectedTime ?? const TimeOfDay(hour: 8, minute: 0),
             );
             if (time != null) {
               setState(() {
