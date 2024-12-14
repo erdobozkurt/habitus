@@ -98,7 +98,7 @@ class __$$ThemeStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ThemeStateImpl implements _ThemeState {
-  const _$ThemeStateImpl({this.themeType = ThemeType.system});
+  const _$ThemeStateImpl({this.themeType = ThemeType.dark});
 
   @override
   @JsonKey()

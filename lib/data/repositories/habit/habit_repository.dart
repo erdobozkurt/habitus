@@ -7,4 +7,5 @@ abstract class IHabitRepository {
   Future<void> createHabit(Habit habit);
   Future<void> updateHabit(Habit habit);
   Future<void> deleteHabit(String id);
+  Future<void> saveProgress(String id, double value);
 }

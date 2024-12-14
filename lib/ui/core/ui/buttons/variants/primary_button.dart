@@ -1,6 +1,7 @@
 // lib/ui_kit/buttons/variants/primary_button.dart
 import 'package:flutter/material.dart';
 import 'package:habitus/ui/core/ui/buttons/base/base_button.dart';
+import 'package:habitus/utils/extensions/context_extension.dart';
 
 class PrimaryButton extends BaseButton {
   const PrimaryButton({
@@ -16,39 +17,19 @@ class PrimaryButton extends BaseButton {
   Widget build(BuildContext context) {
     return SizedBox(
       width: width,
-      child: ElevatedButton(
+      child: FilledButton(
         onPressed: isLoading ? null : onPressed,
-        style: _getButtonStyle(context),
         child: isLoading
-            ? const SizedBox(
+            ? SizedBox(
                 height: 20,
                 width: 20,
-                child: CircularProgressIndicator(strokeWidth: 2),
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  color: context.theme.colorScheme.onPrimary,
+                ),
               )
             : child,
       ),
     );
-  }
-
-  ButtonStyle _getButtonStyle(BuildContext context) {
-    return ElevatedButton.styleFrom(
-      padding: _getPadding(),
-      backgroundColor: Theme.of(context).primaryColor,
-      foregroundColor: Colors.white,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
-      ),
-    );
-  }
-
-  EdgeInsetsGeometry _getPadding() {
-    switch (size) {
-      case ButtonSize.small:
-        return const EdgeInsets.symmetric(horizontal: 16, vertical: 8);
-      case ButtonSize.medium:
-        return const EdgeInsets.symmetric(horizontal: 24, vertical: 12);
-      case ButtonSize.large:
-        return const EdgeInsets.symmetric(horizontal: 32, vertical: 16);
-    }
   }
 }

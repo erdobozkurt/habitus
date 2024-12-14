@@ -344,6 +344,19 @@ class MaterialTheme {
         ),
         scaffoldBackgroundColor: colorScheme.surface,
         canvasColor: colorScheme.surface,
+        filledButtonTheme: FilledButtonThemeData(
+          style: ButtonStyle(
+            backgroundColor:
+                WidgetStateProperty.all<Color>(colorScheme.primary),
+            foregroundColor:
+                WidgetStateProperty.all<Color>(colorScheme.onPrimary),
+            shape: WidgetStateProperty.all<OutlinedBorder>(
+              const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+              ),
+            ),
+          ),
+        ),
       );
 
   List<ExtendedColor> get extendedColors => [];

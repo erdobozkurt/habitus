@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:habitus/ui/core/ui/buttons/variants/primary_button.dart';
 import 'package:habitus/ui/core/ui/inputs/input.dart';
 import 'package:habitus/ui/core/ui/modals/modal_layout.dart';
 import 'package:habitus/ui/create_habit/cubit/create_habit_cubit.dart';
 import 'package:habitus/ui/create_habit/widgets/color_picker.dart';
 import 'package:habitus/ui/create_habit/widgets/emoji_picker.dart';
 import 'package:habitus/ui/home/cubit/home_cubit.dart';
+import 'package:habitus/utils/extensions/context_extension.dart';
 
 class CreateHabitModal {
   static void show(BuildContext context) {
@@ -29,8 +31,11 @@ class CreateHabitModal {
           title: 'Set Schedule',
           contentBuilder: (context) => [const _HabitSchedule()],
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () => controller.value--,
+            icon: Icon(
+              Icons.arrow_back,
+              color: context.theme.colorScheme.onSurface,
+            ),
+            onPressed: () => controller.value = 0,
           ),
           bottomWidget: _NavigationButtons(
             controller: controller,
@@ -45,7 +50,10 @@ class CreateHabitModal {
         ModalPageData(
           title: 'Select Emoji',
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back, color: Colors.black),
+            icon: Icon(
+              Icons.arrow_back,
+              color: context.theme.colorScheme.onSurface,
+            ),
             onPressed: () => controller.value = 0,
           ),
           contentBuilder: (context) => [
@@ -60,7 +68,10 @@ class CreateHabitModal {
         ModalPageData(
           title: 'Pick a Color',
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back, color: Colors.black),
+            icon: Icon(
+              Icons.arrow_back,
+              color: context.theme.colorScheme.onSurface,
+            ),
             onPressed: () => controller.value = 0,
           ),
           contentBuilder: (context) => [
@@ -338,7 +349,7 @@ class _NavigationButtons extends StatelessWidget {
           ),
         if (controller.value > 0) const SizedBox(width: 16),
         Expanded(
-          child: FilledButton(
+          child: PrimaryButton(
             onPressed: () {
               if (isLastPage) {
                 onComplete();
@@ -354,7 +365,7 @@ class _NavigationButtons extends StatelessWidget {
                 }
               }
             },
-            child: Text(isLastPage ? 'Create Habit' : 'Next'),
+            child: Text(isLastPage ? 'Save' : 'Next'),
           ),
         ),
       ],

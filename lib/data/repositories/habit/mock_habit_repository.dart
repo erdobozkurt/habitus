@@ -80,4 +80,20 @@ class MockHabitRepository implements IHabitRepository {
     await Future<void>.delayed(const Duration(milliseconds: 500));
     _habits.removeWhere((habit) => habit.id == id);
   }
+
+  @override
+  Future<void> saveProgress(String id, double value) async {
+    await Future<void>.delayed(const Duration(milliseconds: 500));
+    final index = _habits.indexWhere((h) => h.id == id);
+    if (index != -1) {
+      final habit = _habits[index];
+      if (habit is MeasurableHabit) {
+        _habits[index] = habit.copyWith(current: value);
+      } else {
+        throw Exception('Habit is not measurable');
+      }
+    } else {
+      throw Exception('Habit not found');
+    }
+  }
 }

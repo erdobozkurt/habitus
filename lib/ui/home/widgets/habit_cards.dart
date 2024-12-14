@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:habitus/domain/models/habit/habit_model.dart';
 import 'package:habitus/ui/core/themes/constants/gap_constants.dart';
 import 'package:habitus/ui/core/themes/constants/padding_constants.dart';
+import 'package:habitus/ui/habit_progress/habit_progress_modal.dart';
 import 'package:habitus/utils/extensions/context_extension.dart';
 
 class HabitCard extends StatefulWidget {
@@ -54,6 +55,11 @@ class _HabitCardState extends State<HabitCard>
         onTapDown: (_) => _controller.forward(),
         onTapUp: (_) => _controller.reverse(),
         onTapCancel: () => _controller.reverse(),
+        onTap: () {
+          if (widget.habit is MeasurableHabit) {
+            HabitProgressModal.show(context, widget.habit as MeasurableHabit);
+          }
+        },
         child: Card(
           elevation: 4,
           shape: RoundedRectangleBorder(
