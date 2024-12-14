@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:habitus/ui/core/themes/constants/padding_constants.dart';
 import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
 class ModalPageData {
@@ -24,7 +25,7 @@ class ModalLayout {
     required BuildContext context,
     Widget? trailing,
     bool isTopBarLayerAlwaysVisible = true,
-    EdgeInsets contentPadding = const EdgeInsets.all(16),
+    EdgeInsets contentPadding = PaddingConstants.modalPadding,
   }) {
     return SliverWoltModalSheetPage(
       useSafeArea: true,
@@ -41,8 +42,14 @@ class ModalLayout {
           ),
         ),
         if (pageData.bottomWidget != null)
-          SliverToBoxAdapter(
-            child: pageData.bottomWidget,
+          SliverPadding(
+            padding: EdgeInsets.only(
+              left: PaddingConstants.modalPadding.left,
+              right: PaddingConstants.modalPadding.right,
+            ),
+            sliver: SliverToBoxAdapter(
+              child: pageData.bottomWidget,
+            ),
           ),
       ],
     );

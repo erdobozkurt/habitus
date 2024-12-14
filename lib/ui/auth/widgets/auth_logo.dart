@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:habitus/ui/core/themes/constants/padding_constants.dart';
 import 'package:habitus/utils/managers/asset_manager.dart';
 
 class AuthLogo extends StatelessWidget {
@@ -16,7 +17,7 @@ class AuthLogo extends StatelessWidget {
           width: isSmallScreen ? 120 : 240,
         ),
         Padding(
-          padding: const EdgeInsets.all(16),
+          padding: PaddingConstants.cardContentPadding,
           child: Text(
             'Welcome to Habitus!',
             textAlign: TextAlign.center,

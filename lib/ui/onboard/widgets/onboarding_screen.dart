@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:habitus/router/route_constants.dart';
+import 'package:habitus/ui/core/themes/constants/padding_constants.dart';
 import 'package:habitus/ui/onboard/models/onboarding_screen_model.dart';
 import 'package:habitus/utils/managers/asset_manager.dart';
 
@@ -93,7 +94,9 @@ class _OnboardingPageState extends State<_OnboardingPagePresenter> {
                         Expanded(
                           flex: 3,
                           child: Padding(
-                            padding: const EdgeInsets.all(32),
+                            padding: PaddingConstants.custom(
+                              all: 32,
+                            ),
                             child: Image.asset(
                               item.imageAsset,
                               fit: BoxFit.contain,
@@ -104,7 +107,7 @@ class _OnboardingPageState extends State<_OnboardingPagePresenter> {
                           child: Column(
                             children: [
                               Padding(
-                                padding: const EdgeInsets.all(16),
+                                padding: PaddingConstants.screenEdge,
                                 child: Text(
                                   item.title,
                                   style: Theme.of(context)
@@ -119,9 +122,9 @@ class _OnboardingPageState extends State<_OnboardingPagePresenter> {
                               Container(
                                 constraints:
                                     const BoxConstraints(maxWidth: 280),
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 24,
-                                  vertical: 8,
+                                padding: PaddingConstants.custom(
+                                  horizontal: PaddingConstants.lg,
+                                  vertical: PaddingConstants.sm,
                                 ),
                                 child: Text(
                                   item.description,
@@ -153,7 +156,9 @@ class _OnboardingPageState extends State<_OnboardingPagePresenter> {
                         width:
                             _currentPage == widget.pages.indexOf(item) ? 30 : 8,
                         height: 8,
-                        margin: const EdgeInsets.all(2),
+                        margin: PaddingConstants.custom(
+                          horizontal: PaddingConstants.xs,
+                        ),
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(10),

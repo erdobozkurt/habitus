@@ -1,6 +1,7 @@
 // lib/feature/auth/widgets/form_content.dart
 import 'package:flutter/material.dart';
 import 'package:habitus/ui/core/themes/constants/gap_constants.dart';
+import 'package:habitus/ui/core/themes/constants/padding_constants.dart';
 
 class FormContent extends StatefulWidget {
   const FormContent({
@@ -9,7 +10,7 @@ class FormContent extends StatefulWidget {
     super.key,
     this.formKey,
     this.maxWidth = 400,
-    this.padding = const EdgeInsets.all(24),
+    this.padding = PaddingConstants.inputFieldPadding,
   });
 
   final List<Widget> children;

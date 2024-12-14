@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:habitus/ui/auth/widgets/auth_logo.dart';
+import 'package:habitus/ui/core/themes/constants/padding_constants.dart';
 import 'package:habitus/utils/extensions/context_extension.dart';
 
 class AuthPageLayout extends StatelessWidget {
@@ -28,7 +29,7 @@ class AuthPageLayout extends StatelessWidget {
                 ],
               )
             : Container(
-                padding: const EdgeInsets.all(32),
+                padding: PaddingConstants.screenEdge,
                 constraints: const BoxConstraints(maxWidth: 800),
                 child: Row(
                   children: [

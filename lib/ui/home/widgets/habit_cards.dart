@@ -1,6 +1,7 @@
 // lib/ui/core/ui/cards/habit_card.dart
 import 'package:flutter/material.dart';
 import 'package:habitus/domain/models/habit/habit_model.dart';
+import 'package:habitus/ui/core/themes/constants/padding_constants.dart';
 
 class HabitCard extends StatefulWidget {
   const HabitCard({
@@ -57,7 +58,7 @@ class _HabitCardState extends State<HabitCard>
             borderRadius: BorderRadius.circular(16),
           ),
           child: Container(
-            padding: const EdgeInsets.all(16),
+            padding: PaddingConstants.cardPadding,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
               color: widget.habit.color,

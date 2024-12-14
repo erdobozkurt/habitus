@@ -4,6 +4,7 @@ import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:habitus/domain/enums/status.dart';
+import 'package:habitus/ui/core/themes/constants/padding_constants.dart';
 import 'package:habitus/ui/home/cubit/home_cubit.dart';
 import 'package:habitus/ui/home/widgets/custom_date_picker.dart';
 import 'package:habitus/ui/home/widgets/habit_cards.dart';
@@ -82,6 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Scaffold(
               appBar: AppBar(title: const Text('Home')),
               body: Column(
+                spacing: 16,
                 children: [
                   CustomDatePicker(
                     selectedDate: _selectedDate,
@@ -89,7 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   Expanded(
                     child: ListView.separated(
-                      padding: const EdgeInsets.all(16),
+                      padding: PaddingConstants.listItemPadding,
                       itemCount: routines.length,
                       separatorBuilder: (_, __) => const SizedBox(height: 12),
                       itemBuilder: (context, index) {

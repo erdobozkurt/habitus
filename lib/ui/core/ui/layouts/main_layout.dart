@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:habitus/router/route_constants.dart';
-import 'package:habitus/ui/home/widgets/create_habit_modal.dart';
+import 'package:habitus/ui/create_habit/widgets/create_habit_modal.dart';
 
 class MainLayout extends StatelessWidget {
   const MainLayout({

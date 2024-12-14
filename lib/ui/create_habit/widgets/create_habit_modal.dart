@@ -4,9 +4,9 @@ import 'package:go_router/go_router.dart';
 import 'package:habitus/ui/core/ui/inputs/input.dart';
 import 'package:habitus/ui/core/ui/modals/modal_layout.dart';
 import 'package:habitus/ui/create_habit/cubit/create_habit_cubit.dart';
+import 'package:habitus/ui/create_habit/widgets/color_picker.dart';
+import 'package:habitus/ui/create_habit/widgets/emoji_picker.dart';
 import 'package:habitus/ui/home/cubit/home_cubit.dart';
-import 'package:habitus/ui/home/widgets/color_picker.dart';
-import 'package:habitus/ui/home/widgets/emoji_picker.dart';
 
 class CreateHabitModal {
   static void show(BuildContext context) {
@@ -327,40 +327,37 @@ class _NavigationButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     final cubit = context.read<CreateHabitCubit>();
 
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: Row(
-        children: [
-          if (controller.value > 0)
-            Expanded(
-              child: OutlinedButton(
-                onPressed: () => controller.value--,
-                child: const Text('Back'),
-              ),
-            ),
-          if (controller.value > 0) const SizedBox(width: 16),
+    return Row(
+      children: [
+        if (controller.value > 0)
           Expanded(
-            child: FilledButton(
-              onPressed: () {
-                if (isLastPage) {
-                  onComplete();
-                } else {
-                  if (_validateFields(cubit)) {
-                    controller.value++;
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Please fill in all required fields.'),
-                      ),
-                    );
-                  }
-                }
-              },
-              child: Text(isLastPage ? 'Create Habit' : 'Next'),
+            child: OutlinedButton(
+              onPressed: () => controller.value--,
+              child: const Text('Back'),
             ),
           ),
-        ],
-      ),
+        if (controller.value > 0) const SizedBox(width: 16),
+        Expanded(
+          child: FilledButton(
+            onPressed: () {
+              if (isLastPage) {
+                onComplete();
+              } else {
+                if (_validateFields(cubit)) {
+                  controller.value++;
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Please fill in all required fields.'),
+                    ),
+                  );
+                }
+              }
+            },
+            child: Text(isLastPage ? 'Create Habit' : 'Next'),
+          ),
+        ),
+      ],
     );
   }
 

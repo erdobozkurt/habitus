@@ -13,7 +13,7 @@ class EmojiPickerWidget extends StatelessWidget {
       child: EmojiPicker(
         config: const Config(
           categoryViewConfig: CategoryViewConfig(
-            initCategory: Category.SYMBOLS,
+            initCategory: Category.ACTIVITIES,
           ),
         ),
         onEmojiSelected: (category, emoji) {
