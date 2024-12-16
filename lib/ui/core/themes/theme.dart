@@ -4,6 +4,50 @@ class MaterialTheme {
   const MaterialTheme(this.textTheme);
   final TextTheme textTheme;
 
+  ThemeData theme(ColorScheme colorScheme) => ThemeData(
+        useMaterial3: true,
+        brightness: colorScheme.brightness,
+        colorScheme: colorScheme,
+        pageTransitionsTheme: const PageTransitionsTheme(
+          builders: {
+            TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
+            TargetPlatform.iOS: FadeUpwardsPageTransitionsBuilder(),
+          },
+        ),
+        textTheme: textTheme.apply(
+          bodyColor: colorScheme.onSurface,
+          displayColor: colorScheme.onSurface,
+        ),
+        scaffoldBackgroundColor: colorScheme.surface,
+        canvasColor: colorScheme.surface,
+        filledButtonTheme: FilledButtonThemeData(
+          style: ButtonStyle(
+            backgroundColor:
+                WidgetStateProperty.all<Color>(colorScheme.primary),
+            foregroundColor:
+                WidgetStateProperty.all<Color>(colorScheme.onPrimary),
+            shape: WidgetStateProperty.all<OutlinedBorder>(
+              const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+              ),
+            ),
+          ),
+        ),
+        outlinedButtonTheme: OutlinedButtonThemeData(
+          style: ButtonStyle(
+            backgroundColor:
+                WidgetStateProperty.all<Color>(colorScheme.surface),
+            foregroundColor:
+                WidgetStateProperty.all<Color>(colorScheme.primary),
+            shape: WidgetStateProperty.all<OutlinedBorder>(
+              const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+              ),
+            ),
+          ),
+        ),
+      );
+
   static ColorScheme lightScheme() {
     return const ColorScheme(
       brightness: Brightness.light,
@@ -333,37 +377,6 @@ class MaterialTheme {
   ThemeData darkHighContrast() {
     return theme(darkHighContrastScheme());
   }
-
-  ThemeData theme(ColorScheme colorScheme) => ThemeData(
-        useMaterial3: true,
-        brightness: colorScheme.brightness,
-        colorScheme: colorScheme,
-        pageTransitionsTheme: const PageTransitionsTheme(
-          builders: {
-            TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
-            TargetPlatform.iOS: FadeUpwardsPageTransitionsBuilder(),
-          },
-        ),
-        textTheme: textTheme.apply(
-          bodyColor: colorScheme.onSurface,
-          displayColor: colorScheme.onSurface,
-        ),
-        scaffoldBackgroundColor: colorScheme.surface,
-        canvasColor: colorScheme.surface,
-        filledButtonTheme: FilledButtonThemeData(
-          style: ButtonStyle(
-            backgroundColor:
-                WidgetStateProperty.all<Color>(colorScheme.primary),
-            foregroundColor:
-                WidgetStateProperty.all<Color>(colorScheme.onPrimary),
-            shape: WidgetStateProperty.all<OutlinedBorder>(
-              const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(8)),
-              ),
-            ),
-          ),
-        ),
-      );
 
   List<ExtendedColor> get extendedColors => [];
 }
