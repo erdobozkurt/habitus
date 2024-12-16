@@ -1,40 +1,59 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:habitus/router/route_constants.dart';
 import 'package:habitus/ui/core/themes/constants/padding_constants.dart';
-import 'package:habitus/ui/onboard/models/onboarding_screen_model.dart';
+import 'package:habitus/ui/onboard/cubit/onboard_cubit.dart';
 import 'package:habitus/utils/managers/asset_manager.dart';
+
+class _OnboardingScreenModel {
+  _OnboardingScreenModel({
+    required this.title,
+    required this.description,
+    required this.imageAsset,
+    this.bgColor = Colors.blue,
+  });
+  final String title;
+  final String description;
+  final String imageAsset;
+  final Color bgColor;
+  final Color textColor = Colors.white;
+}
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<OnboardCubit>();
     final assetManager = AssetsManager.instance;
     return Scaffold(
       body: _OnboardingPagePresenter(
-        onSkip: () {
-          context.push(RouteConstants.signIn);
+        onSkip: () async {
+          await cubit.setOnboarded();
+
+          context.go(RouteConstants.home);
         },
-        onFinish: () {
-          context.push(RouteConstants.signIn);
+        onFinish: () async {
+          await cubit.setOnboarded();
+          context.go(RouteConstants.home);
         },
         pages: [
-          OnboardingScreenModel(
+          _OnboardingScreenModel(
             title: 'Create Custom Routines',
             description:
                 '''Easily create and customize your own routines to fit your lifestyle.''',
             imageAsset: assetManager.createRoutineImage,
             bgColor: Colors.indigo,
           ),
-          OnboardingScreenModel(
+          _OnboardingScreenModel(
             title: 'Edit Existing Routines',
             description:
                 '''Modify your routines anytime to keep them up-to-date with your goals.''',
             imageAsset: assetManager.editRoutineImage,
             bgColor: const Color(0xff1eb090),
           ),
-          OnboardingScreenModel(
+          _OnboardingScreenModel(
             title: 'Track Your Progress',
             description:
                 '''Monitor your progress with detailed graphs and analytics.''',
@@ -53,7 +72,7 @@ class _OnboardingPagePresenter extends StatefulWidget {
     this.onSkip,
     this.onFinish,
   });
-  final List<OnboardingScreenModel> pages;
+  final List<_OnboardingScreenModel> pages;
   final VoidCallback? onSkip;
   final VoidCallback? onFinish;
 

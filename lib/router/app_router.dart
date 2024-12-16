@@ -1,11 +1,10 @@
-// lib/core/routes/app_router.dart
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:habitus/router/route_constants.dart';
-import 'package:habitus/ui/auth/widgets/sign_in_screen.dart';
-import 'package:habitus/ui/auth/widgets/sign_up_screen.dart';
 import 'package:habitus/ui/core/ui/layouts/main_layout.dart';
 import 'package:habitus/ui/home/widgets/home_screen.dart';
+import 'package:habitus/ui/onboard/cubit/onboard_cubit.dart';
 import 'package:habitus/ui/onboard/widgets/onboarding_screen.dart';
 import 'package:habitus/ui/profile/widgets/profile_screen.dart';
 import 'package:habitus/ui/routines/widgets/routines_page.dart';
@@ -16,23 +15,15 @@ class AppRouter {
   static final GoRouter router = GoRouter(
     debugLogDiagnostics: true,
     navigatorKey: _rootNavigatorKey,
-    initialLocation: RouteConstants.home,
+    initialLocation: RouteConstants.onboarding,
     routes: [
-      // GoRoute(
-      //   path: RouteConstants.splash,
-      //   builder: (context, state) => const SplashPage(),
-      // ),
+      GoRoute(
+        path: '/',
+        redirect: (_, __) => RouteConstants.onboarding,
+      ),
       GoRoute(
         path: RouteConstants.onboarding,
         builder: (context, state) => const OnboardingScreen(),
-      ),
-      GoRoute(
-        path: RouteConstants.signIn,
-        builder: (context, state) => const SignInPage(),
-      ),
-      GoRoute(
-        path: RouteConstants.signUp,
-        builder: (context, state) => const SignUpPage(),
       ),
       ShellRoute(
         builder: (context, state, child) => MainLayout(child: child),
@@ -53,17 +44,22 @@ class AppRouter {
       ),
     ],
     redirect: (context, state) async {
-      return null;
+      final onboardCubit = context.read<OnboardCubit>();
 
-      // TODO(erdobozkurt): Auth guard implementation
-      // final isLoggedIn = await AuthService.instance.isLoggedIn();
-      // final isGoingToLogin = state.uri.path == RouteConstants.signIn;
+      // Check onboard status only if not checked yet
+      if (!onboardCubit.state.isChecked) {
+        await onboardCubit.checkOnboardStatus();
+      }
 
-      // if (!isLoggedIn && !isGoingToLogin) {
-      //   return RouteConstants.signIn;
-      // }
+      // Allow navigation within app if onboarded
+      if (onboardCubit.state.isOnboarded) {
+        return state.uri.path == RouteConstants.onboarding
+            ? RouteConstants.home
+            : null;
+      }
 
-      // return null;
+      // Force onboarding if not onboarded
+      return RouteConstants.onboarding;
     },
   );
 }

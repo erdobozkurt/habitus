@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:habitus/data/repositories/habit/habit_repository.dart';
 import 'package:habitus/data/repositories/habit/mock_habit_repository.dart';
+import 'package:habitus/data/repositories/onboard/onboard_repository.dart';
 import 'package:habitus/data/repositories/theme/theme_repository.dart';
 import 'package:habitus/data/services/local/shared_client.dart';
 
@@ -15,6 +16,11 @@ Future<List<RepositoryProvider<dynamic>>> locator({
     ),
     RepositoryProvider<IThemeRepository>(
       create: (context) => ThemeRepository(
+        context.read<SharedClient>(),
+      ),
+    ),
+    RepositoryProvider<IOnboardRepository>(
+      create: (context) => OnboardRepository(
         context.read<SharedClient>(),
       ),
     ),

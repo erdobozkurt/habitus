@@ -96,7 +96,7 @@ class _SignInFormState extends State<_SignInForm> {
         GapConstants.h16,
         _SignUpLink(
           enabled: !_isLoading,
-          onPressed: () => context.push(RouteConstants.signUp),
+          onPressed: () {},
         ),
       ],
     );

@@ -338,6 +338,12 @@ class MaterialTheme {
         useMaterial3: true,
         brightness: colorScheme.brightness,
         colorScheme: colorScheme,
+        pageTransitionsTheme: const PageTransitionsTheme(
+          builders: {
+            TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
+            TargetPlatform.iOS: FadeUpwardsPageTransitionsBuilder(),
+          },
+        ),
         textTheme: textTheme.apply(
           bodyColor: colorScheme.onSurface,
           displayColor: colorScheme.onSurface,
