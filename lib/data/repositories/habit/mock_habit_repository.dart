@@ -36,9 +36,25 @@ class MockHabitRepository implements IHabitRepository {
       id: '4',
       title: 'Workout',
       question: 'Did you workout today?',
-      repeatDays: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+      repeatDays: ['Monday', 'Wednesday', 'Thursday'],
       emoji: '🏋️‍♂️',
       color: Colors.green,
+    ),
+    const Habit.boolean(
+      id: '5',
+      title: 'Journaling',
+      question: 'Did you journal today?',
+      repeatDays: ['Monday', 'Wednesday', 'Friday'],
+      emoji: '📝',
+      color: Colors.red,
+    ),
+    const Habit.boolean(
+      id: '6',
+      title: 'Rest Well',
+      question: 'Did you eat healthy today?',
+      repeatDays: ['Sunday'],
+      emoji: '🥗',
+      color: Colors.pink,
     ),
   ];
 

@@ -1,4 +1,5 @@
-import 'dart:math';
+import 'dart:developer';
+import 'dart:math' hide log;
 
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
@@ -20,18 +21,22 @@ class _HomeScreenState extends State<HomeScreen> {
   late final ConfettiController _confettiController;
   DateTime _selectedDate = DateTime.now();
 
+  static const Map<int, String> weekDayNames = {
+    1: 'Monday',
+    2: 'Tuesday',
+    3: 'Wednesday',
+    4: 'Thursday',
+    5: 'Friday',
+    6: 'Saturday',
+    7: 'Sunday',
+  };
+
   @override
   void initState() {
     super.initState();
     _confettiController =
         ConfettiController(duration: const Duration(seconds: 1));
     context.read<HomeCubit>().getHabits();
-    debugPrint('HomeScreen initialized');
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
   }
 
   @override
@@ -42,7 +47,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Path _drawStar(Size size) {
     double degToRad(double deg) => deg * (pi / 180.0);
-
     const numberOfPoints = 5;
     final halfWidth = size.width / 2;
     final externalRadius = halfWidth;
@@ -53,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final fullAngle = degToRad(360);
     path.moveTo(size.width, halfWidth);
 
-    for (var step = 0.0; step < fullAngle; step += degreesPerStep) {
+    for (double step = 0; step < fullAngle; step += degreesPerStep) {
       path
         ..lineTo(
           halfWidth + externalRadius * cos(step),
@@ -72,47 +76,65 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
-        final routines = state.habits;
         if (state.status == Status.loading) {
           return const Center(child: CircularProgressIndicator());
-        } else if (state.status == Status.error) {
+        }
+
+        if (state.status == Status.error) {
           return const Center(child: Text('An error occurred'));
         }
+
+        final currentWeekDay = weekDayNames[_selectedDate.weekday] ?? '';
+        log('Current weekday: $currentWeekDay (${_selectedDate.weekday})');
+
+        final filteredHabits = state.habits.where((habit) {
+          final contains = habit.repeatDays.contains(currentWeekDay);
+          log('''Habit ${habit.id} repeatDays: ${habit.repeatDays}, contains: $contains''');
+          return contains;
+        }).toList();
+
         return Stack(
           children: [
             Scaffold(
               appBar: AppBar(title: const Text('Home')),
               body: Column(
-                spacing: 16,
                 children: [
                   CustomDatePicker(
                     selectedDate: _selectedDate,
                     onDateSelected: _handleDateSelected,
                   ),
-                  Expanded(
-                    child: ListView.separated(
-                      padding: PaddingConstants.listItemPadding,
-                      itemCount: routines.length,
-                      separatorBuilder: (_, __) => const SizedBox(height: 12),
-                      itemBuilder: (context, index) {
-                        final routine = routines[index];
-                        return HabitCard(
-                          habit: routine,
-                          onToggleComplete: (completed) {
-                            context
-                                .read<HomeCubit>()
-                                .toggleHabit(
-                                  routine.id,
-                                  completed: completed,
-                                )
-                                .then((completed) {
-                              _confettiController.play();
-                            });
-                          },
-                        );
-                      },
+                  if (filteredHabits.isEmpty)
+                    const Padding(
+                      padding: EdgeInsets.all(16),
+                      child: Text('No habits scheduled for today'),
+                    )
+                  else
+                    Expanded(
+                      child: ListView.separated(
+                        padding: PaddingConstants.listItemPadding,
+                        itemCount: filteredHabits.length,
+                        separatorBuilder: (_, __) => const SizedBox(height: 12),
+                        itemBuilder: (context, index) {
+                          final habit = filteredHabits[index];
+                          return HabitCard(
+                            habit: habit,
+                            onToggleComplete: (completed) {
+                              context
+                                  .read<HomeCubit>()
+                                  .toggleHabit(
+                                    habit.id,
+                                    completed: completed,
+                                  )
+                                  .then((success) {
+                                if (completed) {
+                                  _confettiController.play();
+                                }
+                              });
+                            },
+                          );
+                        },
+                      ),
                     ),
-                  ),
                 ],
               ),
             ),
