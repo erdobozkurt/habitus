@@ -20,6 +20,10 @@ _$BooleanHabitImpl _$$BooleanHabitImplFromJson(Map<String, dynamic> json) =>
       repeatDays: (json['repeatDays'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
+      entries: (json['entries'] as List<dynamic>?)
+              ?.map((e) => HabitEntry.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
       type: $enumDecodeNullable(_$HabitTypeEnumMap, json['type']) ??
           HabitType.boolean,
       reminderTime:
@@ -38,6 +42,7 @@ Map<String, dynamic> _$$BooleanHabitImplToJson(_$BooleanHabitImpl instance) =>
       'title': instance.title,
       'question': instance.question,
       'repeatDays': instance.repeatDays,
+      'entries': instance.entries,
       'type': _$HabitTypeEnumMap[instance.type]!,
       'reminderTime': const TimeOfDayConverter().toJson(instance.reminderTime),
       'emoji': instance.emoji,
@@ -61,6 +66,10 @@ _$MeasurableHabitImpl _$$MeasurableHabitImplFromJson(
       repeatDays: (json['repeatDays'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
+      entries: (json['entries'] as List<dynamic>?)
+              ?.map((e) => HabitEntry.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
       type: $enumDecodeNullable(_$HabitTypeEnumMap, json['type']) ??
           HabitType.measurable,
       reminderTime:
@@ -81,6 +90,7 @@ Map<String, dynamic> _$$MeasurableHabitImplToJson(
       'question': instance.question,
       'target': instance.target,
       'repeatDays': instance.repeatDays,
+      'entries': instance.entries,
       'type': _$HabitTypeEnumMap[instance.type]!,
       'reminderTime': const TimeOfDayConverter().toJson(instance.reminderTime),
       'current': instance.current,

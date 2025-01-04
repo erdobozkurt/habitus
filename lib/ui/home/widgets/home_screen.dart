@@ -77,7 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
         if (state.status == Status.loading) {
-          return const Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator.adaptive());
         }
 
         if (state.status == Status.error) {

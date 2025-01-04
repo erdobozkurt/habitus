@@ -1,6 +1,7 @@
 // habit_model.dart
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:habitus/domain/models/habit_entry/habit_entry_model.dart';
 import 'package:habitus/ui/create_habit/cubit/create_habit_cubit.dart';
 
 part 'habit_model.freezed.dart';
@@ -44,8 +45,7 @@ class Habit with _$Habit {
     required String title,
     required String question,
     required List<String> repeatDays,
-
-    /// Habit type: boolean or measurable
+    @Default([]) List<HabitEntry> entries,
     @Default(HabitType.boolean) HabitType type,
     @TimeOfDayConverter() TimeOfDay? reminderTime,
     @Default('✨') String emoji,
@@ -59,6 +59,7 @@ class Habit with _$Habit {
     required String question,
     required double target,
     required List<String> repeatDays,
+    @Default([]) List<HabitEntry> entries,
     @Default(HabitType.measurable) HabitType type,
     @TimeOfDayConverter() TimeOfDay? reminderTime,
     @Default(0.0) double current,
