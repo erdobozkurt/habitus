@@ -6,7 +6,6 @@ import 'package:habitus/ui/core/ui/layouts/main_layout.dart';
 import 'package:habitus/ui/home/widgets/home_screen.dart';
 import 'package:habitus/ui/onboard/cubit/onboard_cubit.dart';
 import 'package:habitus/ui/onboard/widgets/onboarding_screen.dart';
-import 'package:habitus/ui/profile/widgets/profile_screen.dart';
 import 'package:habitus/ui/routines/widgets/routines_page.dart';
 
 class AppRouter {
@@ -25,20 +24,45 @@ class AppRouter {
         path: RouteConstants.onboarding,
         builder: (context, state) => const OnboardingScreen(),
       ),
-      ShellRoute(
-        builder: (context, state, child) => MainLayout(child: child),
-        routes: [
-          GoRoute(
-            path: RouteConstants.home,
-            builder: (context, state) => const HomeScreen(),
+      // ShellRoute(
+      //   builder: (context, state, child) => MainLayout(child: child),
+      //   routes: [
+      //     GoRoute(
+      //       path: RouteConstants.home,
+      //       builder: (context, state) => const HomeScreen(),
+      //     ),
+      //     GoRoute(
+      //       path: RouteConstants.routines,
+      //       builder: (context, state) => const RoutinesPage(),
+      //     ),
+      //     GoRoute(
+      //       path: RouteConstants.profile,
+      //       builder: (context, state) => const ProfilePage(),
+      //     ),
+      //   ],
+      // ),
+      StatefulShellRoute.indexedStack(
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state, navigationShell) =>
+            MainLayout(navigationShell: navigationShell),
+        branches: [
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: RouteConstants.home,
+                pageBuilder: (context, state) =>
+                    const NoTransitionPage(child: HomeScreen()),
+              ),
+            ],
           ),
-          GoRoute(
-            path: RouteConstants.routines,
-            builder: (context, state) => const RoutinesPage(),
-          ),
-          GoRoute(
-            path: RouteConstants.profile,
-            builder: (context, state) => const ProfilePage(),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: RouteConstants.routines,
+                pageBuilder: (context, state) =>
+                    const NoTransitionPage(child: RoutinesScreen()),
+              ),
+            ],
           ),
         ],
       ),

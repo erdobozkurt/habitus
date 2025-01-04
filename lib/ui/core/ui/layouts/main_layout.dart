@@ -1,22 +1,32 @@
 // lib/core/layouts/main_layout.dart
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:habitus/router/route_constants.dart';
 import 'package:habitus/ui/core/ui/layouts/app_bar_settings.dart';
 import 'package:habitus/ui/create_habit/widgets/create_habit_modal.dart';
 
 class MainLayout extends StatelessWidget {
   const MainLayout({
-    required this.child,
+    required this.navigationShell,
     super.key,
   });
 
-  final Widget child;
+  final StatefulNavigationShell navigationShell;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: child,
+      body: AnimatedSwitcher(
+        duration: kThemeAnimationDuration,
+        switchInCurve: Curves.ease,
+        switchOutCurve: Curves.ease,
+        layoutBuilder: (currentChild, previousChildren) {
+          return currentChild!;
+        },
+        child: SizedBox(
+          key: ValueKey(navigationShell.currentIndex),
+          child: navigationShell,
+        ),
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         shape: const CircleBorder(),
@@ -28,17 +38,15 @@ class MainLayout extends StatelessWidget {
         notchMargin: 16,
         child: NavigationBar(
           backgroundColor: Colors.transparent,
-          onDestinationSelected: (index) {
-            switch (index) {
-              case 0:
-                context.go(RouteConstants.home);
-              case 1:
-                context.go(RouteConstants.routines);
-              case 2:
-                context.go(RouteConstants.profile);
-            }
+          onDestinationSelected: (
+            index,
+          ) {
+            navigationShell.goBranch(
+              index,
+              initialLocation: index == navigationShell.currentIndex,
+            );
           },
-          selectedIndex: _calculateSelectedIndex(context),
+          selectedIndex: navigationShell.currentIndex,
           destinations: const [
             NavigationDestination(
               icon: Icon(Icons.home_outlined),
@@ -66,13 +74,5 @@ class MainLayout extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  int _calculateSelectedIndex(BuildContext context) {
-    final location = GoRouterState.of(context).uri.path;
-    if (location.startsWith(RouteConstants.home)) return 0;
-    if (location.startsWith(RouteConstants.routines)) return 1;
-    if (location.startsWith(RouteConstants.profile)) return 2;
-    return 0;
   }
 }

@@ -32,10 +32,12 @@ class OnboardingScreen extends StatelessWidget {
         onSkip: () async {
           await cubit.setOnboarded();
 
+          // ignore: use_build_context_synchronously
           context.go(RouteConstants.home);
         },
         onFinish: () async {
           await cubit.setOnboarded();
+          // ignore: use_build_context_synchronously
           context.go(RouteConstants.home);
         },
         pages: [
