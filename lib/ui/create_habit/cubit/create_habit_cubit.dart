@@ -51,7 +51,7 @@ class CreateHabitCubit extends Cubit<CreateHabitState> {
     emit(state.copyWith(status: FormStatus.submissionInProgress));
     try {
       final habit = state.habitType == HabitType.boolean
-          ? Habit.boolean(
+          ? Habit(
               id: UniqueKey().toString(),
               title: state.name,
               question: state.question,
@@ -60,11 +60,11 @@ class CreateHabitCubit extends Cubit<CreateHabitState> {
               color: state.color,
               emoji: state.emoji,
             )
-          : Habit.measurable(
+          : Habit(
               id: UniqueKey().toString(),
               title: state.name,
               question: state.question,
-              target: state.target ?? 0,
+              target: state.target ?? 0.0,
               repeatDays: state.repeatDays,
               reminderTime: state.reminderTime,
               color: state.color,

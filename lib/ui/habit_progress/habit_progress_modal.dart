@@ -15,7 +15,7 @@ class HabitProgressModal extends StatefulWidget {
     super.key,
   });
 
-  final MeasurableHabit habit;
+  final Habit habit;
 
   static void show(BuildContext context, Habit habit) {
     ModalLayout.show<void>(
@@ -28,7 +28,7 @@ class HabitProgressModal extends StatefulWidget {
               habitRepository: context.read(),
               habit: habit,
             ),
-            child: HabitProgressModal(habit: habit as MeasurableHabit),
+            child: HabitProgressModal(habit: habit),
           ),
         ],
       ),

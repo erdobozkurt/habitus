@@ -12,8 +12,7 @@ ColorConverter _$ColorConverterFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$ColorConverterToJson(ColorConverter instance) =>
     <String, dynamic>{};
 
-_$BooleanHabitImpl _$$BooleanHabitImplFromJson(Map<String, dynamic> json) =>
-    _$BooleanHabitImpl(
+_$HabitImpl _$$HabitImplFromJson(Map<String, dynamic> json) => _$HabitImpl(
       id: json['id'] as String,
       title: json['title'] as String,
       question: json['question'] as String,
@@ -21,7 +20,7 @@ _$BooleanHabitImpl _$$BooleanHabitImplFromJson(Map<String, dynamic> json) =>
           .map((e) => e as String)
           .toList(),
       entries: (json['entries'] as List<dynamic>?)
-              ?.map((e) => HabitEntry.fromJson(e as Map<String, dynamic>))
+              ?.map((e) => HabitRecord.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
       type: $enumDecodeNullable(_$HabitTypeEnumMap, json['type']) ??
@@ -33,10 +32,11 @@ _$BooleanHabitImpl _$$BooleanHabitImplFromJson(Map<String, dynamic> json) =>
           ? Colors.blue
           : const ColorConverter().fromJson((json['color'] as num).toInt()),
       isCompleted: json['isCompleted'] as bool? ?? false,
-      $type: json['runtimeType'] as String?,
+      current: (json['current'] as num?)?.toDouble() ?? 0.0,
+      target: (json['target'] as num?)?.toDouble() ?? 0.0,
     );
 
-Map<String, dynamic> _$$BooleanHabitImplToJson(_$BooleanHabitImpl instance) =>
+Map<String, dynamic> _$$HabitImplToJson(_$HabitImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'title': instance.title,
@@ -48,53 +48,11 @@ Map<String, dynamic> _$$BooleanHabitImplToJson(_$BooleanHabitImpl instance) =>
       'emoji': instance.emoji,
       'color': const ColorConverter().toJson(instance.color),
       'isCompleted': instance.isCompleted,
-      'runtimeType': instance.$type,
+      'current': instance.current,
+      'target': instance.target,
     };
 
 const _$HabitTypeEnumMap = {
   HabitType.boolean: 'boolean',
   HabitType.measurable: 'measurable',
 };
-
-_$MeasurableHabitImpl _$$MeasurableHabitImplFromJson(
-        Map<String, dynamic> json) =>
-    _$MeasurableHabitImpl(
-      id: json['id'] as String,
-      title: json['title'] as String,
-      question: json['question'] as String,
-      target: (json['target'] as num).toDouble(),
-      repeatDays: (json['repeatDays'] as List<dynamic>)
-          .map((e) => e as String)
-          .toList(),
-      entries: (json['entries'] as List<dynamic>?)
-              ?.map((e) => HabitEntry.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          const [],
-      type: $enumDecodeNullable(_$HabitTypeEnumMap, json['type']) ??
-          HabitType.measurable,
-      reminderTime:
-          const TimeOfDayConverter().fromJson(json['reminderTime'] as String?),
-      current: (json['current'] as num?)?.toDouble() ?? 0.0,
-      emoji: json['emoji'] as String? ?? '✨',
-      color: json['color'] == null
-          ? Colors.blue
-          : const ColorConverter().fromJson((json['color'] as num).toInt()),
-      $type: json['runtimeType'] as String?,
-    );
-
-Map<String, dynamic> _$$MeasurableHabitImplToJson(
-        _$MeasurableHabitImpl instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'title': instance.title,
-      'question': instance.question,
-      'target': instance.target,
-      'repeatDays': instance.repeatDays,
-      'entries': instance.entries,
-      'type': _$HabitTypeEnumMap[instance.type]!,
-      'reminderTime': const TimeOfDayConverter().toJson(instance.reminderTime),
-      'current': instance.current,
-      'emoji': instance.emoji,
-      'color': const ColorConverter().toJson(instance.color),
-      'runtimeType': instance.$type,
-    };

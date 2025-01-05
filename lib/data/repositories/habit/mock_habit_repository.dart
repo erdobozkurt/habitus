@@ -2,28 +2,31 @@
 import 'package:flutter/material.dart';
 import 'package:habitus/data/repositories/habit/habit_repository.dart';
 import 'package:habitus/domain/models/habit/habit_model.dart';
+import 'package:habitus/ui/create_habit/cubit/create_habit_cubit.dart';
 
 class MockHabitRepository implements IHabitRepository {
   final List<Habit> _habits = [
-    const Habit.boolean(
+    const Habit(
       id: '1',
       title: 'Morning Meditation',
       question: 'Did you meditate today?',
       repeatDays: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
       emoji: '🧘‍♂️',
     ),
-    const Habit.measurable(
+    const Habit(
       id: '2',
       title: 'Drink Water',
+      type: HabitType.measurable,
       question: 'Drink 8 glasses of water',
       repeatDays: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
       target: 8,
       emoji: '💧',
       color: Colors.purple,
     ),
-    const Habit.measurable(
+    const Habit(
       id: '3',
       title: 'Read a Book',
+      type: HabitType.measurable,
       question: 'How many pages did you read?',
       repeatDays: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
       reminderTime: TimeOfDay(hour: 20, minute: 0),
@@ -32,7 +35,7 @@ class MockHabitRepository implements IHabitRepository {
       emoji: '📚',
       color: Colors.orange,
     ),
-    const Habit.boolean(
+    const Habit(
       id: '4',
       title: 'Workout',
       question: 'Did you workout today?',
@@ -40,7 +43,7 @@ class MockHabitRepository implements IHabitRepository {
       emoji: '🏋️‍♂️',
       color: Colors.green,
     ),
-    const Habit.boolean(
+    const Habit(
       id: '5',
       title: 'Journaling',
       question: 'Did you journal today?',
@@ -48,7 +51,7 @@ class MockHabitRepository implements IHabitRepository {
       emoji: '📝',
       color: Colors.red,
     ),
-    const Habit.boolean(
+    const Habit(
       id: '6',
       title: 'Rest Well',
       question: 'Did you eat healthy today?',
@@ -103,7 +106,7 @@ class MockHabitRepository implements IHabitRepository {
     final index = _habits.indexWhere((h) => h.id == id);
     if (index != -1) {
       final habit = _habits[index];
-      if (habit is MeasurableHabit) {
+      if (habit.type == HabitType.measurable) {
         _habits[index] = habit.copyWith(current: value);
       } else {
         throw Exception('Habit is not measurable');

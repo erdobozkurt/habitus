@@ -15,16 +15,7 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 Habit _$HabitFromJson(Map<String, dynamic> json) {
-  switch (json['runtimeType']) {
-    case 'boolean':
-      return BooleanHabit.fromJson(json);
-    case 'measurable':
-      return MeasurableHabit.fromJson(json);
-
-    default:
-      throw CheckedFromJsonException(json, 'runtimeType', 'Habit',
-          'Invalid union type "${json['runtimeType']}"!');
-  }
+  return _Habit.fromJson(json);
 }
 
 /// @nodoc
@@ -33,120 +24,16 @@ mixin _$Habit {
   String get title => throw _privateConstructorUsedError;
   String get question => throw _privateConstructorUsedError;
   List<String> get repeatDays => throw _privateConstructorUsedError;
-  List<HabitEntry> get entries => throw _privateConstructorUsedError;
+  List<HabitRecord> get entries => throw _privateConstructorUsedError;
   HabitType get type => throw _privateConstructorUsedError;
   @TimeOfDayConverter()
   TimeOfDay? get reminderTime => throw _privateConstructorUsedError;
   String get emoji => throw _privateConstructorUsedError;
   @ColorConverter()
   Color get color => throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(
-            String id,
-            String title,
-            String question,
-            List<String> repeatDays,
-            List<HabitEntry> entries,
-            HabitType type,
-            @TimeOfDayConverter() TimeOfDay? reminderTime,
-            String emoji,
-            @ColorConverter() Color color,
-            bool isCompleted)
-        boolean,
-    required TResult Function(
-            String id,
-            String title,
-            String question,
-            double target,
-            List<String> repeatDays,
-            List<HabitEntry> entries,
-            HabitType type,
-            @TimeOfDayConverter() TimeOfDay? reminderTime,
-            double current,
-            String emoji,
-            @ColorConverter() Color color)
-        measurable,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            String id,
-            String title,
-            String question,
-            List<String> repeatDays,
-            List<HabitEntry> entries,
-            HabitType type,
-            @TimeOfDayConverter() TimeOfDay? reminderTime,
-            String emoji,
-            @ColorConverter() Color color,
-            bool isCompleted)?
-        boolean,
-    TResult? Function(
-            String id,
-            String title,
-            String question,
-            double target,
-            List<String> repeatDays,
-            List<HabitEntry> entries,
-            HabitType type,
-            @TimeOfDayConverter() TimeOfDay? reminderTime,
-            double current,
-            String emoji,
-            @ColorConverter() Color color)?
-        measurable,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            String id,
-            String title,
-            String question,
-            List<String> repeatDays,
-            List<HabitEntry> entries,
-            HabitType type,
-            @TimeOfDayConverter() TimeOfDay? reminderTime,
-            String emoji,
-            @ColorConverter() Color color,
-            bool isCompleted)?
-        boolean,
-    TResult Function(
-            String id,
-            String title,
-            String question,
-            double target,
-            List<String> repeatDays,
-            List<HabitEntry> entries,
-            HabitType type,
-            @TimeOfDayConverter() TimeOfDay? reminderTime,
-            double current,
-            String emoji,
-            @ColorConverter() Color color)?
-        measurable,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(BooleanHabit value) boolean,
-    required TResult Function(MeasurableHabit value) measurable,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(BooleanHabit value)? boolean,
-    TResult? Function(MeasurableHabit value)? measurable,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(BooleanHabit value)? boolean,
-    TResult Function(MeasurableHabit value)? measurable,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
+  bool get isCompleted => throw _privateConstructorUsedError;
+  double get current => throw _privateConstructorUsedError;
+  double get target => throw _privateConstructorUsedError;
 
   /// Serializes this Habit to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -167,11 +54,14 @@ abstract class $HabitCopyWith<$Res> {
       String title,
       String question,
       List<String> repeatDays,
-      List<HabitEntry> entries,
+      List<HabitRecord> entries,
       HabitType type,
       @TimeOfDayConverter() TimeOfDay? reminderTime,
       String emoji,
-      @ColorConverter() Color color});
+      @ColorConverter() Color color,
+      bool isCompleted,
+      double current,
+      double target});
 }
 
 /// @nodoc
@@ -198,6 +88,9 @@ class _$HabitCopyWithImpl<$Res, $Val extends Habit>
     Object? reminderTime = freezed,
     Object? emoji = null,
     Object? color = null,
+    Object? isCompleted = null,
+    Object? current = null,
+    Object? target = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -219,93 +112,7 @@ class _$HabitCopyWithImpl<$Res, $Val extends Habit>
       entries: null == entries
           ? _value.entries
           : entries // ignore: cast_nullable_to_non_nullable
-              as List<HabitEntry>,
-      type: null == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as HabitType,
-      reminderTime: freezed == reminderTime
-          ? _value.reminderTime
-          : reminderTime // ignore: cast_nullable_to_non_nullable
-              as TimeOfDay?,
-      emoji: null == emoji
-          ? _value.emoji
-          : emoji // ignore: cast_nullable_to_non_nullable
-              as String,
-      color: null == color
-          ? _value.color
-          : color // ignore: cast_nullable_to_non_nullable
-              as Color,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$BooleanHabitImplCopyWith<$Res>
-    implements $HabitCopyWith<$Res> {
-  factory _$$BooleanHabitImplCopyWith(
-          _$BooleanHabitImpl value, $Res Function(_$BooleanHabitImpl) then) =
-      __$$BooleanHabitImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {String id,
-      String title,
-      String question,
-      List<String> repeatDays,
-      List<HabitEntry> entries,
-      HabitType type,
-      @TimeOfDayConverter() TimeOfDay? reminderTime,
-      String emoji,
-      @ColorConverter() Color color,
-      bool isCompleted});
-}
-
-/// @nodoc
-class __$$BooleanHabitImplCopyWithImpl<$Res>
-    extends _$HabitCopyWithImpl<$Res, _$BooleanHabitImpl>
-    implements _$$BooleanHabitImplCopyWith<$Res> {
-  __$$BooleanHabitImplCopyWithImpl(
-      _$BooleanHabitImpl _value, $Res Function(_$BooleanHabitImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of Habit
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = null,
-    Object? title = null,
-    Object? question = null,
-    Object? repeatDays = null,
-    Object? entries = null,
-    Object? type = null,
-    Object? reminderTime = freezed,
-    Object? emoji = null,
-    Object? color = null,
-    Object? isCompleted = null,
-  }) {
-    return _then(_$BooleanHabitImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      title: null == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
-              as String,
-      question: null == question
-          ? _value.question
-          : question // ignore: cast_nullable_to_non_nullable
-              as String,
-      repeatDays: null == repeatDays
-          ? _value._repeatDays
-          : repeatDays // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      entries: null == entries
-          ? _value._entries
-          : entries // ignore: cast_nullable_to_non_nullable
-              as List<HabitEntry>,
+              as List<HabitRecord>,
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
@@ -326,31 +133,140 @@ class __$$BooleanHabitImplCopyWithImpl<$Res>
           ? _value.isCompleted
           : isCompleted // ignore: cast_nullable_to_non_nullable
               as bool,
+      current: null == current
+          ? _value.current
+          : current // ignore: cast_nullable_to_non_nullable
+              as double,
+      target: null == target
+          ? _value.target
+          : target // ignore: cast_nullable_to_non_nullable
+              as double,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$HabitImplCopyWith<$Res> implements $HabitCopyWith<$Res> {
+  factory _$$HabitImplCopyWith(
+          _$HabitImpl value, $Res Function(_$HabitImpl) then) =
+      __$$HabitImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {String id,
+      String title,
+      String question,
+      List<String> repeatDays,
+      List<HabitRecord> entries,
+      HabitType type,
+      @TimeOfDayConverter() TimeOfDay? reminderTime,
+      String emoji,
+      @ColorConverter() Color color,
+      bool isCompleted,
+      double current,
+      double target});
+}
+
+/// @nodoc
+class __$$HabitImplCopyWithImpl<$Res>
+    extends _$HabitCopyWithImpl<$Res, _$HabitImpl>
+    implements _$$HabitImplCopyWith<$Res> {
+  __$$HabitImplCopyWithImpl(
+      _$HabitImpl _value, $Res Function(_$HabitImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of Habit
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? title = null,
+    Object? question = null,
+    Object? repeatDays = null,
+    Object? entries = null,
+    Object? type = null,
+    Object? reminderTime = freezed,
+    Object? emoji = null,
+    Object? color = null,
+    Object? isCompleted = null,
+    Object? current = null,
+    Object? target = null,
+  }) {
+    return _then(_$HabitImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      title: null == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String,
+      question: null == question
+          ? _value.question
+          : question // ignore: cast_nullable_to_non_nullable
+              as String,
+      repeatDays: null == repeatDays
+          ? _value._repeatDays
+          : repeatDays // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      entries: null == entries
+          ? _value._entries
+          : entries // ignore: cast_nullable_to_non_nullable
+              as List<HabitRecord>,
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as HabitType,
+      reminderTime: freezed == reminderTime
+          ? _value.reminderTime
+          : reminderTime // ignore: cast_nullable_to_non_nullable
+              as TimeOfDay?,
+      emoji: null == emoji
+          ? _value.emoji
+          : emoji // ignore: cast_nullable_to_non_nullable
+              as String,
+      color: null == color
+          ? _value.color
+          : color // ignore: cast_nullable_to_non_nullable
+              as Color,
+      isCompleted: null == isCompleted
+          ? _value.isCompleted
+          : isCompleted // ignore: cast_nullable_to_non_nullable
+              as bool,
+      current: null == current
+          ? _value.current
+          : current // ignore: cast_nullable_to_non_nullable
+              as double,
+      target: null == target
+          ? _value.target
+          : target // ignore: cast_nullable_to_non_nullable
+              as double,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$BooleanHabitImpl implements BooleanHabit {
-  const _$BooleanHabitImpl(
+class _$HabitImpl implements _Habit {
+  const _$HabitImpl(
       {required this.id,
       required this.title,
       required this.question,
       required final List<String> repeatDays,
-      final List<HabitEntry> entries = const [],
+      final List<HabitRecord> entries = const [],
       this.type = HabitType.boolean,
       @TimeOfDayConverter() this.reminderTime,
       this.emoji = '✨',
       @ColorConverter() this.color = Colors.blue,
       this.isCompleted = false,
-      final String? $type})
+      this.current = 0.0,
+      this.target = 0.0})
       : _repeatDays = repeatDays,
-        _entries = entries,
-        $type = $type ?? 'boolean';
+        _entries = entries;
 
-  factory _$BooleanHabitImpl.fromJson(Map<String, dynamic> json) =>
-      _$$BooleanHabitImplFromJson(json);
+  factory _$HabitImpl.fromJson(Map<String, dynamic> json) =>
+      _$$HabitImplFromJson(json);
 
   @override
   final String id;
@@ -366,10 +282,10 @@ class _$BooleanHabitImpl implements BooleanHabit {
     return EqualUnmodifiableListView(_repeatDays);
   }
 
-  final List<HabitEntry> _entries;
+  final List<HabitRecord> _entries;
   @override
   @JsonKey()
-  List<HabitEntry> get entries {
+  List<HabitRecord> get entries {
     if (_entries is EqualUnmodifiableListView) return _entries;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_entries);
@@ -391,20 +307,23 @@ class _$BooleanHabitImpl implements BooleanHabit {
   @override
   @JsonKey()
   final bool isCompleted;
-
-  @JsonKey(name: 'runtimeType')
-  final String $type;
+  @override
+  @JsonKey()
+  final double current;
+  @override
+  @JsonKey()
+  final double target;
 
   @override
   String toString() {
-    return 'Habit.boolean(id: $id, title: $title, question: $question, repeatDays: $repeatDays, entries: $entries, type: $type, reminderTime: $reminderTime, emoji: $emoji, color: $color, isCompleted: $isCompleted)';
+    return 'Habit(id: $id, title: $title, question: $question, repeatDays: $repeatDays, entries: $entries, type: $type, reminderTime: $reminderTime, emoji: $emoji, color: $color, isCompleted: $isCompleted, current: $current, target: $target)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$BooleanHabitImpl &&
+            other is _$HabitImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.question, question) ||
@@ -418,7 +337,9 @@ class _$BooleanHabitImpl implements BooleanHabit {
             (identical(other.emoji, emoji) || other.emoji == emoji) &&
             (identical(other.color, color) || other.color == color) &&
             (identical(other.isCompleted, isCompleted) ||
-                other.isCompleted == isCompleted));
+                other.isCompleted == isCompleted) &&
+            (identical(other.current, current) || other.current == current) &&
+            (identical(other.target, target) || other.target == target));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -434,173 +355,42 @@ class _$BooleanHabitImpl implements BooleanHabit {
       reminderTime,
       emoji,
       color,
-      isCompleted);
+      isCompleted,
+      current,
+      target);
 
   /// Create a copy of Habit
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$BooleanHabitImplCopyWith<_$BooleanHabitImpl> get copyWith =>
-      __$$BooleanHabitImplCopyWithImpl<_$BooleanHabitImpl>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(
-            String id,
-            String title,
-            String question,
-            List<String> repeatDays,
-            List<HabitEntry> entries,
-            HabitType type,
-            @TimeOfDayConverter() TimeOfDay? reminderTime,
-            String emoji,
-            @ColorConverter() Color color,
-            bool isCompleted)
-        boolean,
-    required TResult Function(
-            String id,
-            String title,
-            String question,
-            double target,
-            List<String> repeatDays,
-            List<HabitEntry> entries,
-            HabitType type,
-            @TimeOfDayConverter() TimeOfDay? reminderTime,
-            double current,
-            String emoji,
-            @ColorConverter() Color color)
-        measurable,
-  }) {
-    return boolean(id, title, question, repeatDays, entries, type, reminderTime,
-        emoji, color, isCompleted);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            String id,
-            String title,
-            String question,
-            List<String> repeatDays,
-            List<HabitEntry> entries,
-            HabitType type,
-            @TimeOfDayConverter() TimeOfDay? reminderTime,
-            String emoji,
-            @ColorConverter() Color color,
-            bool isCompleted)?
-        boolean,
-    TResult? Function(
-            String id,
-            String title,
-            String question,
-            double target,
-            List<String> repeatDays,
-            List<HabitEntry> entries,
-            HabitType type,
-            @TimeOfDayConverter() TimeOfDay? reminderTime,
-            double current,
-            String emoji,
-            @ColorConverter() Color color)?
-        measurable,
-  }) {
-    return boolean?.call(id, title, question, repeatDays, entries, type,
-        reminderTime, emoji, color, isCompleted);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            String id,
-            String title,
-            String question,
-            List<String> repeatDays,
-            List<HabitEntry> entries,
-            HabitType type,
-            @TimeOfDayConverter() TimeOfDay? reminderTime,
-            String emoji,
-            @ColorConverter() Color color,
-            bool isCompleted)?
-        boolean,
-    TResult Function(
-            String id,
-            String title,
-            String question,
-            double target,
-            List<String> repeatDays,
-            List<HabitEntry> entries,
-            HabitType type,
-            @TimeOfDayConverter() TimeOfDay? reminderTime,
-            double current,
-            String emoji,
-            @ColorConverter() Color color)?
-        measurable,
-    required TResult orElse(),
-  }) {
-    if (boolean != null) {
-      return boolean(id, title, question, repeatDays, entries, type,
-          reminderTime, emoji, color, isCompleted);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(BooleanHabit value) boolean,
-    required TResult Function(MeasurableHabit value) measurable,
-  }) {
-    return boolean(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(BooleanHabit value)? boolean,
-    TResult? Function(MeasurableHabit value)? measurable,
-  }) {
-    return boolean?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(BooleanHabit value)? boolean,
-    TResult Function(MeasurableHabit value)? measurable,
-    required TResult orElse(),
-  }) {
-    if (boolean != null) {
-      return boolean(this);
-    }
-    return orElse();
-  }
+  _$$HabitImplCopyWith<_$HabitImpl> get copyWith =>
+      __$$HabitImplCopyWithImpl<_$HabitImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$BooleanHabitImplToJson(
+    return _$$HabitImplToJson(
       this,
     );
   }
 }
 
-abstract class BooleanHabit implements Habit {
-  const factory BooleanHabit(
+abstract class _Habit implements Habit {
+  const factory _Habit(
       {required final String id,
       required final String title,
       required final String question,
       required final List<String> repeatDays,
-      final List<HabitEntry> entries,
+      final List<HabitRecord> entries,
       final HabitType type,
       @TimeOfDayConverter() final TimeOfDay? reminderTime,
       final String emoji,
       @ColorConverter() final Color color,
-      final bool isCompleted}) = _$BooleanHabitImpl;
+      final bool isCompleted,
+      final double current,
+      final double target}) = _$HabitImpl;
 
-  factory BooleanHabit.fromJson(Map<String, dynamic> json) =
-      _$BooleanHabitImpl.fromJson;
+  factory _Habit.fromJson(Map<String, dynamic> json) = _$HabitImpl.fromJson;
 
   @override
   String get id;
@@ -611,7 +401,7 @@ abstract class BooleanHabit implements Habit {
   @override
   List<String> get repeatDays;
   @override
-  List<HabitEntry> get entries;
+  List<HabitRecord> get entries;
   @override
   HabitType get type;
   @override
@@ -622,417 +412,17 @@ abstract class BooleanHabit implements Habit {
   @override
   @ColorConverter()
   Color get color;
+  @override
   bool get isCompleted;
-
-  /// Create a copy of Habit
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$BooleanHabitImplCopyWith<_$BooleanHabitImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$MeasurableHabitImplCopyWith<$Res>
-    implements $HabitCopyWith<$Res> {
-  factory _$$MeasurableHabitImplCopyWith(_$MeasurableHabitImpl value,
-          $Res Function(_$MeasurableHabitImpl) then) =
-      __$$MeasurableHabitImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {String id,
-      String title,
-      String question,
-      double target,
-      List<String> repeatDays,
-      List<HabitEntry> entries,
-      HabitType type,
-      @TimeOfDayConverter() TimeOfDay? reminderTime,
-      double current,
-      String emoji,
-      @ColorConverter() Color color});
-}
-
-/// @nodoc
-class __$$MeasurableHabitImplCopyWithImpl<$Res>
-    extends _$HabitCopyWithImpl<$Res, _$MeasurableHabitImpl>
-    implements _$$MeasurableHabitImplCopyWith<$Res> {
-  __$$MeasurableHabitImplCopyWithImpl(
-      _$MeasurableHabitImpl _value, $Res Function(_$MeasurableHabitImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of Habit
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = null,
-    Object? title = null,
-    Object? question = null,
-    Object? target = null,
-    Object? repeatDays = null,
-    Object? entries = null,
-    Object? type = null,
-    Object? reminderTime = freezed,
-    Object? current = null,
-    Object? emoji = null,
-    Object? color = null,
-  }) {
-    return _then(_$MeasurableHabitImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      title: null == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
-              as String,
-      question: null == question
-          ? _value.question
-          : question // ignore: cast_nullable_to_non_nullable
-              as String,
-      target: null == target
-          ? _value.target
-          : target // ignore: cast_nullable_to_non_nullable
-              as double,
-      repeatDays: null == repeatDays
-          ? _value._repeatDays
-          : repeatDays // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      entries: null == entries
-          ? _value._entries
-          : entries // ignore: cast_nullable_to_non_nullable
-              as List<HabitEntry>,
-      type: null == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as HabitType,
-      reminderTime: freezed == reminderTime
-          ? _value.reminderTime
-          : reminderTime // ignore: cast_nullable_to_non_nullable
-              as TimeOfDay?,
-      current: null == current
-          ? _value.current
-          : current // ignore: cast_nullable_to_non_nullable
-              as double,
-      emoji: null == emoji
-          ? _value.emoji
-          : emoji // ignore: cast_nullable_to_non_nullable
-              as String,
-      color: null == color
-          ? _value.color
-          : color // ignore: cast_nullable_to_non_nullable
-              as Color,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$MeasurableHabitImpl implements MeasurableHabit {
-  const _$MeasurableHabitImpl(
-      {required this.id,
-      required this.title,
-      required this.question,
-      required this.target,
-      required final List<String> repeatDays,
-      final List<HabitEntry> entries = const [],
-      this.type = HabitType.measurable,
-      @TimeOfDayConverter() this.reminderTime,
-      this.current = 0.0,
-      this.emoji = '✨',
-      @ColorConverter() this.color = Colors.blue,
-      final String? $type})
-      : _repeatDays = repeatDays,
-        _entries = entries,
-        $type = $type ?? 'measurable';
-
-  factory _$MeasurableHabitImpl.fromJson(Map<String, dynamic> json) =>
-      _$$MeasurableHabitImplFromJson(json);
-
-  @override
-  final String id;
-  @override
-  final String title;
-  @override
-  final String question;
-  @override
-  final double target;
-  final List<String> _repeatDays;
-  @override
-  List<String> get repeatDays {
-    if (_repeatDays is EqualUnmodifiableListView) return _repeatDays;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_repeatDays);
-  }
-
-  final List<HabitEntry> _entries;
-  @override
-  @JsonKey()
-  List<HabitEntry> get entries {
-    if (_entries is EqualUnmodifiableListView) return _entries;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_entries);
-  }
-
-  @override
-  @JsonKey()
-  final HabitType type;
-  @override
-  @TimeOfDayConverter()
-  final TimeOfDay? reminderTime;
-  @override
-  @JsonKey()
-  final double current;
-  @override
-  @JsonKey()
-  final String emoji;
-  @override
-  @JsonKey()
-  @ColorConverter()
-  final Color color;
-
-  @JsonKey(name: 'runtimeType')
-  final String $type;
-
-  @override
-  String toString() {
-    return 'Habit.measurable(id: $id, title: $title, question: $question, target: $target, repeatDays: $repeatDays, entries: $entries, type: $type, reminderTime: $reminderTime, current: $current, emoji: $emoji, color: $color)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$MeasurableHabitImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.title, title) || other.title == title) &&
-            (identical(other.question, question) ||
-                other.question == question) &&
-            (identical(other.target, target) || other.target == target) &&
-            const DeepCollectionEquality()
-                .equals(other._repeatDays, _repeatDays) &&
-            const DeepCollectionEquality().equals(other._entries, _entries) &&
-            (identical(other.type, type) || other.type == type) &&
-            (identical(other.reminderTime, reminderTime) ||
-                other.reminderTime == reminderTime) &&
-            (identical(other.current, current) || other.current == current) &&
-            (identical(other.emoji, emoji) || other.emoji == emoji) &&
-            (identical(other.color, color) || other.color == color));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      title,
-      question,
-      target,
-      const DeepCollectionEquality().hash(_repeatDays),
-      const DeepCollectionEquality().hash(_entries),
-      type,
-      reminderTime,
-      current,
-      emoji,
-      color);
-
-  /// Create a copy of Habit
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$MeasurableHabitImplCopyWith<_$MeasurableHabitImpl> get copyWith =>
-      __$$MeasurableHabitImplCopyWithImpl<_$MeasurableHabitImpl>(
-          this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(
-            String id,
-            String title,
-            String question,
-            List<String> repeatDays,
-            List<HabitEntry> entries,
-            HabitType type,
-            @TimeOfDayConverter() TimeOfDay? reminderTime,
-            String emoji,
-            @ColorConverter() Color color,
-            bool isCompleted)
-        boolean,
-    required TResult Function(
-            String id,
-            String title,
-            String question,
-            double target,
-            List<String> repeatDays,
-            List<HabitEntry> entries,
-            HabitType type,
-            @TimeOfDayConverter() TimeOfDay? reminderTime,
-            double current,
-            String emoji,
-            @ColorConverter() Color color)
-        measurable,
-  }) {
-    return measurable(id, title, question, target, repeatDays, entries, type,
-        reminderTime, current, emoji, color);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            String id,
-            String title,
-            String question,
-            List<String> repeatDays,
-            List<HabitEntry> entries,
-            HabitType type,
-            @TimeOfDayConverter() TimeOfDay? reminderTime,
-            String emoji,
-            @ColorConverter() Color color,
-            bool isCompleted)?
-        boolean,
-    TResult? Function(
-            String id,
-            String title,
-            String question,
-            double target,
-            List<String> repeatDays,
-            List<HabitEntry> entries,
-            HabitType type,
-            @TimeOfDayConverter() TimeOfDay? reminderTime,
-            double current,
-            String emoji,
-            @ColorConverter() Color color)?
-        measurable,
-  }) {
-    return measurable?.call(id, title, question, target, repeatDays, entries,
-        type, reminderTime, current, emoji, color);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            String id,
-            String title,
-            String question,
-            List<String> repeatDays,
-            List<HabitEntry> entries,
-            HabitType type,
-            @TimeOfDayConverter() TimeOfDay? reminderTime,
-            String emoji,
-            @ColorConverter() Color color,
-            bool isCompleted)?
-        boolean,
-    TResult Function(
-            String id,
-            String title,
-            String question,
-            double target,
-            List<String> repeatDays,
-            List<HabitEntry> entries,
-            HabitType type,
-            @TimeOfDayConverter() TimeOfDay? reminderTime,
-            double current,
-            String emoji,
-            @ColorConverter() Color color)?
-        measurable,
-    required TResult orElse(),
-  }) {
-    if (measurable != null) {
-      return measurable(id, title, question, target, repeatDays, entries, type,
-          reminderTime, current, emoji, color);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(BooleanHabit value) boolean,
-    required TResult Function(MeasurableHabit value) measurable,
-  }) {
-    return measurable(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(BooleanHabit value)? boolean,
-    TResult? Function(MeasurableHabit value)? measurable,
-  }) {
-    return measurable?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(BooleanHabit value)? boolean,
-    TResult Function(MeasurableHabit value)? measurable,
-    required TResult orElse(),
-  }) {
-    if (measurable != null) {
-      return measurable(this);
-    }
-    return orElse();
-  }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$MeasurableHabitImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class MeasurableHabit implements Habit {
-  const factory MeasurableHabit(
-      {required final String id,
-      required final String title,
-      required final String question,
-      required final double target,
-      required final List<String> repeatDays,
-      final List<HabitEntry> entries,
-      final HabitType type,
-      @TimeOfDayConverter() final TimeOfDay? reminderTime,
-      final double current,
-      final String emoji,
-      @ColorConverter() final Color color}) = _$MeasurableHabitImpl;
-
-  factory MeasurableHabit.fromJson(Map<String, dynamic> json) =
-      _$MeasurableHabitImpl.fromJson;
-
-  @override
-  String get id;
-  @override
-  String get title;
-  @override
-  String get question;
-  double get target;
-  @override
-  List<String> get repeatDays;
-  @override
-  List<HabitEntry> get entries;
-  @override
-  HabitType get type;
-  @override
-  @TimeOfDayConverter()
-  TimeOfDay? get reminderTime;
   double get current;
   @override
-  String get emoji;
-  @override
-  @ColorConverter()
-  Color get color;
+  double get target;
 
   /// Create a copy of Habit
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$MeasurableHabitImplCopyWith<_$MeasurableHabitImpl> get copyWith =>
+  _$$HabitImplCopyWith<_$HabitImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

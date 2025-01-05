@@ -7,7 +7,7 @@ import 'package:habitus/ui/habit_progress/cubit/habit_progress_state.dart';
 class HabitProgressCubit extends Cubit<HabitProgressState> {
   HabitProgressCubit({
     required IHabitRepository habitRepository,
-    required MeasurableHabit habit,
+    required Habit habit,
   })  : _habitRepository = habitRepository,
         super(
           HabitProgressState(

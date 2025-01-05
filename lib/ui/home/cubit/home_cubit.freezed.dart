@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$HomeState {
   Status get status => throw _privateConstructorUsedError;
+  Status get toggleStatus => throw _privateConstructorUsedError;
   List<Habit> get habits => throw _privateConstructorUsedError;
 
   /// Create a copy of HomeState
@@ -31,7 +32,7 @@ abstract class $HomeStateCopyWith<$Res> {
   factory $HomeStateCopyWith(HomeState value, $Res Function(HomeState) then) =
       _$HomeStateCopyWithImpl<$Res, HomeState>;
   @useResult
-  $Res call({Status status, List<Habit> habits});
+  $Res call({Status status, Status toggleStatus, List<Habit> habits});
 }
 
 /// @nodoc
@@ -50,12 +51,17 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
   @override
   $Res call({
     Object? status = null,
+    Object? toggleStatus = null,
     Object? habits = null,
   }) {
     return _then(_value.copyWith(
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
+              as Status,
+      toggleStatus: null == toggleStatus
+          ? _value.toggleStatus
+          : toggleStatus // ignore: cast_nullable_to_non_nullable
               as Status,
       habits: null == habits
           ? _value.habits
@@ -73,7 +79,7 @@ abstract class _$$HomeStateImplCopyWith<$Res>
       __$$HomeStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Status status, List<Habit> habits});
+  $Res call({Status status, Status toggleStatus, List<Habit> habits});
 }
 
 /// @nodoc
@@ -90,12 +96,17 @@ class __$$HomeStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? status = null,
+    Object? toggleStatus = null,
     Object? habits = null,
   }) {
     return _then(_$HomeStateImpl(
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
+              as Status,
+      toggleStatus: null == toggleStatus
+          ? _value.toggleStatus
+          : toggleStatus // ignore: cast_nullable_to_non_nullable
               as Status,
       habits: null == habits
           ? _value._habits
@@ -109,12 +120,17 @@ class __$$HomeStateImplCopyWithImpl<$Res>
 
 class _$HomeStateImpl implements _HomeState {
   const _$HomeStateImpl(
-      {this.status = Status.initial, final List<Habit> habits = const []})
+      {this.status = Status.initial,
+      this.toggleStatus = Status.initial,
+      final List<Habit> habits = const []})
       : _habits = habits;
 
   @override
   @JsonKey()
   final Status status;
+  @override
+  @JsonKey()
+  final Status toggleStatus;
   final List<Habit> _habits;
   @override
   @JsonKey()
@@ -126,7 +142,7 @@ class _$HomeStateImpl implements _HomeState {
 
   @override
   String toString() {
-    return 'HomeState(status: $status, habits: $habits)';
+    return 'HomeState(status: $status, toggleStatus: $toggleStatus, habits: $habits)';
   }
 
   @override
@@ -135,12 +151,14 @@ class _$HomeStateImpl implements _HomeState {
         (other.runtimeType == runtimeType &&
             other is _$HomeStateImpl &&
             (identical(other.status, status) || other.status == status) &&
+            (identical(other.toggleStatus, toggleStatus) ||
+                other.toggleStatus == toggleStatus) &&
             const DeepCollectionEquality().equals(other._habits, _habits));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, status, const DeepCollectionEquality().hash(_habits));
+  int get hashCode => Object.hash(runtimeType, status, toggleStatus,
+      const DeepCollectionEquality().hash(_habits));
 
   /// Create a copy of HomeState
   /// with the given fields replaced by the non-null parameter values.
@@ -152,11 +170,15 @@ class _$HomeStateImpl implements _HomeState {
 }
 
 abstract class _HomeState implements HomeState {
-  const factory _HomeState({final Status status, final List<Habit> habits}) =
-      _$HomeStateImpl;
+  const factory _HomeState(
+      {final Status status,
+      final Status toggleStatus,
+      final List<Habit> habits}) = _$HomeStateImpl;
 
   @override
   Status get status;
+  @override
+  Status get toggleStatus;
   @override
   List<Habit> get habits;
 
