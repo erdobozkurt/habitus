@@ -36,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     _confettiController =
         ConfettiController(duration: const Duration(seconds: 1));
-    context.read<HomeCubit>().getHabits();
+    context.read<HomeCubit>().loadHabitsForDate(_selectedDate);
   }
 
   @override
@@ -87,10 +87,9 @@ class _HomeScreenState extends State<HomeScreen> {
         final currentWeekDay = weekDayNames[_selectedDate.weekday] ?? '';
         log('Current weekday: $currentWeekDay (${_selectedDate.weekday})');
 
-        final filteredHabits = state.habits.where((habit) {
-          final contains = habit.repeatDays.contains(currentWeekDay);
-          log('''Habit ${habit.id} repeatDays: ${habit.repeatDays}, contains: $contains''');
-          return contains;
+        final filteredHabits = state.habitRecords.where((record) {
+          final weekDay = weekDayNames[_selectedDate.weekday]!;
+          return record.habit.repeatDays.contains(weekDay);
         }).toList();
 
         return Stack(
@@ -115,17 +114,14 @@ class _HomeScreenState extends State<HomeScreen> {
                         itemCount: filteredHabits.length,
                         separatorBuilder: (_, __) => const SizedBox(height: 12),
                         itemBuilder: (context, index) {
-                          final habit = filteredHabits[index];
+                          final record = filteredHabits[index];
                           return HabitCard(
-                            habit: habit,
+                            record: record,
                             onToggleComplete: (completed) {
                               context
                                   .read<HomeCubit>()
-                                  .toggleHabit(
-                                    habit.id,
-                                    completed: completed,
-                                  )
-                                  .then((success) {
+                                  .toggleHabitCompletion(record)
+                                  .then((_) {
                                 if (completed) {
                                   _confettiController.play();
                                 }
@@ -158,8 +154,10 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _handleDateSelected(DateTime value) {
+    if (!mounted) return;
     setState(() {
       _selectedDate = value;
     });
+    context.read<HomeCubit>().optimisticLoadHabitsForDate(value);
   }
 }

@@ -24,16 +24,15 @@ mixin _$Habit {
   String get title => throw _privateConstructorUsedError;
   String get question => throw _privateConstructorUsedError;
   List<String> get repeatDays => throw _privateConstructorUsedError;
-  List<HabitRecord> get entries => throw _privateConstructorUsedError;
   HabitType get type => throw _privateConstructorUsedError;
   @TimeOfDayConverter()
   TimeOfDay? get reminderTime => throw _privateConstructorUsedError;
   String get emoji => throw _privateConstructorUsedError;
   @ColorConverter()
   Color get color => throw _privateConstructorUsedError;
-  bool get isCompleted => throw _privateConstructorUsedError;
-  double get current => throw _privateConstructorUsedError;
   double get target => throw _privateConstructorUsedError;
+  double get current => throw _privateConstructorUsedError;
+  bool get isCompleted => throw _privateConstructorUsedError;
 
   /// Serializes this Habit to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -54,14 +53,13 @@ abstract class $HabitCopyWith<$Res> {
       String title,
       String question,
       List<String> repeatDays,
-      List<HabitRecord> entries,
       HabitType type,
       @TimeOfDayConverter() TimeOfDay? reminderTime,
       String emoji,
       @ColorConverter() Color color,
-      bool isCompleted,
+      double target,
       double current,
-      double target});
+      bool isCompleted});
 }
 
 /// @nodoc
@@ -83,14 +81,13 @@ class _$HabitCopyWithImpl<$Res, $Val extends Habit>
     Object? title = null,
     Object? question = null,
     Object? repeatDays = null,
-    Object? entries = null,
     Object? type = null,
     Object? reminderTime = freezed,
     Object? emoji = null,
     Object? color = null,
-    Object? isCompleted = null,
-    Object? current = null,
     Object? target = null,
+    Object? current = null,
+    Object? isCompleted = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -109,10 +106,6 @@ class _$HabitCopyWithImpl<$Res, $Val extends Habit>
           ? _value.repeatDays
           : repeatDays // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      entries: null == entries
-          ? _value.entries
-          : entries // ignore: cast_nullable_to_non_nullable
-              as List<HabitRecord>,
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
@@ -129,18 +122,18 @@ class _$HabitCopyWithImpl<$Res, $Val extends Habit>
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
               as Color,
-      isCompleted: null == isCompleted
-          ? _value.isCompleted
-          : isCompleted // ignore: cast_nullable_to_non_nullable
-              as bool,
-      current: null == current
-          ? _value.current
-          : current // ignore: cast_nullable_to_non_nullable
-              as double,
       target: null == target
           ? _value.target
           : target // ignore: cast_nullable_to_non_nullable
               as double,
+      current: null == current
+          ? _value.current
+          : current // ignore: cast_nullable_to_non_nullable
+              as double,
+      isCompleted: null == isCompleted
+          ? _value.isCompleted
+          : isCompleted // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -157,14 +150,13 @@ abstract class _$$HabitImplCopyWith<$Res> implements $HabitCopyWith<$Res> {
       String title,
       String question,
       List<String> repeatDays,
-      List<HabitRecord> entries,
       HabitType type,
       @TimeOfDayConverter() TimeOfDay? reminderTime,
       String emoji,
       @ColorConverter() Color color,
-      bool isCompleted,
+      double target,
       double current,
-      double target});
+      bool isCompleted});
 }
 
 /// @nodoc
@@ -184,14 +176,13 @@ class __$$HabitImplCopyWithImpl<$Res>
     Object? title = null,
     Object? question = null,
     Object? repeatDays = null,
-    Object? entries = null,
     Object? type = null,
     Object? reminderTime = freezed,
     Object? emoji = null,
     Object? color = null,
-    Object? isCompleted = null,
-    Object? current = null,
     Object? target = null,
+    Object? current = null,
+    Object? isCompleted = null,
   }) {
     return _then(_$HabitImpl(
       id: null == id
@@ -210,10 +201,6 @@ class __$$HabitImplCopyWithImpl<$Res>
           ? _value._repeatDays
           : repeatDays // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      entries: null == entries
-          ? _value._entries
-          : entries // ignore: cast_nullable_to_non_nullable
-              as List<HabitRecord>,
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
@@ -230,18 +217,18 @@ class __$$HabitImplCopyWithImpl<$Res>
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
               as Color,
-      isCompleted: null == isCompleted
-          ? _value.isCompleted
-          : isCompleted // ignore: cast_nullable_to_non_nullable
-              as bool,
-      current: null == current
-          ? _value.current
-          : current // ignore: cast_nullable_to_non_nullable
-              as double,
       target: null == target
           ? _value.target
           : target // ignore: cast_nullable_to_non_nullable
               as double,
+      current: null == current
+          ? _value.current
+          : current // ignore: cast_nullable_to_non_nullable
+              as double,
+      isCompleted: null == isCompleted
+          ? _value.isCompleted
+          : isCompleted // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -254,16 +241,14 @@ class _$HabitImpl implements _Habit {
       required this.title,
       required this.question,
       required final List<String> repeatDays,
-      final List<HabitRecord> entries = const [],
       this.type = HabitType.boolean,
       @TimeOfDayConverter() this.reminderTime,
       this.emoji = '✨',
       @ColorConverter() this.color = Colors.blue,
-      this.isCompleted = false,
+      this.target = 0.0,
       this.current = 0.0,
-      this.target = 0.0})
-      : _repeatDays = repeatDays,
-        _entries = entries;
+      this.isCompleted = false})
+      : _repeatDays = repeatDays;
 
   factory _$HabitImpl.fromJson(Map<String, dynamic> json) =>
       _$$HabitImplFromJson(json);
@@ -282,15 +267,6 @@ class _$HabitImpl implements _Habit {
     return EqualUnmodifiableListView(_repeatDays);
   }
 
-  final List<HabitRecord> _entries;
-  @override
-  @JsonKey()
-  List<HabitRecord> get entries {
-    if (_entries is EqualUnmodifiableListView) return _entries;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_entries);
-  }
-
   @override
   @JsonKey()
   final HabitType type;
@@ -306,17 +282,17 @@ class _$HabitImpl implements _Habit {
   final Color color;
   @override
   @JsonKey()
-  final bool isCompleted;
+  final double target;
   @override
   @JsonKey()
   final double current;
   @override
   @JsonKey()
-  final double target;
+  final bool isCompleted;
 
   @override
   String toString() {
-    return 'Habit(id: $id, title: $title, question: $question, repeatDays: $repeatDays, entries: $entries, type: $type, reminderTime: $reminderTime, emoji: $emoji, color: $color, isCompleted: $isCompleted, current: $current, target: $target)';
+    return 'Habit(id: $id, title: $title, question: $question, repeatDays: $repeatDays, type: $type, reminderTime: $reminderTime, emoji: $emoji, color: $color, target: $target, current: $current, isCompleted: $isCompleted)';
   }
 
   @override
@@ -330,16 +306,15 @@ class _$HabitImpl implements _Habit {
                 other.question == question) &&
             const DeepCollectionEquality()
                 .equals(other._repeatDays, _repeatDays) &&
-            const DeepCollectionEquality().equals(other._entries, _entries) &&
             (identical(other.type, type) || other.type == type) &&
             (identical(other.reminderTime, reminderTime) ||
                 other.reminderTime == reminderTime) &&
             (identical(other.emoji, emoji) || other.emoji == emoji) &&
             (identical(other.color, color) || other.color == color) &&
-            (identical(other.isCompleted, isCompleted) ||
-                other.isCompleted == isCompleted) &&
+            (identical(other.target, target) || other.target == target) &&
             (identical(other.current, current) || other.current == current) &&
-            (identical(other.target, target) || other.target == target));
+            (identical(other.isCompleted, isCompleted) ||
+                other.isCompleted == isCompleted));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -350,14 +325,13 @@ class _$HabitImpl implements _Habit {
       title,
       question,
       const DeepCollectionEquality().hash(_repeatDays),
-      const DeepCollectionEquality().hash(_entries),
       type,
       reminderTime,
       emoji,
       color,
-      isCompleted,
+      target,
       current,
-      target);
+      isCompleted);
 
   /// Create a copy of Habit
   /// with the given fields replaced by the non-null parameter values.
@@ -381,14 +355,13 @@ abstract class _Habit implements Habit {
       required final String title,
       required final String question,
       required final List<String> repeatDays,
-      final List<HabitRecord> entries,
       final HabitType type,
       @TimeOfDayConverter() final TimeOfDay? reminderTime,
       final String emoji,
       @ColorConverter() final Color color,
-      final bool isCompleted,
+      final double target,
       final double current,
-      final double target}) = _$HabitImpl;
+      final bool isCompleted}) = _$HabitImpl;
 
   factory _Habit.fromJson(Map<String, dynamic> json) = _$HabitImpl.fromJson;
 
@@ -401,8 +374,6 @@ abstract class _Habit implements Habit {
   @override
   List<String> get repeatDays;
   @override
-  List<HabitRecord> get entries;
-  @override
   HabitType get type;
   @override
   @TimeOfDayConverter()
@@ -413,11 +384,11 @@ abstract class _Habit implements Habit {
   @ColorConverter()
   Color get color;
   @override
-  bool get isCompleted;
+  double get target;
   @override
   double get current;
   @override
-  double get target;
+  bool get isCompleted;
 
   /// Create a copy of Habit
   /// with the given fields replaced by the non-null parameter values.

@@ -43,7 +43,7 @@ class CreateHabitModal {
             onComplete: () {
               context.read<CreateHabitCubit>().saveHabit();
               context.pop();
-              context.read<HomeCubit>().getHabits();
+              context.read<HomeCubit>().loadHabitsForDate(DateTime.now());
             },
           ),
         ),

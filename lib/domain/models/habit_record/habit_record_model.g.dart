@@ -8,16 +8,16 @@ part of 'habit_record_model.dart';
 
 _$HabitEntryImpl _$$HabitEntryImplFromJson(Map<String, dynamic> json) =>
     _$HabitEntryImpl(
-      id: json['id'] as String,
-      habitId: json['habitId'] as String,
+      habit: Habit.fromJson(json['habit'] as Map<String, dynamic>),
       date: DateTime.parse(json['date'] as String),
-      isCompleted: json['isCompleted'] as bool? ?? false,
+      isCompleted: json['isCompleted'] as bool,
+      value: (json['value'] as num?)?.toDouble() ?? 0.0,
     );
 
 Map<String, dynamic> _$$HabitEntryImplToJson(_$HabitEntryImpl instance) =>
     <String, dynamic>{
-      'id': instance.id,
-      'habitId': instance.habitId,
+      'habit': instance.habit,
       'date': instance.date.toIso8601String(),
       'isCompleted': instance.isCompleted,
+      'value': instance.value,
     };

@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:habitus/data/repositories/habit/habit_repository.dart';
 import 'package:habitus/domain/models/habit/habit_model.dart';
+import 'package:habitus/domain/models/habit_record/habit_record_model.dart';
 import 'package:habitus/ui/create_habit/cubit/create_habit_cubit.dart';
 
 class MockHabitRepository implements IHabitRepository {
@@ -60,12 +61,52 @@ class MockHabitRepository implements IHabitRepository {
       color: Colors.pink,
     ),
   ];
+  final Map<String, HabitRecord> _habitRecords = {};
+
+  String _generateRecordKey(String habitId, DateTime date) {
+    final dateKey = date.toIso8601String().split('T')[0];
+    return '${habitId}_$dateKey';
+  }
 
   @override
   Future<List<Habit>> getHabits() async {
-    // Simulate network delay
     await Future<void>.delayed(const Duration(milliseconds: 800));
     return _habits;
+  }
+
+  @override
+  Future<List<HabitRecord>> getHabitRecordsForDate(DateTime date) async {
+    await Future<void>.delayed(const Duration(milliseconds: 500));
+
+    return _habits.map((habit) {
+      final recordKey = _generateRecordKey(habit.id, date);
+      return _habitRecords[recordKey] ??
+          HabitRecord(
+            habit: habit,
+            date: date,
+            isCompleted: false,
+          );
+    }).toList();
+  }
+
+  @override
+  Future<void> updateHabitRecord(HabitRecord record) async {
+    await Future<void>.delayed(const Duration(milliseconds: 500));
+    final recordKey = _generateRecordKey(record.habit.id, record.date);
+    _habitRecords[recordKey] = record;
+  }
+
+  String _getWeekDayName(int weekday) {
+    const weekDays = {
+      1: 'Monday',
+      2: 'Tuesday',
+      3: 'Wednesday',
+      4: 'Thursday',
+      5: 'Friday',
+      6: 'Saturday',
+      7: 'Sunday',
+    };
+    return weekDays[weekday]!;
   }
 
   @override
@@ -101,18 +142,29 @@ class MockHabitRepository implements IHabitRepository {
   }
 
   @override
-  Future<void> saveProgress(String id, double value) async {
+  Future<void> saveProgress(String id, double value,
+      {required DateTime date}) async {
     await Future<void>.delayed(const Duration(milliseconds: 500));
-    final index = _habits.indexWhere((h) => h.id == id);
-    if (index != -1) {
-      final habit = _habits[index];
-      if (habit.type == HabitType.measurable) {
-        _habits[index] = habit.copyWith(current: value);
-      } else {
-        throw Exception('Habit is not measurable');
-      }
-    } else {
-      throw Exception('Habit not found');
+    final habit = await getHabitById(id);
+    if (habit.type != HabitType.measurable) {
+      throw Exception('Habit is not measurable');
     }
+
+    final dateKey = date.toIso8601String().split('T')[0];
+    final recordKey = '${id}_$dateKey';
+
+    final existingRecord = _habitRecords[recordKey];
+    final updatedRecord = (existingRecord ??
+            HabitRecord(
+              habit: habit,
+              date: date,
+              isCompleted: false,
+            ))
+        .copyWith(
+      value: value,
+      isCompleted: value >= habit.target,
+    );
+
+    _habitRecords[recordKey] = updatedRecord;
   }
 }

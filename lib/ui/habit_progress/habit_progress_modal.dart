@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:habitus/domain/models/habit/habit_model.dart';
+import 'package:habitus/domain/models/habit_record/habit_record_model.dart';
 import 'package:habitus/ui/core/ui/buttons/variants/primary_button.dart';
 import 'package:habitus/ui/core/ui/modals/modal_layout.dart';
 import 'package:habitus/ui/create_habit/cubit/create_habit_cubit.dart';
@@ -10,14 +10,11 @@ import 'package:habitus/ui/habit_progress/cubit/habit_progress_state.dart';
 import 'package:habitus/ui/home/cubit/home_cubit.dart';
 
 class HabitProgressModal extends StatefulWidget {
-  const HabitProgressModal({
-    required this.habit,
-    super.key,
-  });
+  const HabitProgressModal({required this.record, super.key});
 
-  final Habit habit;
+  final HabitRecord record;
 
-  static void show(BuildContext context, Habit habit) {
+  static void show(BuildContext context, HabitRecord record) {
     ModalLayout.show<void>(
       context: context,
       pageData: ModalPageData(
@@ -26,9 +23,9 @@ class HabitProgressModal extends StatefulWidget {
           BlocProvider(
             create: (context) => HabitProgressCubit(
               habitRepository: context.read(),
-              habit: habit,
+              record: record,
             ),
-            child: HabitProgressModal(habit: habit),
+            child: HabitProgressModal(record: record),
           ),
         ],
       ),
@@ -68,7 +65,7 @@ class _HabitProgressModalState extends State<HabitProgressModal> {
         ..updateProgress(progress);
       await cubit.saveProgress();
       if (!mounted) return;
-      await context.read<HomeCubit>().getHabits();
+      await context.read<HomeCubit>().loadHabitsForDate(widget.record.date);
       if (!mounted) return;
       Navigator.pop(context);
     } catch (e) {
@@ -88,7 +85,7 @@ class _HabitProgressModalState extends State<HabitProgressModal> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              widget.habit.question,
+              widget.record.habit.question,
               style: Theme.of(context).textTheme.titleLarge,
             ),
             // Number picker
@@ -103,7 +100,7 @@ class _HabitProgressModalState extends State<HabitProgressModal> {
                   _progressController.text = index.toString();
                 },
                 children: List.generate(
-                  widget.habit.target.toInt() + 1,
+                  widget.record.habit.target.toInt() + 1,
                   (index) => Text(index.toString()),
                 ),
               ),

@@ -16,11 +16,11 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$HabitProgressState {
-  String get id => throw _privateConstructorUsedError;
-  double get currentValue => throw _privateConstructorUsedError;
   double get targetValue => throw _privateConstructorUsedError;
+  double get currentValue => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
+  DateTime get date => throw _privateConstructorUsedError;
   FormStatus get status => throw _privateConstructorUsedError;
-  String? get error => throw _privateConstructorUsedError;
 
   /// Create a copy of HabitProgressState
   /// with the given fields replaced by the non-null parameter values.
@@ -36,11 +36,11 @@ abstract class $HabitProgressStateCopyWith<$Res> {
       _$HabitProgressStateCopyWithImpl<$Res, HabitProgressState>;
   @useResult
   $Res call(
-      {String id,
+      {double targetValue,
       double currentValue,
-      double targetValue,
-      FormStatus status,
-      String? error});
+      String id,
+      DateTime date,
+      FormStatus status});
 }
 
 /// @nodoc
@@ -58,33 +58,33 @@ class _$HabitProgressStateCopyWithImpl<$Res, $Val extends HabitProgressState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
-    Object? currentValue = null,
     Object? targetValue = null,
+    Object? currentValue = null,
+    Object? id = null,
+    Object? date = null,
     Object? status = null,
-    Object? error = freezed,
   }) {
     return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      currentValue: null == currentValue
-          ? _value.currentValue
-          : currentValue // ignore: cast_nullable_to_non_nullable
-              as double,
       targetValue: null == targetValue
           ? _value.targetValue
           : targetValue // ignore: cast_nullable_to_non_nullable
               as double,
+      currentValue: null == currentValue
+          ? _value.currentValue
+          : currentValue // ignore: cast_nullable_to_non_nullable
+              as double,
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      date: null == date
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as FormStatus,
-      error: freezed == error
-          ? _value.error
-          : error // ignore: cast_nullable_to_non_nullable
-              as String?,
     ) as $Val);
   }
 }
@@ -98,11 +98,11 @@ abstract class _$$HabitProgressStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String id,
+      {double targetValue,
       double currentValue,
-      double targetValue,
-      FormStatus status,
-      String? error});
+      String id,
+      DateTime date,
+      FormStatus status});
 }
 
 /// @nodoc
@@ -118,33 +118,33 @@ class __$$HabitProgressStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
-    Object? currentValue = null,
     Object? targetValue = null,
+    Object? currentValue = null,
+    Object? id = null,
+    Object? date = null,
     Object? status = null,
-    Object? error = freezed,
   }) {
     return _then(_$HabitProgressStateImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      currentValue: null == currentValue
-          ? _value.currentValue
-          : currentValue // ignore: cast_nullable_to_non_nullable
-              as double,
       targetValue: null == targetValue
           ? _value.targetValue
           : targetValue // ignore: cast_nullable_to_non_nullable
               as double,
+      currentValue: null == currentValue
+          ? _value.currentValue
+          : currentValue // ignore: cast_nullable_to_non_nullable
+              as double,
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      date: null == date
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as FormStatus,
-      error: freezed == error
-          ? _value.error
-          : error // ignore: cast_nullable_to_non_nullable
-              as String?,
     ));
   }
 }
@@ -153,29 +153,27 @@ class __$$HabitProgressStateImplCopyWithImpl<$Res>
 
 class _$HabitProgressStateImpl implements _HabitProgressState {
   const _$HabitProgressStateImpl(
-      {required this.id,
-      this.currentValue = 0.0,
-      this.targetValue = 0.0,
-      this.status = FormStatus.pure,
-      this.error});
+      {required this.targetValue,
+      required this.currentValue,
+      required this.id,
+      required this.date,
+      this.status = FormStatus.pure});
 
+  @override
+  final double targetValue;
+  @override
+  final double currentValue;
   @override
   final String id;
   @override
-  @JsonKey()
-  final double currentValue;
-  @override
-  @JsonKey()
-  final double targetValue;
+  final DateTime date;
   @override
   @JsonKey()
   final FormStatus status;
-  @override
-  final String? error;
 
   @override
   String toString() {
-    return 'HabitProgressState(id: $id, currentValue: $currentValue, targetValue: $targetValue, status: $status, error: $error)';
+    return 'HabitProgressState(targetValue: $targetValue, currentValue: $currentValue, id: $id, date: $date, status: $status)';
   }
 
   @override
@@ -183,18 +181,18 @@ class _$HabitProgressStateImpl implements _HabitProgressState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$HabitProgressStateImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.currentValue, currentValue) ||
-                other.currentValue == currentValue) &&
             (identical(other.targetValue, targetValue) ||
                 other.targetValue == targetValue) &&
-            (identical(other.status, status) || other.status == status) &&
-            (identical(other.error, error) || other.error == error));
+            (identical(other.currentValue, currentValue) ||
+                other.currentValue == currentValue) &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.date, date) || other.date == date) &&
+            (identical(other.status, status) || other.status == status));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, id, currentValue, targetValue, status, error);
+      Object.hash(runtimeType, targetValue, currentValue, id, date, status);
 
   /// Create a copy of HabitProgressState
   /// with the given fields replaced by the non-null parameter values.
@@ -208,22 +206,22 @@ class _$HabitProgressStateImpl implements _HabitProgressState {
 
 abstract class _HabitProgressState implements HabitProgressState {
   const factory _HabitProgressState(
-      {required final String id,
-      final double currentValue,
-      final double targetValue,
-      final FormStatus status,
-      final String? error}) = _$HabitProgressStateImpl;
+      {required final double targetValue,
+      required final double currentValue,
+      required final String id,
+      required final DateTime date,
+      final FormStatus status}) = _$HabitProgressStateImpl;
 
-  @override
-  String get id;
-  @override
-  double get currentValue;
   @override
   double get targetValue;
   @override
-  FormStatus get status;
+  double get currentValue;
   @override
-  String? get error;
+  String get id;
+  @override
+  DateTime get date;
+  @override
+  FormStatus get status;
 
   /// Create a copy of HabitProgressState
   /// with the given fields replaced by the non-null parameter values.

@@ -20,10 +20,10 @@ HabitRecord _$HabitRecordFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$HabitRecord {
-  String get id => throw _privateConstructorUsedError;
-  String get habitId => throw _privateConstructorUsedError;
+  Habit get habit => throw _privateConstructorUsedError;
   DateTime get date => throw _privateConstructorUsedError;
   bool get isCompleted => throw _privateConstructorUsedError;
+  double get value => throw _privateConstructorUsedError;
 
   /// Serializes this HabitRecord to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -41,7 +41,9 @@ abstract class $HabitRecordCopyWith<$Res> {
           HabitRecord value, $Res Function(HabitRecord) then) =
       _$HabitRecordCopyWithImpl<$Res, HabitRecord>;
   @useResult
-  $Res call({String id, String habitId, DateTime date, bool isCompleted});
+  $Res call({Habit habit, DateTime date, bool isCompleted, double value});
+
+  $HabitCopyWith<$Res> get habit;
 }
 
 /// @nodoc
@@ -59,20 +61,16 @@ class _$HabitRecordCopyWithImpl<$Res, $Val extends HabitRecord>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
-    Object? habitId = null,
+    Object? habit = null,
     Object? date = null,
     Object? isCompleted = null,
+    Object? value = null,
   }) {
     return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      habitId: null == habitId
-          ? _value.habitId
-          : habitId // ignore: cast_nullable_to_non_nullable
-              as String,
+      habit: null == habit
+          ? _value.habit
+          : habit // ignore: cast_nullable_to_non_nullable
+              as Habit,
       date: null == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
@@ -81,7 +79,21 @@ class _$HabitRecordCopyWithImpl<$Res, $Val extends HabitRecord>
           ? _value.isCompleted
           : isCompleted // ignore: cast_nullable_to_non_nullable
               as bool,
+      value: null == value
+          ? _value.value
+          : value // ignore: cast_nullable_to_non_nullable
+              as double,
     ) as $Val);
+  }
+
+  /// Create a copy of HabitRecord
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $HabitCopyWith<$Res> get habit {
+    return $HabitCopyWith<$Res>(_value.habit, (value) {
+      return _then(_value.copyWith(habit: value) as $Val);
+    });
   }
 }
 
@@ -93,7 +105,10 @@ abstract class _$$HabitEntryImplCopyWith<$Res>
       __$$HabitEntryImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String habitId, DateTime date, bool isCompleted});
+  $Res call({Habit habit, DateTime date, bool isCompleted, double value});
+
+  @override
+  $HabitCopyWith<$Res> get habit;
 }
 
 /// @nodoc
@@ -109,20 +124,16 @@ class __$$HabitEntryImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
-    Object? habitId = null,
+    Object? habit = null,
     Object? date = null,
     Object? isCompleted = null,
+    Object? value = null,
   }) {
     return _then(_$HabitEntryImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      habitId: null == habitId
-          ? _value.habitId
-          : habitId // ignore: cast_nullable_to_non_nullable
-              as String,
+      habit: null == habit
+          ? _value.habit
+          : habit // ignore: cast_nullable_to_non_nullable
+              as Habit,
       date: null == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
@@ -131,6 +142,10 @@ class __$$HabitEntryImplCopyWithImpl<$Res>
           ? _value.isCompleted
           : isCompleted // ignore: cast_nullable_to_non_nullable
               as bool,
+      value: null == value
+          ? _value.value
+          : value // ignore: cast_nullable_to_non_nullable
+              as double,
     ));
   }
 }
@@ -139,27 +154,27 @@ class __$$HabitEntryImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$HabitEntryImpl implements _HabitEntry {
   const _$HabitEntryImpl(
-      {required this.id,
-      required this.habitId,
+      {required this.habit,
       required this.date,
-      this.isCompleted = false});
+      required this.isCompleted,
+      this.value = 0.0});
 
   factory _$HabitEntryImpl.fromJson(Map<String, dynamic> json) =>
       _$$HabitEntryImplFromJson(json);
 
   @override
-  final String id;
-  @override
-  final String habitId;
+  final Habit habit;
   @override
   final DateTime date;
   @override
-  @JsonKey()
   final bool isCompleted;
+  @override
+  @JsonKey()
+  final double value;
 
   @override
   String toString() {
-    return 'HabitRecord(id: $id, habitId: $habitId, date: $date, isCompleted: $isCompleted)';
+    return 'HabitRecord(habit: $habit, date: $date, isCompleted: $isCompleted, value: $value)';
   }
 
   @override
@@ -167,16 +182,16 @@ class _$HabitEntryImpl implements _HabitEntry {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$HabitEntryImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.habitId, habitId) || other.habitId == habitId) &&
+            (identical(other.habit, habit) || other.habit == habit) &&
             (identical(other.date, date) || other.date == date) &&
             (identical(other.isCompleted, isCompleted) ||
-                other.isCompleted == isCompleted));
+                other.isCompleted == isCompleted) &&
+            (identical(other.value, value) || other.value == value));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, habitId, date, isCompleted);
+  int get hashCode => Object.hash(runtimeType, habit, date, isCompleted, value);
 
   /// Create a copy of HabitRecord
   /// with the given fields replaced by the non-null parameter values.
@@ -196,22 +211,22 @@ class _$HabitEntryImpl implements _HabitEntry {
 
 abstract class _HabitEntry implements HabitRecord {
   const factory _HabitEntry(
-      {required final String id,
-      required final String habitId,
+      {required final Habit habit,
       required final DateTime date,
-      final bool isCompleted}) = _$HabitEntryImpl;
+      required final bool isCompleted,
+      final double value}) = _$HabitEntryImpl;
 
   factory _HabitEntry.fromJson(Map<String, dynamic> json) =
       _$HabitEntryImpl.fromJson;
 
   @override
-  String get id;
-  @override
-  String get habitId;
+  Habit get habit;
   @override
   DateTime get date;
   @override
   bool get isCompleted;
+  @override
+  double get value;
 
   /// Create a copy of HabitRecord
   /// with the given fields replaced by the non-null parameter values.

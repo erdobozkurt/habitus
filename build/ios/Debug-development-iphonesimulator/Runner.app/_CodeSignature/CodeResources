@@ -46,7 +46,7 @@
 		</data>
 		<key>Frameworks/App.framework/App</key>
 		<data>
-		D8T9Ze52tlVWtVhgaIgKtIugpmw=
+		SbdWoh29YfXgfNGmmPc89VKWWP8=
 		</data>
 		<key>Frameworks/App.framework/Info.plist</key>
 		<data>
@@ -54,7 +54,7 @@
 		</data>
 		<key>Frameworks/App.framework/_CodeSignature/CodeResources</key>
 		<data>
-		DZCuljX4VHEqI1AqRYUFneLYReA=
+		VlIA7I5QcRinunYL22IjW8Qe0o8=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/AssetManifest.bin</key>
 		<data>
@@ -70,7 +70,7 @@
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/NOTICES.Z</key>
 		<data>
-		5OnfMf6md9hQyd3F/Qk8Qo7J8gc=
+		CPZMW1NLUxbDn+tsu7vOdzTdOwc=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/assets/images/app_logo.png</key>
 		<data>
@@ -98,7 +98,7 @@
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/kernel_blob.bin</key>
 		<data>
-		TcJJyAFx+CS4L5KLVNkyTDon87M=
+		eQFO2tTiZ7J1k8IlvW35RSs1ntY=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/shaders/ink_sparkle.frag</key>
 		<data>
@@ -210,7 +210,7 @@
 		</data>
 		<key>Frameworks/emoji_picker_flutter.framework/emoji_picker_flutter</key>
 		<data>
-		/veX2izewGBIaFXX6N873Ib9hTc=
+		sMiMzPCxQ5mKGVCfwu2Ybi8xULg=
 		</data>
 		<key>Frameworks/path_provider_foundation.framework/Info.plist</key>
 		<data>
@@ -345,7 +345,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			j5YS8wid6I5H16x4Ii5hfTlhL0hSxhduJmPp8tFAZX4=
+			ixG8C5V9Q9EEhQ3h0SsbG9zLbXPIpmTs9QjrlXnbpAE=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/Info.plist</key>
@@ -359,7 +359,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			hPsyLxILJy9YGJSzKA4rDb55LJyF1LLiPfsMzGiORX0=
+			uezbBOi2e/ecsFvEnvPHIALOY1aFAlDif7GNv40+SOE=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/AssetManifest.bin</key>
@@ -387,7 +387,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			qlmi+fDy8T4L/aOJhsLPF0LphLa+sQABsbt9z87AHlw=
+			1qFSb1GzI0fIu74OMWHiSAi7uqjjwZcQKQQ3CEfINhI=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/assets/images/app_logo.png</key>
@@ -436,7 +436,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			+Elp90Amh13ugOx/Rz5KGcsk4B10+r3oJi2D4Y4R8+4=
+			puPhxcR3Dzj8nOQeq7+k0/Ndp8HQtz6549P4uHNi3IA=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/shaders/ink_sparkle.frag</key>
@@ -632,7 +632,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			TuOQToHYiEafA2QgT5c/dudGM0PXTQaogZtqHpoVrtE=
+			whiHe9xPO9Rg/WpBuF9WgS+RkpnhzG+otrggxUHqNz0=
 			</data>
 		</dict>
 		<key>Frameworks/path_provider_foundation.framework/Info.plist</key>

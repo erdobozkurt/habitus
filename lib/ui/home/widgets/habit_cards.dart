@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:habitus/domain/enums/status.dart';
-import 'package:habitus/domain/models/habit/habit_model.dart';
+import 'package:habitus/domain/models/habit_record/habit_record_model.dart';
 import 'package:habitus/ui/core/themes/constants/gap_constants.dart';
 import 'package:habitus/ui/core/themes/constants/padding_constants.dart';
 import 'package:habitus/ui/create_habit/cubit/create_habit_cubit.dart';
@@ -12,12 +12,12 @@ import 'package:habitus/utils/extensions/context_extension.dart';
 
 class HabitCard extends StatefulWidget {
   const HabitCard({
-    required this.habit,
+    required this.record,
     required this.onToggleComplete,
     super.key,
   });
 
-  final Habit habit;
+  final HabitRecord record;
   final ValueChanged<bool> onToggleComplete;
 
   @override
@@ -60,8 +60,8 @@ class _HabitCardState extends State<HabitCard>
         onTapUp: (_) => _controller.reverse(),
         onTapCancel: () => _controller.reverse(),
         onTap: () {
-          if (widget.habit.type == HabitType.measurable) {
-            HabitProgressModal.show(context, widget.habit);
+          if (widget.record.habit.type == HabitType.measurable) {
+            HabitProgressModal.show(context, widget.record);
           }
         },
         child: Card(
@@ -73,17 +73,17 @@ class _HabitCardState extends State<HabitCard>
             padding: PaddingConstants.cardPadding,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
-              color: widget.habit.color,
+              color: widget.record.habit.color,
             ),
-            child: widget.habit.type == HabitType.boolean
+            child: widget.record.habit.type == HabitType.boolean
                 ? _BooleanHabitContent(
-                    habit: widget.habit,
+                    record: widget.record,
                     onToggle: widget.onToggleComplete,
                   )
                 : _MeasurableHabitContent(
-                    habit: widget.habit,
+                    record: widget.record,
                     onProgress: (value) {
-                      HabitProgressModal.show(context, widget.habit);
+                      HabitProgressModal.show(context, widget.record);
                     },
                   ),
           ),
@@ -95,64 +95,74 @@ class _HabitCardState extends State<HabitCard>
 
 class _BooleanHabitContent extends StatelessWidget {
   const _BooleanHabitContent({
-    required this.habit,
+    required this.record,
     required this.onToggle,
   });
 
-  final Habit habit;
+  final HabitRecord record;
   final ValueChanged<bool> onToggle;
 
   @override
   Widget build(BuildContext context) {
     final colorScheme = context.theme.colorScheme;
     final textTheme = context.textTheme;
-    return Row(
-      children: [
-        Text(
-          habit.emoji,
-          style: textTheme.headlineLarge,
-        ),
-        GapConstants.gapMedium,
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                habit.title,
-                style: textTheme.titleMedium?.apply(
-                  color: colorScheme.onPrimary,
-                  fontWeightDelta: 2,
-                ),
+    return BlocBuilder<HomeCubit, HomeState>(
+      buildWhen: (previous, current) =>
+          previous.toggleStatus != current.toggleStatus,
+      builder: (context, state) {
+        return Row(
+          children: [
+            Text(
+              record.habit.emoji,
+              style: textTheme.headlineLarge,
+            ),
+            GapConstants.gapMedium,
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    record.habit.title,
+                    style: textTheme.titleMedium?.apply(
+                      color: colorScheme.onPrimary,
+                      fontWeightDelta: 2,
+                    ),
+                  ),
+                  Text(
+                    record.habit.question,
+                    style: textTheme.bodySmall?.apply(
+                      color: colorScheme.onPrimary,
+                      fontWeightDelta: 2,
+                    ),
+                  ),
+                ],
               ),
-              Text(
-                habit.question,
-                style: textTheme.bodySmall?.apply(
-                  color: colorScheme.onPrimary,
-                  fontWeightDelta: 2,
-                ),
+            ),
+            if (state.toggleStatus == Status.loading)
+              const SizedBox(
+                width: 24,
+                height: 24,
+                child: CircularProgressIndicator(),
+              )
+            else
+              _AnimatedCheckbox(
+                value: record.isCompleted,
+                onChanged: onToggle,
               ),
-            ],
-          ),
-        ),
-        if (context.read<HomeCubit>().state.toggleStatus == Status.loading)
-          const CircularProgressIndicator.adaptive()
-        else
-          _AnimatedCheckbox(
-            value: habit.isCompleted,
-            onChanged: onToggle,
-          ),
-      ],
+          ],
+        );
+      },
     );
   }
 }
 
 class _MeasurableHabitContent extends StatelessWidget {
   const _MeasurableHabitContent({
-    required this.habit,
+    required this.record,
     required this.onProgress,
   });
 
-  final Habit habit;
+  final HabitRecord record;
   final ValueChanged<double> onProgress;
 
   @override
@@ -165,7 +175,7 @@ class _MeasurableHabitContent extends StatelessWidget {
         Row(
           children: [
             Text(
-              habit.emoji,
+              record.habit.emoji,
               style: textTheme.headlineLarge,
             ),
             GapConstants.gapMedium,
@@ -174,14 +184,14 @@ class _MeasurableHabitContent extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    habit.title,
+                    record.habit.title,
                     style: context.textTheme.titleMedium?.apply(
                       color: colorScheme.onPrimary,
                       fontWeightDelta: 2,
                     ),
                   ),
                   Text(
-                    habit.question,
+                    record.habit.question,
                     style: context.textTheme.bodySmall?.apply(
                       color: colorScheme.onPrimary,
                       fontWeightDelta: 2,
@@ -191,7 +201,7 @@ class _MeasurableHabitContent extends StatelessWidget {
               ),
             ),
             Text(
-              '${habit.current.toInt()}/${habit.target.toInt()}',
+              '${record.value.toInt()}/${record.habit.target.toInt()}',
               style: textTheme.titleMedium?.apply(
                 color: colorScheme.onPrimary,
                 fontWeightDelta: 2,
@@ -201,7 +211,7 @@ class _MeasurableHabitContent extends StatelessWidget {
         ),
         GapConstants.gapSmall,
         LinearProgressIndicator(
-          value: habit.current / habit.target,
+          value: record.value / record.habit.target,
           valueColor: AlwaysStoppedAnimation<Color>(colorScheme.onPrimary),
           backgroundColor: colorScheme.onPrimary.withAlpha(100),
         ),

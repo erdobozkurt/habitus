@@ -16,9 +16,11 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$HomeState {
+  List<Habit> get habits => throw _privateConstructorUsedError;
+  List<HabitRecord> get habitRecords => throw _privateConstructorUsedError;
   Status get status => throw _privateConstructorUsedError;
   Status get toggleStatus => throw _privateConstructorUsedError;
-  List<Habit> get habits => throw _privateConstructorUsedError;
+  DateTime? get selectedDate => throw _privateConstructorUsedError;
 
   /// Create a copy of HomeState
   /// with the given fields replaced by the non-null parameter values.
@@ -32,7 +34,12 @@ abstract class $HomeStateCopyWith<$Res> {
   factory $HomeStateCopyWith(HomeState value, $Res Function(HomeState) then) =
       _$HomeStateCopyWithImpl<$Res, HomeState>;
   @useResult
-  $Res call({Status status, Status toggleStatus, List<Habit> habits});
+  $Res call(
+      {List<Habit> habits,
+      List<HabitRecord> habitRecords,
+      Status status,
+      Status toggleStatus,
+      DateTime? selectedDate});
 }
 
 /// @nodoc
@@ -50,11 +57,21 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? habits = null,
+    Object? habitRecords = null,
     Object? status = null,
     Object? toggleStatus = null,
-    Object? habits = null,
+    Object? selectedDate = freezed,
   }) {
     return _then(_value.copyWith(
+      habits: null == habits
+          ? _value.habits
+          : habits // ignore: cast_nullable_to_non_nullable
+              as List<Habit>,
+      habitRecords: null == habitRecords
+          ? _value.habitRecords
+          : habitRecords // ignore: cast_nullable_to_non_nullable
+              as List<HabitRecord>,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -63,10 +80,10 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
           ? _value.toggleStatus
           : toggleStatus // ignore: cast_nullable_to_non_nullable
               as Status,
-      habits: null == habits
-          ? _value.habits
-          : habits // ignore: cast_nullable_to_non_nullable
-              as List<Habit>,
+      selectedDate: freezed == selectedDate
+          ? _value.selectedDate
+          : selectedDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ) as $Val);
   }
 }
@@ -79,7 +96,12 @@ abstract class _$$HomeStateImplCopyWith<$Res>
       __$$HomeStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Status status, Status toggleStatus, List<Habit> habits});
+  $Res call(
+      {List<Habit> habits,
+      List<HabitRecord> habitRecords,
+      Status status,
+      Status toggleStatus,
+      DateTime? selectedDate});
 }
 
 /// @nodoc
@@ -95,11 +117,21 @@ class __$$HomeStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? habits = null,
+    Object? habitRecords = null,
     Object? status = null,
     Object? toggleStatus = null,
-    Object? habits = null,
+    Object? selectedDate = freezed,
   }) {
     return _then(_$HomeStateImpl(
+      habits: null == habits
+          ? _value._habits
+          : habits // ignore: cast_nullable_to_non_nullable
+              as List<Habit>,
+      habitRecords: null == habitRecords
+          ? _value._habitRecords
+          : habitRecords // ignore: cast_nullable_to_non_nullable
+              as List<HabitRecord>,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -108,10 +140,10 @@ class __$$HomeStateImplCopyWithImpl<$Res>
           ? _value.toggleStatus
           : toggleStatus // ignore: cast_nullable_to_non_nullable
               as Status,
-      habits: null == habits
-          ? _value._habits
-          : habits // ignore: cast_nullable_to_non_nullable
-              as List<Habit>,
+      selectedDate: freezed == selectedDate
+          ? _value.selectedDate
+          : selectedDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
@@ -120,17 +152,14 @@ class __$$HomeStateImplCopyWithImpl<$Res>
 
 class _$HomeStateImpl implements _HomeState {
   const _$HomeStateImpl(
-      {this.status = Status.initial,
+      {final List<Habit> habits = const [],
+      final List<HabitRecord> habitRecords = const [],
+      this.status = Status.initial,
       this.toggleStatus = Status.initial,
-      final List<Habit> habits = const []})
-      : _habits = habits;
+      this.selectedDate})
+      : _habits = habits,
+        _habitRecords = habitRecords;
 
-  @override
-  @JsonKey()
-  final Status status;
-  @override
-  @JsonKey()
-  final Status toggleStatus;
   final List<Habit> _habits;
   @override
   @JsonKey()
@@ -140,9 +169,27 @@ class _$HomeStateImpl implements _HomeState {
     return EqualUnmodifiableListView(_habits);
   }
 
+  final List<HabitRecord> _habitRecords;
+  @override
+  @JsonKey()
+  List<HabitRecord> get habitRecords {
+    if (_habitRecords is EqualUnmodifiableListView) return _habitRecords;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_habitRecords);
+  }
+
+  @override
+  @JsonKey()
+  final Status status;
+  @override
+  @JsonKey()
+  final Status toggleStatus;
+  @override
+  final DateTime? selectedDate;
+
   @override
   String toString() {
-    return 'HomeState(status: $status, toggleStatus: $toggleStatus, habits: $habits)';
+    return 'HomeState(habits: $habits, habitRecords: $habitRecords, status: $status, toggleStatus: $toggleStatus, selectedDate: $selectedDate)';
   }
 
   @override
@@ -150,15 +197,24 @@ class _$HomeStateImpl implements _HomeState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$HomeStateImpl &&
+            const DeepCollectionEquality().equals(other._habits, _habits) &&
+            const DeepCollectionEquality()
+                .equals(other._habitRecords, _habitRecords) &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.toggleStatus, toggleStatus) ||
                 other.toggleStatus == toggleStatus) &&
-            const DeepCollectionEquality().equals(other._habits, _habits));
+            (identical(other.selectedDate, selectedDate) ||
+                other.selectedDate == selectedDate));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, status, toggleStatus,
-      const DeepCollectionEquality().hash(_habits));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_habits),
+      const DeepCollectionEquality().hash(_habitRecords),
+      status,
+      toggleStatus,
+      selectedDate);
 
   /// Create a copy of HomeState
   /// with the given fields replaced by the non-null parameter values.
@@ -171,16 +227,22 @@ class _$HomeStateImpl implements _HomeState {
 
 abstract class _HomeState implements HomeState {
   const factory _HomeState(
-      {final Status status,
+      {final List<Habit> habits,
+      final List<HabitRecord> habitRecords,
+      final Status status,
       final Status toggleStatus,
-      final List<Habit> habits}) = _$HomeStateImpl;
+      final DateTime? selectedDate}) = _$HomeStateImpl;
 
+  @override
+  List<Habit> get habits;
+  @override
+  List<HabitRecord> get habitRecords;
   @override
   Status get status;
   @override
   Status get toggleStatus;
   @override
-  List<Habit> get habits;
+  DateTime? get selectedDate;
 
   /// Create a copy of HomeState
   /// with the given fields replaced by the non-null parameter values.
