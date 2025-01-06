@@ -61,7 +61,42 @@ class MockHabitRepository implements IHabitRepository {
       color: Colors.pink,
     ),
   ];
-  final Map<String, HabitRecord> _habitRecords = {};
+  late final Map<String, HabitRecord> _habitRecords = {
+    '2_2025-01-10': HabitRecord(
+      habit: _habits[1],
+      date: DateTime(2025, 1, 10),
+      isCompleted: true,
+      value: 8,
+    ),
+    '2_2025-01-09': HabitRecord(
+      habit: _habits[1],
+      date: DateTime(2025, 1, 9),
+      isCompleted: false,
+      value: 3,
+    ),
+    '3_2025-01-10': HabitRecord(
+      habit: _habits[2],
+      date: DateTime(2025, 1, 10),
+      isCompleted: true,
+      value: 25,
+    ),
+    '3_2025-01-09': HabitRecord(
+      habit: _habits[2],
+      date: DateTime(2025, 1, 9),
+      isCompleted: false,
+      value: 15,
+    ),
+    '1_2025-01-10': HabitRecord(
+      habit: _habits[0],
+      date: DateTime(2025, 1, 10),
+      isCompleted: true,
+    ),
+    '1_2025-01-09': HabitRecord(
+      habit: _habits[0],
+      date: DateTime(2025, 1, 9),
+      isCompleted: false,
+    ),
+  };
 
   String _generateRecordKey(String habitId, DateTime date) {
     final dateKey = date.toIso8601String().split('T')[0];
@@ -142,8 +177,11 @@ class MockHabitRepository implements IHabitRepository {
   }
 
   @override
-  Future<void> saveProgress(String id, double value,
-      {required DateTime date}) async {
+  Future<void> saveProgress(
+    String id,
+    double value, {
+    required DateTime date,
+  }) async {
     await Future<void>.delayed(const Duration(milliseconds: 500));
     final habit = await getHabitById(id);
     if (habit.type != HabitType.measurable) {
