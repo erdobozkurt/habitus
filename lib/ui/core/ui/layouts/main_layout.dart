@@ -49,14 +49,14 @@ class MainLayout extends StatelessWidget {
           selectedIndex: navigationShell.currentIndex,
           destinations: const [
             NavigationDestination(
-              icon: Icon(Icons.home_outlined),
-              selectedIcon: Icon(Icons.home),
-              label: 'Home',
+              icon: Icon(Icons.calendar_month_outlined),
+              selectedIcon: Icon(Icons.calendar_month),
+              label: 'Daily',
             ),
             NavigationDestination(
               icon: Icon(Icons.list_alt_outlined),
               selectedIcon: Icon(Icons.list_alt),
-              label: 'Routines',
+              label: 'Dashboard',
             ),
           ],
         ),
