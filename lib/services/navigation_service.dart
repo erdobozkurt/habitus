@@ -11,12 +11,8 @@ class NavigationService {
     _safePush(context, () => context.go(RouteConstants.home));
   }
 
-  // void goToSignIn(BuildContext context) {
-  //   _safePush(context, () => context.go(RouteConstants.signIn));
-  // }
-
-  void goToProfile(BuildContext context) {
-    _safePush(context, () => context.go(RouteConstants.profile));
+  void goToDashboard(BuildContext context) {
+    _safePush(context, () => context.go(RouteConstants.dashboard));
   }
 
   void pop(BuildContext context) {

@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:habitus/router/route_constants.dart';
 import 'package:habitus/ui/core/ui/layouts/main_layout.dart';
+import 'package:habitus/ui/dashboard/widgets/dashboard_screen.dart';
 import 'package:habitus/ui/home/widgets/home_screen.dart';
 import 'package:habitus/ui/onboard/cubit/onboard_cubit.dart';
 import 'package:habitus/ui/onboard/widgets/onboarding_screen.dart';
-import 'package:habitus/ui/routines/widgets/routines_page.dart';
 
 class AppRouter {
   static final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -58,9 +58,9 @@ class AppRouter {
           StatefulShellBranch(
             routes: [
               GoRoute(
-                path: RouteConstants.routines,
+                path: RouteConstants.dashboard,
                 pageBuilder: (context, state) =>
-                    const NoTransitionPage(child: RoutinesScreen()),
+                    const NoTransitionPage(child: DashboardScreen()),
               ),
             ],
           ),

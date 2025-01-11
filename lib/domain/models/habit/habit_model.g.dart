@@ -7,7 +7,7 @@ part of 'habit_model.dart';
 // **************************************************************************
 
 ColorConverter _$ColorConverterFromJson(Map<String, dynamic> json) =>
-    ColorConverter();
+    const ColorConverter();
 
 Map<String, dynamic> _$ColorConverterToJson(ColorConverter instance) =>
     <String, dynamic>{};
@@ -38,7 +38,7 @@ Map<String, dynamic> _$$HabitImplToJson(_$HabitImpl instance) =>
       'title': instance.title,
       'question': instance.question,
       'repeatDays': instance.repeatDays,
-      'type': _$HabitTypeEnumMap[instance.type]!,
+      'type': _$HabitTypeEnumMap[instance.type],
       'reminderTime': const TimeOfDayConverter().toJson(instance.reminderTime),
       'emoji': instance.emoji,
       'color': const ColorConverter().toJson(instance.color),

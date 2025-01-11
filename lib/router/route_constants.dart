@@ -8,6 +8,5 @@ class RouteConstants {
 
   // Main Routes
   static const String home = '/home';
-  static const String routines = '/routines';
-  static const String profile = '/profile';
+  static const String dashboard = '/dashboard';
 }

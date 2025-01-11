@@ -112,7 +112,7 @@ class _HabitProgressModalState extends State<HabitProgressModal> {
                     ? null
                     : _handleSave,
                 child: state.status == FormStatus.submissionInProgress
-                    ? const CircularProgressIndicator()
+                    ? const CircularProgressIndicator.adaptive()
                     : const Text('Save Progress'),
               ),
             ),
