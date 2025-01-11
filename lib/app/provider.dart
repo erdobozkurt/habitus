@@ -4,6 +4,7 @@ import 'package:habitus/data/repositories/onboard/onboard_repository.dart';
 import 'package:habitus/data/repositories/theme/theme_repository.dart';
 import 'package:habitus/ui/core/themes/cubit/theme_cubit.dart';
 import 'package:habitus/ui/create_habit/cubit/create_habit_cubit.dart';
+import 'package:habitus/ui/dashboard/cubit/dashboard_cubit.dart';
 import 'package:habitus/ui/home/cubit/home_cubit.dart';
 import 'package:habitus/ui/onboard/cubit/onboard_cubit.dart';
 
@@ -28,6 +29,9 @@ List<BlocProvider<StateStreamableSource<Object?>>> provider() {
       create: (context) => CreateHabitCubit(
         habitRepository: context.read<IHabitRepository>(),
       ),
+    ),
+    BlocProvider<DashboardCubit>(
+      create: (_) => DashboardCubit()..fetchHabits(),
     ),
   ];
 }
