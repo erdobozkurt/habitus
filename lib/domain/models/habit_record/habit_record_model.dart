@@ -11,6 +11,7 @@ class HabitRecord with _$HabitRecord {
     required DateTime date,
     required bool isCompleted,
     @Default(0.0) double value,
+    // Add any additional fields if necessary
   }) = _HabitEntry;
 
   factory HabitRecord.fromJson(Map<String, dynamic> json) =>

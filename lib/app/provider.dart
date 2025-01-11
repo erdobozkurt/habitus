@@ -31,7 +31,9 @@ List<BlocProvider<StateStreamableSource<Object?>>> provider() {
       ),
     ),
     BlocProvider<DashboardCubit>(
-      create: (_) => DashboardCubit()..fetchHabits(),
+      create: (context) => DashboardCubit(
+        context.read<IHabitRepository>(),
+      )..fetchHabits(),
     ),
   ];
 }

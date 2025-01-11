@@ -6,7 +6,7 @@ import 'package:habitus/domain/models/habit_record/habit_record_model.dart';
 import 'package:habitus/ui/create_habit/cubit/create_habit_cubit.dart';
 
 class MockHabitRepository implements IHabitRepository {
-  final List<Habit> _habits = [
+  static final List<Habit> _habits = [
     const Habit(
       id: '1',
       title: 'Morning Meditation',
@@ -61,6 +61,36 @@ class MockHabitRepository implements IHabitRepository {
       color: Colors.pink,
     ),
   ];
+
+  final List<HabitRecord> _additionalMockRecords = [
+    // Add more records spanning multiple days for better chart data
+    HabitRecord(
+      habit: _habits[1],
+      date: DateTime.now().subtract(const Duration(days: 1)),
+      isCompleted: true,
+      value: 8,
+    ),
+    HabitRecord(
+      habit: _habits[1],
+      date: DateTime.now().subtract(const Duration(days: 2)),
+      isCompleted: true,
+      value: 8,
+    ),
+    HabitRecord(
+      habit: _habits[2],
+      date: DateTime.now().subtract(const Duration(days: 1)),
+      isCompleted: true,
+      value: 20,
+    ),
+    HabitRecord(
+      habit: _habits[2],
+      date: DateTime.now().subtract(const Duration(days: 2)),
+      isCompleted: false,
+      value: 10,
+    ),
+    // Add more as needed
+  ];
+
   late final Map<String, HabitRecord> _habitRecords = {
     '2_2025-01-10': HabitRecord(
       habit: _habits[1],
@@ -96,6 +126,9 @@ class MockHabitRepository implements IHabitRepository {
       date: DateTime(2025, 1, 9),
       isCompleted: false,
     ),
+    for (var record in _additionalMockRecords)
+      '${record.habit.id}_${record.date.toIso8601String().split('T')[0]}':
+          record,
   };
 
   String _generateRecordKey(String habitId, DateTime date) {
@@ -129,19 +162,6 @@ class MockHabitRepository implements IHabitRepository {
     await Future<void>.delayed(const Duration(milliseconds: 500));
     final recordKey = _generateRecordKey(record.habit.id, record.date);
     _habitRecords[recordKey] = record;
-  }
-
-  String _getWeekDayName(int weekday) {
-    const weekDays = {
-      1: 'Monday',
-      2: 'Tuesday',
-      3: 'Wednesday',
-      4: 'Thursday',
-      5: 'Friday',
-      6: 'Saturday',
-      7: 'Sunday',
-    };
-    return weekDays[weekday]!;
   }
 
   @override
@@ -204,5 +224,11 @@ class MockHabitRepository implements IHabitRepository {
     );
 
     _habitRecords[recordKey] = updatedRecord;
+  }
+
+  @override
+  Future<List<HabitRecord>> getAllHabitRecords() async {
+    await Future<void>.delayed(const Duration(milliseconds: 500));
+    return _habitRecords.values.toList();
   }
 }

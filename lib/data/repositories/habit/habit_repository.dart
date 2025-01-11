@@ -9,6 +9,7 @@ abstract class IHabitRepository {
   Future<void> updateHabit(Habit habit);
   Future<void> deleteHabit(String id);
   Future<void> saveProgress(String id, double value, {required DateTime date});
+  Future<List<HabitRecord>> getAllHabitRecords();
   Future<List<HabitRecord>> getHabitRecordsForDate(DateTime date);
   Future<void> updateHabitRecord(HabitRecord record);
 }
